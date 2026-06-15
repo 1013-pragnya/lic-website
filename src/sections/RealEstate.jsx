@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import RealEstateScene from '../components/RealEstateScene';
 import Button from '../components/Button';
-import { MapPin, Building, ArrowUpRight, ShieldAlert, BadgePercent, CheckCircle, Mail } from 'lucide-react';
+import { MapPin, Building, ArrowUpRight, BadgePercent, CheckCircle, Mail } from 'lucide-react';
 import { agentConfig } from '../config/agentConfig';
 import './RealEstate.css';
 
 export default function RealEstate() {
-  const [activeCategory, setActiveCategory] = useState('All');
-  
-  const categories = [
-    'All',
-    'Residential Properties',
-    'Commercial Properties',
-    'Land Investment'
-  ];
-
   const handleScrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -25,77 +16,91 @@ export default function RealEstate() {
     }
   };
 
-  const filteredProperties = activeCategory === 'All' 
-    ? agentConfig.realEstate 
-    : agentConfig.realEstate.filter(prop => prop.category === activeCategory);
+  // Group properties into Residential and Commercial (including land investments)
+  const residentialProperties = agentConfig.realEstate.filter(
+    (prop) => prop.category === 'Residential Properties'
+  );
+  
+  const commercialProperties = agentConfig.realEstate.filter(
+    (prop) => prop.category === 'Commercial Properties' || prop.category === 'Land Investment'
+  );
+
+  const renderPropertyGrid = (properties) => (
+    <div className="properties-grid">
+      {properties.map((prop) => (
+        <div key={prop.id} className="property-card glass-panel glass-panel-hover card-3d">
+          <div className="property-image-wrapper">
+            <img src={prop.image} alt={prop.title} className="property-img" />
+            <div className="property-category-badge">{prop.category}</div>
+            <div className="property-price-tag">{prop.price}</div>
+          </div>
+          
+          <div className="property-details">
+            <h3 className="property-name">{prop.title}</h3>
+            
+            <div className="property-meta">
+              <div className="meta-item">
+                <MapPin size={14} className="text-gold" />
+                <span>{prop.location}</span>
+              </div>
+              <div className="meta-item">
+                <Building size={14} className="text-gold" />
+                <span>{prop.type}</span>
+              </div>
+            </div>
+
+            <div className="property-features">
+              <h4 className="features-label text-gold">Investment Benefits:</h4>
+              <p className="features-text">{prop.benefits}</p>
+            </div>
+
+            <Button variant="primary" className="property-btn" onClick={() => handleScrollTo('contact')}>
+              Enquire Now <ArrowUpRight size={16} />
+            </Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
-    <section id="real-estate" className="section real-estate-section">
-      <div className="container">
-        
-        {/* Section Header */}
-        <div className="section-header">
-          <span className="section-subtitle">Wealth Appreciation</span>
-          <h2 className="section-title">Premium Real Estate</h2>
-        </div>
-
-        {/* Categories Tab Selector */}
-        <div className="category-tabs flex-center">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`category-tab-btn ${activeCategory === cat ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Split Grid Layout */}
-        <div className="real-estate-grid">
+    <>
+      {/* SECTION 1: Featured Properties */}
+      <section id="real-estate" className="section properties-section">
+        <div className="container">
           
-          {/* Left Column: Properties list */}
-          <div className="properties-list-col">
-            <div className="properties-cards-grid">
-              {filteredProperties.map((prop) => (
-                <div key={prop.id} className="property-card glass-panel glass-panel-hover card-3d">
-                  <div className="property-image-wrapper">
-                    <img src={prop.image} alt={prop.title} className="property-img" />
-                    <div className="property-category-tag">{prop.category}</div>
-                    <div className="property-price-tag">{prop.price}</div>
-                  </div>
-                  
-                  <div className="property-details">
-                    <h3 className="property-title">{prop.title}</h3>
-                    
-                    <div className="property-meta">
-                      <div className="meta-item">
-                        <MapPin size={14} className="text-gold" />
-                        <span>{prop.location}</span>
-                      </div>
-                      <div className="meta-item">
-                        <Building size={14} className="text-gold" />
-                        <span>{prop.type}</span>
-                      </div>
-                    </div>
-
-                    <div className="property-benefits">
-                      <h4 className="benefits-label text-gold">Investment Benefits:</h4>
-                      <p className="benefits-text">{prop.benefits}</p>
-                    </div>
-
-                    <Button variant="primary" className="property-btn" onClick={() => handleScrollTo('contact')}>
-                      Enquire Now <ArrowUpRight size={16} />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="section-header">
+            <span className="section-subtitle">Exclusive Listings</span>
+            <h2 className="section-title">Featured Properties</h2>
           </div>
 
-          {/* Right Column: 3D Visualization and Property Growth dashboard */}
-          <div className="visuals-dashboard-col">
+          <div className="properties-category-group">
+            <h3 className="category-heading text-gradient-gold">Residential Properties</h3>
+            {renderPropertyGrid(residentialProperties)}
+          </div>
+
+          <div className="properties-category-group" style={{ marginTop: '60px' }}>
+            <h3 className="category-heading text-gradient-gold">Commercial Properties</h3>
+            {renderPropertyGrid(commercialProperties)}
+          </div>
+
+        </div>
+      </section>
+
+      {/* SECTION 2: 3D Wealth & Estate Visualizer */}
+      <section id="wealth-visualizer" className="section visualizer-section">
+        <div className="container">
+          
+          <div className="section-header">
+            <span className="section-subtitle">Growth Analytics</span>
+            <h2 className="section-title">3D Wealth & Estate Visualizer</h2>
+            <p className="section-desc">
+              Visualize your real estate growth and long-term wealth journey combined with LIC financial planning.
+            </p>
+          </div>
+
+          {/* Full Width Visualizer Grid */}
+          <div className="visualizer-container">
             
             {/* 3D Visualizer Viewport */}
             <div className="scene-viewport-wrapper glass-panel">
@@ -158,24 +163,23 @@ export default function RealEstate() {
 
           </div>
 
-        </div>
-
-        {/* Real Estate Consultation CTA Banner */}
-        <div className="real-estate-cta-banner glass-panel float-animation">
-          <div className="cta-banner-content">
-            <h3 className="cta-banner-title">
-              Looking for a Customized <span className="text-gradient-gold">Property + Insurance</span> Strategy?
-            </h3>
-            <p className="cta-banner-desc">
-              Get an expert advisor audit on property titles, tax-savings under Section 54, and collateralized estate funding.
-            </p>
+          {/* Real Estate Consultation CTA Banner */}
+          <div className="real-estate-cta-banner glass-panel float-animation">
+            <div className="cta-banner-content">
+              <h3 className="cta-banner-title">
+                Looking for a Customized <span className="text-gradient-gold">Property + Insurance</span> Strategy?
+              </h3>
+              <p className="cta-banner-desc">
+                Get an expert advisor audit on property titles, tax-savings under Section 54, and collateralized estate funding.
+              </p>
+            </div>
+            <Button variant="primary" className="cta-banner-btn" onClick={() => handleScrollTo('contact')}>
+              Book Private Consultation <Mail size={16} />
+            </Button>
           </div>
-          <Button variant="primary" className="cta-banner-btn" onClick={() => handleScrollTo('contact')}>
-            Book Private Consultation <Mail size={16} />
-          </Button>
-        </div>
 
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }
