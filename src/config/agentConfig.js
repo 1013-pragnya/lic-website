@@ -31,8 +31,9 @@ export const agentConfig = {
     workingHours: "Mon - Sat: 9:00 AM - 7:00 PM",
     social: {
       instagram: "https://instagram.com/rrfs.shams",
-      facebook: "https://www.facebook.com/search/top/?q=RR%20insurance%20%26%20financial%20services",
-      linkedin: "https://www.linkedin.com/search/results/all/?keywords=RRFS.%20Shams"
+      facebook: "https://www.facebook.com/share/1Gp1psVB5W/",
+      linkedin: "https://www.linkedin.com/in/shamsuddin-rrfs-ab9599403?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+      youtube: "https://youtube.com/@shamsrrfs?si=yQc9gOmaaACE92uq"
     }
   },
   plans: [
