@@ -1,7 +1,6 @@
 import React from 'react';
-import FamilyProtectionScene from '../components/FamilyProtectionScene';
 import Button from '../components/Button';
-import { ShieldCheck, Calendar, ArrowRight } from 'lucide-react';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
 import { agentConfig } from '../config/agentConfig';
 import './Hero.css';
 
@@ -43,18 +42,11 @@ export default function Hero() {
               Explore Plans
             </Button>
           </div>
-        </div>
 
-        {/* Visual Side (3D Interactive Protective Scene) */}
-        <div className="hero-visual">
-          <div className="scene-viewport-wrapper">
-            <FamilyProtectionScene />
-            
-            {/* Quick floating trust stat overlay */}
-            <div className="quick-stat-badge glass-panel float-animation">
-              <span className="stat-num text-gradient-gold">{agentConfig.familiesSecured}</span>
-              <span className="stat-lbl">Families Protected</span>
-            </div>
+          {/* Quick trust stat badge */}
+          <div className="hero-stat-badge glass-panel">
+            <span className="stat-num text-gradient-gold">{agentConfig.familiesSecured}</span>
+            <span className="stat-lbl">Families Protected & Guided</span>
           </div>
         </div>
 
