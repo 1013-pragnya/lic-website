@@ -78,7 +78,7 @@ export default function About() {
     
     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
     card.style.borderColor = 'var(--primary-gold)';
-    card.style.boxShadow = '0 30px 60px rgba(0,0,0,0.65), var(--shadow-gold)';
+    card.style.boxShadow = '0 30px 60px rgba(15, 23, 42, 0.12), var(--shadow-gold)';
   };
 
   const handleMouseLeave = () => {
@@ -132,7 +132,7 @@ export default function About() {
         
         <div className="section-header">
           <span className="section-subtitle">Meet Your Advisor</span>
-          <h2 className="section-title">About Rajesh Kumar</h2>
+          <h2 className="section-title">About {agentConfig.name}</h2>
         </div>
 
         <div className="grid-2 about-grid">
@@ -154,7 +154,7 @@ export default function About() {
               <div className="experience-sticker float-animation">
                 <Calendar className="sticker-icon" size={22} />
                 <div className="sticker-details">
-                  <span className="sticker-count">15+</span>
+                  <span className="sticker-count">{agentConfig.experience.split(' ')[0]}</span>
                   <span className="sticker-label">Years of Service</span>
                 </div>
               </div>
@@ -172,7 +172,7 @@ export default function About() {
             <div className="about-stats-grid card-container-3d">
               <div className="stat-card glass-panel card-3d">
                 <span className="stat-value text-gradient-gold">
-                  <AnimatedCounter target="15" suffix="+" />
+                  <AnimatedCounter target="18" suffix="+" />
                 </span>
                 <span className="stat-label">Years of Experience</span>
               </div>

@@ -1,0 +1,188 @@
+.quote-section {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.quote-layout-card {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-premium);
+  position: relative;
+  overflow: hidden;
+}
+
+.form-lead-pitch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(207, 168, 68, 0.05);
+  border: 1px solid var(--border-gold);
+  padding: 14px 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.form-lead-pitch p {
+  line-height: 1.5;
+}
+
+.quote-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.quote-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.quote-submit-wrapper {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.quote-submit-btn {
+  padding: 14px 36px;
+  font-size: 1.05rem;
+  border-radius: 10px;
+  min-width: 250px;
+}
+
+/* Success Banner styles */
+.quote-success-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.success-icon-ring {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(207, 168, 68, 0.08);
+  border: 2px dashed var(--primary-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-gold);
+}
+
+.success-check-icon {
+  filter: drop-shadow(0 0 6px var(--primary-gold));
+}
+
+.success-banner-title {
+  font-size: 1.8rem;
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.success-banner-text {
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 35px;
+}
+
+.success-banner-text strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.success-banner-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.whatsapp-followup-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.whatsapp-accent-icon {
+  color: #25d366;
+  filter: drop-shadow(0 0 2px rgba(37, 211, 102, 0.3));
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsiveness overrides */
+@media (max-width: 768px) {
+  .quote-layout-card {
+    padding: 30px 20px;
+  }
+
+  .quote-form-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .form-lead-pitch {
+    font-size: 0.88rem;
+    padding: 12px 16px;
+  }
+
+  .success-banner-title {
+    font-size: 1.5rem;
+  }
+
+  .success-banner-text {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+  }
+
+  .success-banner-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .success-banner-actions button,
+  .success-banner-actions .btn {
+    width: 100% !important;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .quote-layout-card {
+    padding: 24px 16px;
+  }
+  
+  .quote-submit-btn {
+    width: 100% !important;
+  }
+}

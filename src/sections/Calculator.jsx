@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { Timer } from 'three';
 import { Target, TrendingUp, Info, Coins, ShieldCheck, ArrowRight } from 'lucide-react';
 import Button from '../components/Button';
+import { agentConfig } from '../config/agentConfig';
 import './Calculator.css';
 
 // 3D Wealth Scene Component using Three.js
@@ -140,16 +141,18 @@ function ThreeDWealthScene({ totalInvested, futureValue, goal }) {
     sparkles.position.set(0, 0, 0);
     scene.add(sparkles);
 
-    // Resize Handler
-    const handleResize = () => {
-      if (!container) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    };
-    window.addEventListener('resize', handleResize);
+    // Resize Observer
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width: newWidth, height: newHeight } = entry.contentRect;
+        if (newWidth === 0 || newHeight === 0) continue;
+        
+        camera.aspect = newWidth / newHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(newWidth, newHeight);
+      }
+    });
+    resizeObserver.observe(container);
 
     // Animation Loop
     const timer = new Timer();
@@ -210,7 +213,7 @@ function ThreeDWealthScene({ totalInvested, futureValue, goal }) {
 
     // Clean up
     return () => {
-      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
       if (container && renderer.domElement) {
         container.removeChild(renderer.domElement);
@@ -352,13 +355,13 @@ export default function Calculator() {
   };
 
   const handleConsult = () => {
-    const text = encodeURIComponent(`Hi Rajesh, I used your Wealth Planning Calculator:
+    const text = encodeURIComponent(`Hi ${agentConfig.name.split(' ')[0]}, I used your Wealth Planning Calculator:
 - Monthly Investment: ${formatCurrency(investment)}
 - Time Period: ${years} Years
 - Target Goal: ${formatCurrency(goal)}
 - Estimated Wealth: ${formatCurrency(futureValue)}
 Please advise on the best LIC plans to achieve this goal.`);
-    window.open(`https://wa.me/919876543210?text=${text}`, '_blank');
+    window.open(`https://wa.me/${agentConfig.contact.whatsapp}?text=${text}`, '_blank');
   };
 
   return (
@@ -524,7 +527,7 @@ Please advise on the best LIC plans to achieve this goal.`);
             </div>
 
             <Button variant="primary" onClick={handleConsult} className="calculator-consult-btn">
-              Consult Rajesh & Start Planning <ArrowRight size={16} />
+              Consult {agentConfig.name.split(' ')[0]} & Start Planning <ArrowRight size={16} />
             </Button>
           </div>
 

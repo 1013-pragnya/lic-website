@@ -2,33 +2,39 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   padding-top: 100px;
-  background: radial-gradient(circle at 10% 20%, rgba(13, 27, 42, 0.4) 0%, rgba(5, 10, 23, 1) 90%);
+  background: radial-gradient(circle at 10% 20%, rgba(207, 168, 68, 0.05) 0%, var(--bg-primary) 90%);
   overflow: hidden;
 }
 
 .hero-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
+  gap: 40px;
   position: relative;
   z-index: 10;
 }
 
 /* Content */
 .hero-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 0; /* Allow the flex item to shrink below content size */
 }
 
 .trust-badge {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(15, 23, 42, 0.03);
   border: 1px solid var(--border-glass);
   padding: 6px 16px;
   border-radius: 50px;
@@ -83,6 +89,7 @@
   height: 520px;
   position: relative;
   z-index: 5;
+  overflow: hidden; /* Prevent 3D canvas overflow */
 }
 
 .scene-viewport-wrapper {
@@ -90,6 +97,7 @@
   height: 100%;
   position: relative;
   border-radius: 24px;
+  overflow: hidden;
 }
 
 .quick-stat-badge {
@@ -102,15 +110,14 @@
   align-items: center;
   z-index: 10;
   border: 1px solid var(--border-gold);
-  background: rgba(13, 24, 49, 0.75);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), var(--shadow-gold);
+  background: var(--bg-card);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), var(--shadow-gold);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 .quick-stat-badge .stat-num {
   font-size: 1.8rem;
-  font-family: var(--font-heading);
   font-weight: 800;
   line-height: 1.1;
 }
@@ -131,16 +138,23 @@
   left: 0;
   width: 100%;
   height: 120px;
-  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(5, 10, 23, 0) 100%);
+  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(248, 250, 252, 0) 100%);
   z-index: 2;
   pointer-events: none;
 }
 
 /* Media Queries */
-@media (max-width: 1024px) {
+/* Media Queries for Hero section responsiveness */
+@media (max-width: 1200px) {
+  .hero-section {
+    padding-top: 110px;
+    min-height: auto;
+    padding-bottom: 60px;
+  }
+
   .hero-container {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 30px;
     text-align: center;
   }
   
@@ -149,52 +163,107 @@
   }
   
   .hero-title {
-    font-size: 3rem;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin-bottom: 16px;
   }
   
+  .hero-description {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
   .hero-actions {
     justify-content: center;
   }
 
   .hero-visual {
-    height: 420px;
+    height: 380px;
+    margin-top: 20px;
   }
 }
 
-@media (max-width: 600px) {
-  .hero-section {
-    padding-top: 120px;
-  }
-  
+@media (max-width: 768px) {
   .hero-title {
-    font-size: 2.2rem;
+    font-size: 1.9rem;
   }
   
   .hero-description {
-    font-size: 0.98rem;
+    font-size: 0.95rem;
   }
   
-  .hero-actions {
-    width: 100%;
-    flex-direction: column;
-  }
-  
-  .hero-actions button {
-    width: 100%;
-  }
-
   .hero-visual {
     height: 320px;
   }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+
+  .hero-title {
+    font-size: 1.55rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-description {
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+    padding: 0 8px;
+  }
+
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-actions button,
+  .hero-actions .btn {
+    width: 100% !important;
+    justify-content: center;
+  }
+
+  .hero-visual {
+    height: 260px;
+    margin-top: 10px;
+  }
 
   .quick-stat-badge {
-    bottom: 5px;
+    bottom: 10px;
     right: 50%;
     transform: translateX(50%);
-    padding: 8px 16px;
+    padding: 10px 16px;
   }
 
   .quick-stat-badge .stat-num {
+    font-size: 1.3rem;
+  }
+  
+  .quick-stat-badge .stat-lbl {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-title {
     font-size: 1.4rem;
   }
+  
+  .hero-visual {
+    height: 220px;
+  }
+}
+
+/* Enforce canvas sizing limit and absolute positioning so it doesn't break the layout flow */
+.family-scene-canvas canvas,
+.real-estate-scene-canvas canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }

@@ -57,7 +57,7 @@
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--border-gold);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-gold);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), var(--shadow-gold);
   border-radius: 12px;
   padding: 12px 20px;
   display: flex;
@@ -77,7 +77,6 @@
 }
 
 .sticker-count {
-  font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 800;
   color: var(--white);
@@ -254,11 +253,10 @@
 .stat-card:hover {
   transform: translateY(-5px);
   border-color: var(--border-gold-hover);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(207, 168, 68, 0.1);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06), 0 0 15px rgba(207, 168, 68, 0.08);
 }
 
 .stat-value {
-  font-family: var(--font-heading);
   font-size: 2.1rem;
   font-weight: 800;
   margin-bottom: 4px;
@@ -273,14 +271,6 @@
   line-height: 1.2;
 }
 
-@media (max-width: 640px) {
-  .about-stats-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-}
-
-/* Responsiveness overrides */
 @media (max-width: 1024px) {
   .portrait-wrapper {
     max-width: 320px;
@@ -293,14 +283,19 @@
 
 @media (max-width: 768px) {
   .about-grid {
-    gap: 40px;
+    gap: 30px;
   }
   .portrait-wrapper {
     max-width: 280px;
   }
   .experience-sticker {
-    right: 10px;
-    bottom: -15px;
+    right: 50%;
+    transform: translateX(50%);
+    bottom: -20px;
+  }
+  .about-content-col {
+    align-items: center;
+    text-align: center;
   }
   .agent-title-name {
     font-size: 1.8rem;
@@ -308,5 +303,45 @@
   .agent-sub-title {
     font-size: 0.95rem;
     margin-bottom: 16px;
+  }
+  .trust-badges-container {
+    justify-content: center;
+  }
+  .service-point-card {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .portrait-wrapper {
+    max-width: 90%;
+    aspect-ratio: 4/5;
+  }
+  .agent-title-name {
+    font-size: 1.5rem;
+  }
+  .agent-narrative {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .about-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 12px;
+  }
+  .stat-value {
+    font-size: 1.8rem;
+  }
+  .service-point-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 16px 12px;
+  }
+  .service-point-icon-box {
+    margin-bottom: 8px;
   }
 }

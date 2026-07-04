@@ -104,7 +104,6 @@
   background: transparent;
   border: none;
   color: var(--primary-gold);
-  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.9rem;
   display: flex;
@@ -144,7 +143,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(2, 4, 10, 0.85);
+  background-color: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 2000;
@@ -324,5 +323,39 @@
   }
   .modal-title {
     font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-backdrop {
+    padding: 12px;
+  }
+  .modal-content {
+    padding: 24px 16px;
+    border-radius: 12px;
+  }
+  .modal-header {
+    gap: 12px;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+  .modal-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+  }
+  .modal-title {
+    font-size: 1.2rem;
+  }
+  .modal-tagline {
+    font-size: 0.75rem;
+  }
+  .eligibility-table {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  .eligibility-row {
+    font-size: 0.8rem;
+    padding: 8px 0;
   }
 }

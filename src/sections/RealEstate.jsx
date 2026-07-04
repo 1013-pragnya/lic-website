@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RealEstateScene from '../components/RealEstateScene';
 import Button from '../components/Button';
-import { MapPin, Building, ArrowUpRight, BadgePercent, CheckCircle, Mail } from 'lucide-react';
+import { MapPin, Building, ArrowUpRight, BadgePercent, CheckCircle, Mail, Shield } from 'lucide-react';
 import { agentConfig } from '../config/agentConfig';
 import './RealEstate.css';
 
-export default function RealEstate() {
+export default function RealEstate({ onSelectConsultation }) {
+  const [activeCategory, setActiveCategory] = useState('All Properties');
+
+  const categories = [
+    'All Properties',
+    'Residential Property',
+    'Commercial Property',
+    'Land Investment'
+  ];
+
   const handleScrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -16,52 +25,17 @@ export default function RealEstate() {
     }
   };
 
-  // Group properties into Residential and Commercial (including land investments)
-  const residentialProperties = agentConfig.realEstate.filter(
-    (prop) => prop.category === 'Residential Properties'
-  );
-  
-  const commercialProperties = agentConfig.realEstate.filter(
-    (prop) => prop.category === 'Commercial Properties' || prop.category === 'Land Investment'
-  );
+  const handleBookConsultation = (type) => {
+    if (onSelectConsultation) {
+      onSelectConsultation(type);
+    }
+    handleScrollTo('contact');
+  };
 
-  const renderPropertyGrid = (properties) => (
-    <div className="properties-grid">
-      {properties.map((prop) => (
-        <div key={prop.id} className="property-card glass-panel glass-panel-hover card-3d">
-          <div className="property-image-wrapper">
-            <img src={prop.image} alt={prop.title} className="property-img" />
-            <div className="property-category-badge">{prop.category}</div>
-            <div className="property-price-tag">{prop.price}</div>
-          </div>
-          
-          <div className="property-details">
-            <h3 className="property-name">{prop.title}</h3>
-            
-            <div className="property-meta">
-              <div className="meta-item">
-                <MapPin size={14} className="text-gold" />
-                <span>{prop.location}</span>
-              </div>
-              <div className="meta-item">
-                <Building size={14} className="text-gold" />
-                <span>{prop.type}</span>
-              </div>
-            </div>
-
-            <div className="property-features">
-              <h4 className="features-label text-gold">Investment Benefits:</h4>
-              <p className="features-text">{prop.benefits}</p>
-            </div>
-
-            <Button variant="primary" className="property-btn" onClick={() => handleScrollTo('contact')}>
-              Enquire Now <ArrowUpRight size={16} />
-            </Button>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+  // Filter properties based on active category tab
+  const filteredProperties = activeCategory === 'All Properties'
+    ? agentConfig.realEstate
+    : agentConfig.realEstate.filter(prop => prop.category === activeCategory);
 
   return (
     <>
@@ -74,14 +48,54 @@ export default function RealEstate() {
             <h2 className="section-title">Featured Properties</h2>
           </div>
 
-          <div className="properties-category-group">
-            <h3 className="category-heading text-gradient-gold">Residential Properties</h3>
-            {renderPropertyGrid(residentialProperties)}
+          {/* Category Filter Buttons */}
+          <div className="category-tabs flex-center">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                className={`category-tab-btn ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
 
-          <div className="properties-category-group" style={{ marginTop: '60px' }}>
-            <h3 className="category-heading text-gradient-gold">Commercial Properties</h3>
-            {renderPropertyGrid(commercialProperties)}
+          {/* Keyed Grid container to trigger CSS mount fade-in animation on transition */}
+          <div className="properties-grid" key={activeCategory}>
+            {filteredProperties.map((prop) => (
+              <div key={prop.id} className="property-card glass-panel glass-panel-hover card-3d">
+                <div className="property-image-wrapper">
+                  <img src={prop.image} alt={prop.title} className="property-img" />
+                  <div className="property-category-badge">{prop.category}</div>
+                  <div className="property-price-tag">{prop.price}</div>
+                </div>
+                
+                <div className="property-details">
+                  <h3 className="property-name">{prop.title}</h3>
+                  
+                  <div className="property-meta">
+                    <div className="meta-item">
+                      <MapPin size={14} className="text-gold" />
+                      <span>{prop.location}</span>
+                    </div>
+                    <div className="meta-item">
+                      <Building size={14} className="text-gold" />
+                      <span>{prop.type}</span>
+                    </div>
+                  </div>
+
+                  <div className="property-features">
+                    <h4 className="features-label text-gold">Property Highlights:</h4>
+                    <p className="features-text">{prop.benefits}</p>
+                  </div>
+
+                  <Button variant="primary" className="property-btn" onClick={() => handleScrollTo('contact')}>
+                    Enquire Now <ArrowUpRight size={16} />
+                  </Button>
+                </div>
+              </div>
+            ))}
           </div>
 
         </div>
@@ -163,19 +177,41 @@ export default function RealEstate() {
 
           </div>
 
-          {/* Real Estate Consultation CTA Banner */}
-          <div className="real-estate-cta-banner glass-panel float-animation">
-            <div className="cta-banner-content">
-              <h3 className="cta-banner-title">
-                Looking for a Customized <span className="text-gradient-gold">Property + Insurance</span> Strategy?
-              </h3>
-              <p className="cta-banner-desc">
-                Get an expert advisor audit on property titles, tax-savings under Section 54, and collateralized estate funding.
-              </p>
+          {/* Consultation CTA Section */}
+          <div className="consultation-cta-section">
+            <div className="section-header consultation-header">
+              <h3 className="section-title consultation-title">Choose Your Consultation</h3>
             </div>
-            <Button variant="primary" className="cta-banner-btn" onClick={() => handleScrollTo('contact')}>
-              Book Private Consultation <Mail size={16} />
-            </Button>
+            
+            <div className="consultation-cards-grid">
+              {/* Card 1: Property Consultation */}
+              <div className="consultation-premium-card glass-panel">
+                <div className="consultation-card-icon-wrapper">
+                  <Building className="consultation-card-icon text-gold" size={32} />
+                </div>
+                <h3 className="consultation-card-title">Property Consultation</h3>
+                <p className="consultation-card-desc">
+                  Get expert guidance on residential properties, commercial properties, land investment opportunities, property verification, and wealth-building through real estate.
+                </p>
+                <Button variant="primary" className="consultation-card-btn" onClick={() => handleBookConsultation('property')}>
+                  Book Property Consultation
+                </Button>
+              </div>
+
+              {/* Card 2: Insurance Consultation */}
+              <div className="consultation-premium-card glass-panel">
+                <div className="consultation-card-icon-wrapper">
+                  <Shield className="consultation-card-icon text-gold" size={32} />
+                </div>
+                <h3 className="consultation-card-title">Insurance Consultation</h3>
+                <p className="consultation-card-desc">
+                  Plan your family's financial security with expert LIC guidance, life insurance plans, retirement planning, child future plans, and savings solutions.
+                </p>
+                <Button variant="primary" className="consultation-card-btn" onClick={() => handleBookConsultation('insurance')}>
+                  Book Insurance Consultation
+                </Button>
+              </div>
+            </div>
           </div>
 
         </div>

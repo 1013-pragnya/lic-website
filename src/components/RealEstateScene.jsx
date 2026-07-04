@@ -219,16 +219,19 @@ export default function RealEstateScene() {
 
     window.addEventListener('mousemove', onMouseMove);
 
-    const onResize = () => {
-      if (!container) return;
-      width = container.clientWidth;
-      height = container.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    };
+    // --- Resize Observer ---
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width: newWidth, height: newHeight } = entry.contentRect;
+        if (newWidth === 0 || newHeight === 0) continue;
+        
+        camera.aspect = newWidth / newHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(newWidth, newHeight);
+      }
+    });
 
-    window.addEventListener('resize', onResize);
+    resizeObserver.observe(container);
 
     // --- Animation Loop ---
     let animationFrameId;
@@ -268,7 +271,7 @@ export default function RealEstateScene() {
     // --- Cleanup ---
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('resize', onResize);
+      resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
 
       if (container && renderer.domElement) {

@@ -89,6 +89,20 @@
 
 @media (max-width: 768px) {
   .benefit-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: unset;
     padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .benefit-card {
+    padding: 24px 16px;
+    align-items: center;
+    text-align: center;
+  }
+  .benefit-icon-wrapper {
+    margin-bottom: 16px;
   }
 }

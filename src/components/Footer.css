@@ -1,5 +1,5 @@
 .footer {
-  background: #030610;
+  background: var(--bg-secondary);
   border-top: 1px solid var(--border-glass);
   padding: 80px 0 40px;
   position: relative;
@@ -96,7 +96,6 @@
   background: transparent;
   border: none;
   color: var(--text-secondary);
-  font-family: var(--font-body);
   font-size: 0.9rem;
   text-align: left;
   cursor: pointer;

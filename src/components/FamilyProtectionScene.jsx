@@ -321,17 +321,19 @@ export default function FamilyProtectionScene() {
 
     window.addEventListener('mousemove', onMouseMove);
 
-    // --- Resize handler ---
-    const onResize = () => {
-      if (!container) return;
-      width = container.clientWidth;
-      height = container.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    };
+    // --- Resize Observer ---
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width: newWidth, height: newHeight } = entry.contentRect;
+        if (newWidth === 0 || newHeight === 0) continue;
+        
+        camera.aspect = newWidth / newHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(newWidth, newHeight);
+      }
+    });
 
-    window.addEventListener('resize', onResize);
+    resizeObserver.observe(container);
 
     // --- Animation Loop ---
     let animationFrameId;
@@ -349,11 +351,9 @@ export default function FamilyProtectionScene() {
       protectiveRing.rotation.z = -elapsed * 0.3;
 
       // Pulse shield size slightly
-      const pulse = 1.35 + Math.sin(elapsed * 2.0) * 0.03;
-      shieldGeo.dispose();
-      const newGeo = new THREE.SphereGeometry(pulse, 32, 32);
-      shield.geometry = newGeo;
-      shieldWire.geometry = newGeo;
+      const pulse = 1.0 + Math.sin(elapsed * 2.0) * 0.022;
+      shield.scale.set(pulse, pulse, pulse);
+      shieldWire.scale.set(pulse, pulse, pulse);
 
       // 2. Rotate family & advisor gently
       familyGroup.rotation.y = Math.sin(elapsed * 0.4) * 0.08;
@@ -403,7 +403,7 @@ export default function FamilyProtectionScene() {
     // --- Clean up ---
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('resize', onResize);
+      resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
 
       if (container && renderer.domElement) {

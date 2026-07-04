@@ -40,7 +40,6 @@
   background: transparent;
   border: none;
   color: var(--text-secondary);
-  font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 600;
   padding: 10px 6px;
@@ -78,7 +77,6 @@
 }
 
 .slider-value {
-  font-family: var(--font-heading);
   font-size: 1.15rem;
   font-weight: 700;
 }
@@ -192,7 +190,6 @@
 }
 
 .results-stat-box .value {
-  font-family: var(--font-heading);
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--white);
@@ -230,6 +227,12 @@
 .scene-canvas-3d {
   width: 100%;
   height: calc(100% - 28px);
+}
+
+.scene-canvas-3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .scene-labels {
@@ -370,5 +373,21 @@
   .results-grid {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator-input-card, .calculator-results-card {
+    padding: 20px 16px;
+  }
+  .results-stat-box {
+    padding: 12px;
+  }
+  .results-stat-box .value {
+    font-size: 1.15rem;
+  }
+  .goal-banner {
+    padding: 10px 12px;
+    font-size: 0.8rem;
   }
 }

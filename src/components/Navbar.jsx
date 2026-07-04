@@ -16,6 +16,7 @@ export default function Navbar() {
     { label: 'Calculator', id: 'calculator' },
     { label: 'Real Estate', id: 'real-estate' },
     { label: 'Testimonials', id: 'testimonials' },
+    { label: 'Get Quote', id: 'quote' },
     { label: 'Contact', id: 'contact' }
   ];
 
@@ -59,11 +60,14 @@ export default function Navbar() {
 
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="container nav-container">
+      <div className="nav-container">
         <div className="logo" onClick={() => handleLinkClick('home')}>
-          <ShieldCheck className="logo-icon text-gold" size={28} />
+          <div className="logo-image-container">
+            <img src="/logo.png" alt="RR Logo" className="logo-img-element" />
+            <span className="logo-image-subtext">INSURANCE &<br />FINANCIAL SERVICE</span>
+          </div>
           <div className="logo-text">
-            <span className="logo-title text-gradient-gold">LIC ADVISOR</span>
+            <span className="logo-title text-gradient-gold">RRFS ADVISOR</span>
             <span className="logo-subtitle">{agentConfig.name}</span>
           </div>
         </div>
