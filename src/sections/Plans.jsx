@@ -44,7 +44,8 @@ export default function Plans() {
   };
 
   const openWhatsAppPlan = (title) => {
-    const text = encodeURIComponent(`Hi Rajesh, I'm interested in the LIC policy plan: "${title}". Please share details and premium options.`);
+    const firstName = agentConfig.name.split(' ')[0];
+    const text = encodeURIComponent(`Hi ${firstName}, I'm interested in the LIC policy plan: "${title}". Please share details and premium options.`);
     window.open(`https://wa.me/${agentConfig.contact.whatsapp}?text=${text}`, '_blank');
   };
 

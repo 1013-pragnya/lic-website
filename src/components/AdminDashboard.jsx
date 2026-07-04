@@ -90,7 +90,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
   };
 
   const startWhatsAppChat = (lead) => {
-    const text = encodeURIComponent(`Hi ${lead.name}, I am Shamsuddin Ratnani. I received your request for a ${lead.category} quote. Let's connect.`);
+    const text = encodeURIComponent(`Hi ${lead.name}, I am ${agentConfig.name}. I received your request for a ${lead.category} quote. Let's connect.`);
     window.open(`https://wa.me/91${lead.phone}?text=${text}`, '_blank');
   };
 
