@@ -22,12 +22,12 @@ export const agentConfig = {
     "/shamsuddin-event.jpg"
   ],
   contact: {
-    phone: "+91 98664 92168",
-    phoneSecondary: "+91 63024 92168",
+    phone: "+91 63024 92168",
+    phoneSecondary: "+91 98664 92168",
     email: "rrfsshams@gmail.com",
     address: "Flat No. 203, Totam Pradam Apartment, Opposite Sagar Medical, Mahesh Nagar, Nampally, Hyderabad - 500001",
-    whatsapp: "919866492168",
-    whatsappSecondary: "916302492168",
+    whatsapp: "916302492168",
+    whatsappSecondary: "919866492168",
     workingHours: "Mon - Sat: 9:00 AM - 7:00 PM",
     social: {
       instagram: "https://instagram.com/rrfs.shams",
