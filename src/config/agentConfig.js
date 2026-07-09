@@ -1,3 +1,8 @@
+import licLogo from '../assets/lic-logo.svg';
+import tataLogo from '../assets/tata-logo.svg';
+import careLogo from '../assets/care-logo.svg';
+import hdfcLogo from '../assets/hdfc-logo.svg';
+
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
   title: "Insurance & Real Estate Consultant",
@@ -44,7 +49,7 @@ export const agentConfig = {
       tagline: "High coverage protection for your family",
       icon: "Shield",
       description: "Secure your family's financial future with high sum assured life covers that act as a reliable safety net in your absence, backed by sovereign guarantee.",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Life_Insurance_Corporation_of_India.svg/512px-Life_Insurance_Corporation_of_India.svg.png",
+      logo: licLogo,
       benefits: [
         "High life coverage at extremely affordable premium rates",
         "Tax benefits under Section 80C on premium payments",
@@ -66,7 +71,7 @@ export const agentConfig = {
       tagline: "Comprehensive motor, home & travel insurance",
       icon: "TrendingUp",
       description: "Protect your valuable assets (cars, homes, businesses) against accidents, natural calamities, theft, and third-party liabilities with quick claim settlements.",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/e/e3/TATA_AIG_logo.png",
+      logo: tataLogo,
       benefits: [
         "Cashless repairs across nationwide network of authorized garages",
         "No Claim Bonus (NCB) protection & depreciation cover",
@@ -88,7 +93,7 @@ export const agentConfig = {
       tagline: "Super premium health cover for families",
       icon: "Heart",
       description: "Ensure your savings are safe in medical emergencies. Comprehensive cashless coverage for hospital expenses, day-care procedures, and critical illness care.",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/1/18/Care_health_insurance_logo.png",
+      logo: careLogo,
       benefits: [
         "Cashless hospitalization at over 22,000+ partner hospitals",
         "100% automatic restore of sum insured upon exhaustion",
@@ -110,7 +115,7 @@ export const agentConfig = {
       tagline: "2x coverage benefits with zero limits",
       icon: "Coins",
       description: "Comprehensive health protection with double sum insured option, automatic restore benefits, and extensive network of cashless hospitals.",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/HDFC-Ergo-logo.png",
+      logo: hdfcLogo,
       benefits: [
         "Double sum insured restore benefits from day one",
         "Over 12,000+ cashless partner hospitals across India",

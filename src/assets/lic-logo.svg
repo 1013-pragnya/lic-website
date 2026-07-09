@@ -1,0 +1,7 @@
+<svg viewBox="0 0 120 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M60 12C54 12 50 17 50 23C50 31 60 38 60 38C60 38 70 31 70 23C70 17 66 12 60 12Z" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M60 20C57.5 20 56 22 56 24.5C56 27.5 60 31 60 31C60 31 64 27.5 64 24.5C64 22 62.5 20 60 20Z" fill="#D4AF37"/>
+  <path d="M42 32C46 36 52 38 58 39" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+  <path d="M78 32C74 36 68 38 62 39" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+  <text x="60" y="54" font-size="9" font-family="Poppins" font-weight="800" text-anchor="middle" letter-spacing="2" fill="#D4AF37">LIC</text>
+</svg>

@@ -161,12 +161,11 @@ export default function HealthInsuranceAll() {
                       onClick={() => handleOpenModal(plan)}
                       style={{ cursor: 'pointer' }}
                     >
-                      <div className="plan-card-icon-box">
-                        <IconComponent size={28} className="plan-card-icon" />
+                      <div className="plan-logo-wrapper">
+                        <img src={plan.logo} alt={plan.provider} className="plan-logo-img" loading="lazy" />
                       </div>
-                      <span className="plan-provider-badge">{plan.provider}</span>
+                      <span className="plan-provider-name">{plan.provider.toUpperCase()} INSURANCE</span>
                       <h3 className="plan-card-title">{plan.title}</h3>
-                      <span className="plan-card-tagline">{plan.tagline}</span>
                       <p className="plan-card-desc">{plan.description}</p>
                       
                       <div className="plan-card-footer" style={{ marginTop: 'auto' }}>
