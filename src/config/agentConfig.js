@@ -44,6 +44,7 @@ export const agentConfig = {
       tagline: "High coverage protection for your family",
       icon: "Shield",
       description: "Secure your family's financial future with high sum assured life covers that act as a reliable safety net in your absence, backed by sovereign guarantee.",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Life_Insurance_Corporation_of_India.svg/512px-Life_Insurance_Corporation_of_India.svg.png",
       benefits: [
         "High life coverage at extremely affordable premium rates",
         "Tax benefits under Section 80C on premium payments",
@@ -65,6 +66,7 @@ export const agentConfig = {
       tagline: "Comprehensive motor, home & travel insurance",
       icon: "TrendingUp",
       description: "Protect your valuable assets (cars, homes, businesses) against accidents, natural calamities, theft, and third-party liabilities with quick claim settlements.",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/e/e3/TATA_AIG_logo.png",
       benefits: [
         "Cashless repairs across nationwide network of authorized garages",
         "No Claim Bonus (NCB) protection & depreciation cover",
@@ -86,6 +88,7 @@ export const agentConfig = {
       tagline: "Super premium health cover for families",
       icon: "Heart",
       description: "Ensure your savings are safe in medical emergencies. Comprehensive cashless coverage for hospital expenses, day-care procedures, and critical illness care.",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/1/18/Care_health_insurance_logo.png",
       benefits: [
         "Cashless hospitalization at over 22,000+ partner hospitals",
         "100% automatic restore of sum insured upon exhaustion",
@@ -101,24 +104,25 @@ export const agentConfig = {
       }
     },
     {
-      id: "star-health",
-      title: "Star Health Red Carpet",
-      provider: "Star Health",
-      tagline: "Specialized family & senior citizen health plans",
+      id: "hdfc-ergo",
+      title: "HDFC ERGO Health Cover",
+      provider: "HDFC ERGO",
+      tagline: "2x coverage benefits with zero limits",
       icon: "Coins",
-      description: "Tailor-made health packages focusing on pre-existing diseases, maternity needs, and specialized care for senior citizens with direct in-house claim settlements.",
+      description: "Comprehensive health protection with double sum insured option, automatic restore benefits, and extensive network of cashless hospitals.",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/HDFC-Ergo-logo.png",
       benefits: [
-        "Dedicated plans for Senior Citizens with minimal medical tests",
-        "Direct and fast in-house claim settlements (no TPA third-parties)",
-        "Coverage for pre-existing diseases after shorter waiting periods",
-        "Modern treatments, air ambulance and organ donor cover",
-        "Maternity and newborn cover with wellness rewards"
+        "Double sum insured restore benefits from day one",
+        "Over 12,000+ cashless partner hospitals across India",
+        "No sub-limits on room rent, ICU, or day-care procedures",
+        "Tax benefits under Section 80D on premium payments",
+        "Lifetime renewability with cumulative bonus rewards"
       ],
       eligibility: {
-        minAge: "18 years (60 for Senior plan)",
-        maxAge: "75 years",
-        term: "1 to 3 years (Renewable for life)",
-        minSumAssured: "₹3,00,000 to ₹25,00,000"
+        minAge: "91 days",
+        maxAge: "65 years",
+        term: "1 to 3 years",
+        minSumAssured: "₹5,00,000"
       }
     }
   ],

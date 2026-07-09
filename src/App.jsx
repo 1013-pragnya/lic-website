@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+
+// Public Landing Components
 import Navbar from './components/Navbar';
+import ScrollingBanner from './components/ScrollingBanner';
 import Hero from './sections/Hero';
+import InsurancePartners from './sections/InsurancePartners';
 import About from './sections/About';
 import Plans from './sections/Plans';
 import Quote from './sections/Quote';
@@ -10,7 +15,27 @@ import RealEstate from './sections/RealEstate';
 import Testimonials from './sections/Testimonials';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
-import AdminDashboard from './components/AdminDashboard';
+
+// Admin Portal Components
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminLayout from './components/AdminLayout';
+import Login from './pages/admin/Login';
+import Dashboard from './pages/admin/Dashboard';
+import HeroSection from './pages/admin/HeroSection';
+import AboutSection from './pages/admin/AboutSection';
+import PlansCRUD from './pages/admin/PlansCRUD';
+import BenefitsCRUD from './pages/admin/BenefitsCRUD';
+import TestimonialsCRUD from './pages/admin/TestimonialsCRUD';
+import RealEstateCRUD from './pages/admin/RealEstateCRUD';
+import GalleryManagement from './pages/admin/GalleryManagement';
+import ContactInfo from './pages/admin/ContactInfo';
+import SocialLinks from './pages/admin/SocialLinks';
+import QuotesList from './pages/admin/QuotesList';
+import Settings from './pages/admin/Settings';
+
+// Public Listing Pages
+import RealEstateAll from './pages/RealEstateAll';
+import HealthInsuranceAll from './pages/HealthInsuranceAll';
 
 function playChime() {
   try {
@@ -40,36 +65,33 @@ function playChime() {
   }
 }
 
-export default function App() {
+function PublicLandingPage() {
   const [consultationTab, setConsultationTab] = useState('insurance');
   const [quotePreFill, setQuotePreFill] = useState(null);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [toast, setToast] = useState(null);
+  const navigate = useNavigate();
 
-  // Set up live notification listener
+  // Sync URL parameters to prefill form and scroll down
   useEffect(() => {
-    const handleLeadSubmitted = (e) => {
-      const lead = e.detail;
-      setToast(lead);
-      playChime();
-    };
-
-    window.addEventListener('lead-submitted', handleLeadSubmitted);
-    return () => window.removeEventListener('lead-submitted', handleLeadSubmitted);
-  }, []);
-
-  // Auto dismiss toast notification
-  useEffect(() => {
-    if (toast) {
-      const timer = setTimeout(() => {
-        setToast(null);
-      }, 7000);
-      return () => clearTimeout(timer);
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    if (tab === 'property' || tab === 'insurance') {
+      setConsultationTab(tab);
     }
-  }, [toast]);
+
+    if (window.location.hash === '#contact') {
+      setTimeout(() => {
+        const el = document.getElementById('contact');
+        if (el) {
+          window.scrollTo({
+            top: el.offsetTop - 75,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
+    }
+  }, [window.location.search, window.location.hash]);
 
   const handleGetQuoteTrigger = (plan) => {
-    // Map internal plans data to form selects
     let formProvider = 'LIC';
     if (plan.provider) {
       if (plan.provider.includes('LIC') || plan.id.includes('lic')) formProvider = 'LIC';
@@ -104,7 +126,9 @@ export default function App() {
     <div className="app-wrapper">
       <Navbar />
       <main>
+        <ScrollingBanner />
         <Hero />
+        <InsurancePartners />
         <About />
         <Plans onGetQuote={handleGetQuoteTrigger} />
         <Quote preFill={quotePreFill} clearPreFill={() => setQuotePreFill(null)} />
@@ -114,31 +138,94 @@ export default function App() {
         <Testimonials />
         <Contact activeTab={consultationTab} setActiveTab={setConsultationTab} />
       </main>
-      <Footer onOpenAdmin={() => setIsAdminOpen(true)} />
-      
-      {/* Passcode Locked Admin Dashboard */}
-      <AdminDashboard isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
+      <Footer onOpenAdmin={() => navigate('/admin')} />
+    </div>
+  );
+}
+
+export default function App() {
+  const [toast, setToast] = useState(null);
+  const navigate = useNavigate();
+
+  // Set up live notification listener
+  useEffect(() => {
+    const handleLeadSubmitted = (e) => {
+      const lead = e.detail;
+      setToast(lead);
+      playChime();
+    };
+
+    window.addEventListener('lead-submitted', handleLeadSubmitted);
+    return () => window.removeEventListener('lead-submitted', handleLeadSubmitted);
+  }, []);
+
+  // Auto dismiss toast notification
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => {
+        setToast(null);
+      }, 7000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
+  return (
+    <>
+      <Routes>
+        {/* Public Landing Page */}
+        <Route path="/" element={<PublicLandingPage />} />
+
+        {/* View All Listing Pages */}
+        <Route path="/real-estate/projects" element={<RealEstateAll />} />
+        <Route path="/health-insurance/plans" element={<HealthInsuranceAll />} />
+
+        {/* Admin Login */}
+        <Route path="/admin/login" element={<Login />} />
+
+        {/* Protected Admin Routing */}
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        }>
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="hero" element={<HeroSection />} />
+          <Route path="about" element={<AboutSection />} />
+          <Route path="plans" element={<PlansCRUD />} />
+          <Route path="benefits" element={<BenefitsCRUD />} />
+          <Route path="testimonials" element={<TestimonialsCRUD />} />
+          <Route path="real-estate" element={<RealEstateCRUD />} />
+          <Route path="gallery" element={<GalleryManagement />} />
+          <Route path="contact" element={<ContactInfo />} />
+          <Route path="socials" element={<SocialLinks />} />
+          <Route path="quotes" element={<QuotesList />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
 
       {/* Live Admin Toast Notification Alert */}
       {toast && (
         <div 
           className="admin-toast glass-panel fade-in" 
-          onClick={() => { setIsAdminOpen(true); setToast(null); }}
+          onClick={() => { navigate('/admin/quotes'); setToast(null); }}
           style={{
             position: 'fixed',
             bottom: '24px',
             right: '24px',
             zIndex: 3000,
             padding: '16px 20px',
-            background: 'var(--bg-card)',
+            background: 'rgba(13, 24, 49, 0.95)',
             border: '1px solid var(--primary-gold)',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.15), var(--shadow-gold)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.5), var(--shadow-gold)',
             borderRadius: '12px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            maxWidth: '360px'
+            maxWidth: '360px',
+            fontFamily: 'var(--font-body)',
+            backdropFilter: 'blur(10px)'
           }}
         >
           <style>{`
@@ -157,9 +244,9 @@ export default function App() {
           `}</style>
           <div className="toast-indicator-pulse" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--primary-gold)', letterSpacing: '0.05em' }}>NEW QUOTE INQUIRY</span>
+            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--primary-gold)', letterSpacing: '0.05em' }}>NEW INQUIRY DETECTED</span>
             <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--white)' }}>{toast.name}</span>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Selected {toast.provider} ({toast.category})</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Selected {toast.provider || 'Services'}</span>
           </div>
           <button 
             onClick={(e) => { e.stopPropagation(); setToast(null); }}
@@ -178,6 +265,6 @@ export default function App() {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }

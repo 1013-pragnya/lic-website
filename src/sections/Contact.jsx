@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, MessageSquare, Send, CheckCircle2, Clock } from 'lucide-react';
-import { agentConfig } from '../config/agentConfig';
+import { useConfig } from '../config/AppContext';
 import Button from '../components/Button';
 import './Contact.css';
 
 export default function Contact({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }) {
+  const { agentConfig, submitContact } = useConfig();
   const [localActiveTab, setLocalActiveTab] = useState('insurance');
   const activeTab = propActiveTab || localActiveTab;
   const setActiveTab = propSetActiveTab || setLocalActiveTab;
@@ -19,6 +20,19 @@ export default function Contact({ activeTab: propActiveTab, setActiveTab: propSe
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Sync dropdown options from URL parameters
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const planParam = params.get('plan');
+    if (planParam) {
+      setFormData(prev => ({ ...prev, plan: planParam }));
+    }
+    const propParam = params.get('propertyInterest');
+    if (propParam) {
+      setFormData(prev => ({ ...prev, propertyInterest: propParam }));
+    }
+  }, [window.location.search]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -26,8 +40,25 @@ export default function Contact({ activeTab: propActiveTab, setActiveTab: propSe
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate submission handler
-    console.log(`Submitted Callback ${activeTab} Inquiry:`, formData);
+    
+    const newContact = {
+      id: 'contact_' + Date.now(),
+      timestamp: new Date().toISOString(),
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      plan: formData.plan,
+      propertyInterest: formData.propertyInterest,
+      message: formData.message,
+      status: 'New'
+    };
+
+    try {
+      submitContact(newContact);
+    } catch (err) {
+      console.error('Failed to submit contact via context:', err);
+    }
+
     setIsSubmitted(true);
     
     // Reset form fields
@@ -44,8 +75,8 @@ export default function Contact({ activeTab: propActiveTab, setActiveTab: propSe
   };
 
   const openWhatsAppDirect = () => {
-    const firstName = agentConfig.name.split(' ')[0];
-    window.open(`https://wa.me/${agentConfig.contact.whatsapp}?text=Hi%20${firstName},%20I%20would%20like%20to%20schedule%20a%20call%20to%20discuss%20insurance%20options.`, '_blank');
+    const firstName = agentConfig?.name.split(' ')[0] || "Advisor";
+    window.open(`https://wa.me/${agentConfig?.contact?.whatsapp}?text=Hi%20${firstName},%20I%20would%20like%20to%20schedule%20a%20call%20to%20discuss%20insurance%20options.`, '_blank');
   };
 
   return (

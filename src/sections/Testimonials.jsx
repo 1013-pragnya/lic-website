@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-import { agentConfig } from '../config/agentConfig';
+import { useConfig } from '../config/AppContext';
 import './Testimonials.css';
 
 export default function Testimonials() {
+  const { agentConfig } = useConfig();
   const [activeIndex, setActiveIndex] = useState(0);
-  const items = agentConfig.testimonials;
+  const items = agentConfig?.testimonials || [];
   const cardRef = useRef(null);
 
   const handlePrev = () => {

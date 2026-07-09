@@ -1,0 +1,76 @@
+.scrolling-banner {
+  margin-top: 80px; /* Matches fixed navbar height */
+  height: 50px;
+  background-color: #0b1220;
+  border-top: 1px solid #d4af37;
+  border-bottom: 1px solid #d4af37;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.scrolling-banner-track {
+  display: flex;
+  width: max-content;
+}
+
+.scrolling-banner-content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: #d4af37;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  animation: scroll-left-banner 50s linear infinite;
+}
+
+.scrolling-banner-content span {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.scrolling-banner-content .separator {
+  color: #d4af37;
+  padding: 0 20px;
+  opacity: 0.8;
+}
+
+.scrolling-banner:hover .scrolling-banner-content {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+@keyframes scroll-left-banner {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .scrolling-banner {
+    margin-top: 80px; /* Clear mobile navigation */
+  }
+}
+
+@media (max-width: 768px) {
+  .scrolling-banner {
+    height: 44px;
+  }
+  .scrolling-banner-content {
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    animation-duration: 40s;
+  }
+}

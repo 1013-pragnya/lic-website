@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ShieldCheck } from 'lucide-react';
-import { agentConfig } from '../config/agentConfig';
+import { useConfig } from '../config/AppContext';
 import './Navbar.css';
 
 export default function Navbar() {
+  const { agentConfig } = useConfig();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -63,12 +64,12 @@ export default function Navbar() {
       <div className="nav-container">
         <div className="logo" onClick={() => handleLinkClick('home')}>
           <div className="logo-image-container">
-            <img src="/logo.png" alt="RR Logo" className="logo-img-element" />
+            <img src={agentConfig?.settings?.logoUrl || "/logo.png"} alt="Logo" className="logo-img-element" />
             <span className="logo-image-subtext">INSURANCE &<br />FINANCIAL SERVICE</span>
           </div>
           <div className="logo-text">
-            <span className="logo-title text-gradient-gold">RRFS ADVISOR</span>
-            <span className="logo-subtitle">{agentConfig.name}</span>
+            <span className="logo-title text-gradient-gold">{agentConfig?.settings?.logoText || "RRFS ADVISOR"}</span>
+            <span className="logo-subtitle">{agentConfig?.name}</span>
           </div>
         </div>
 

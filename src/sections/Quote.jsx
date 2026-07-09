@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, CheckCircle, MessageSquare, ShieldAlert, Sparkles, ClipboardCheck } from 'lucide-react';
-import { agentConfig } from '../config/agentConfig';
+import { useConfig } from '../config/AppContext';
 import Button from '../components/Button';
 import './Quote.css';
 
 export default function Quote({ preFill, clearPreFill }) {
+  const { agentConfig, submitQuote } = useConfig();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -62,16 +63,14 @@ export default function Quote({ preFill, clearPreFill }) {
       status: 'New'
     };
 
-    // 1. Store in localStorage
+    // Store via AppContext
     try {
-      const existingLeads = JSON.parse(localStorage.getItem('rrfs_quotes') || '[]');
-      existingLeads.unshift(newLead);
-      localStorage.setItem('rrfs_quotes', JSON.stringify(existingLeads));
+      submitQuote(newLead);
     } catch (err) {
-      console.error('Failed to store quote lead in localStorage:', err);
+      console.error('Failed to store quote lead via context:', err);
     }
 
-    // 2. Trigger admin notification
+    // Trigger admin notification
     setSubmittedLead(newLead);
     setIsSubmitted(true);
 
@@ -91,7 +90,7 @@ export default function Quote({ preFill, clearPreFill }) {
 
   const startWhatsAppChat = () => {
     if (!submittedLead) return;
-    const firstName = agentConfig.name.split(' ')[0];
+    const firstName = agentConfig?.name.split(' ')[0] || "Advisor";
     const text = encodeURIComponent(
       `Hi ${firstName}, I just submitted a Quote Request on your advisor website. \n\n` +
       `*Name:* ${submittedLead.name}\n` +
@@ -99,7 +98,7 @@ export default function Quote({ preFill, clearPreFill }) {
       `*Provider:* ${submittedLead.provider}\n\n` +
       `Please let me know the premium quotes and details at your earliest convenience.`
     );
-    window.open(`https://wa.me/${agentConfig.contact.whatsapp}?text=${text}`, '_blank');
+    window.open(`https://wa.me/${agentConfig?.contact?.whatsapp}?text=${text}`, '_blank');
   };
 
   return (

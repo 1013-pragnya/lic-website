@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Shield, TrendingUp, Coins, Wallet, GraduationCap, Heart, ArrowRight, X, CheckCircle } from 'lucide-react';
-import { agentConfig } from '../config/agentConfig';
+import { useConfig } from '../config/AppContext';
 import Button from '../components/Button';
 import './Plans.css';
+import '../components/CardSlider.css';
 
 const iconMap = {
   Shield: Shield,
@@ -13,10 +15,18 @@ const iconMap = {
   Heart: Heart
 };
 
-export default function Plans() {
+export default function Plans({ onGetQuote }) {
+  const { agentConfig } = useConfig();
+  const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+
+  // Slider Mouse Drag State
+  const sliderRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,48 +54,87 @@ export default function Plans() {
   };
 
   const openWhatsAppPlan = (title) => {
-    const firstName = agentConfig.name.split(' ')[0];
+    const firstName = agentConfig?.name.split(' ')[0] || "Advisor";
     const text = encodeURIComponent(`Hi ${firstName}, I'm interested in the LIC policy plan: "${title}". Please share details and premium options.`);
-    window.open(`https://wa.me/${agentConfig.contact.whatsapp}?text=${text}`, '_blank');
+    window.open(`https://wa.me/${agentConfig?.contact?.whatsapp}?text=${text}`, '_blank');
   };
+
+  // Drag Handlers
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
+  };
+
+  const handleMouseLeaveTrack = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUpTrack = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMoveTrack = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    sliderRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const plans = agentConfig?.plans || [];
 
   return (
     <section id="plans" ref={sectionRef} className="section plans-section">
       <div className="container">
         
-        <div className="section-header">
-          <span className="section-subtitle">Secure & Grow</span>
-          <h2 className="section-title">LIC Insurance Plans</h2>
+        <div className="section-header-split">
+          <div className="section-header-left">
+            <span className="section-subtitle">Secure & Grow</span>
+            <h2 className="section-title">HEALTH & LIFE INSURANCE PLANS</h2>
+          </div>
+          <button className="view-all-btn" onClick={() => navigate('/health-insurance/plans')}>
+            VIEW ALL <span className="arrow">→</span>
+          </button>
         </div>
 
-        <div className={`plans-grid card-container-3d ${isVisible ? 'revealed' : ''}`}>
-          {agentConfig.plans.map((plan) => {
-            const IconComponent = iconMap[plan.icon];
-            const cardRef = useRef(null);
+        <div className="slider-container">
+          <div 
+            ref={sliderRef}
+            className={`slider-track ${isDragging ? 'dragging' : ''} ${isVisible ? 'revealed' : ''}`}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeaveTrack}
+            onMouseUp={handleMouseUpTrack}
+            onMouseMove={handleMouseMoveTrack}
+          >
+            {plans.map((plan) => {
+              const IconComponent = iconMap[plan.icon];
+              const cardRef = useRef(null);
 
-            const handleMouseMove = (e) => {
-              const card = cardRef.current;
-              if (!card) return;
-              
-              const rect = card.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-              
-              const rotateX = -(y - rect.height / 2) / (rect.height / 2) * 10;
-              const rotateY = (x - rect.width / 2) / (rect.width / 2) * 10;
-              
-              card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-              card.style.borderColor = 'rgba(207, 168, 68, 0.45)';
-              card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.55), 0 0 25px rgba(207, 168, 68, 0.15)';
-            };
+              const handleMouseMove = (e) => {
+                if (isDragging) return;
+                const card = cardRef.current;
+                if (!card) return;
+                
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const rotateX = -(y - rect.height / 2) / (rect.height / 2) * 10;
+                const rotateY = (x - rect.width / 2) / (rect.width / 2) * 10;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                card.style.borderColor = 'rgba(207, 168, 68, 0.45)';
+                card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.55), 0 0 25px rgba(207, 168, 68, 0.15)';
+              };
 
-            const handleMouseLeave = () => {
-              const card = cardRef.current;
-              if (!card) return;
-              card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
-              card.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              card.style.boxShadow = 'var(--shadow-glass)';
-            };
+              const handleMouseLeave = () => {
+                const card = cardRef.current;
+                if (!card) return;
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                card.style.boxShadow = 'var(--shadow-glass)';
+              };
 
             return (
               <div 
@@ -96,31 +145,30 @@ export default function Plans() {
                 onMouseLeave={handleMouseLeave}
                 onClick={() => handleOpenModal(plan)}
               >
-                <div className="plan-card-icon-box">
-                  {IconComponent && <IconComponent size={28} className="plan-card-icon" />}
+                <div className="plan-logo-wrapper">
+                  <img src={plan.logo} alt={plan.provider} className="plan-logo-img" loading="lazy" />
                 </div>
+                <span className="plan-provider-name">{plan.provider.toUpperCase()} INSURANCE</span>
                 <h3 className="plan-card-title">{plan.title}</h3>
-                <span className="plan-card-tagline">{plan.tagline}</span>
                 <p className="plan-card-desc">{plan.description}</p>
                 
-                <div className="plan-card-footer">
-                  <span className="plan-card-link-btn">
-                    View Details & Benefits <ArrowRight size={14} />
-                  </span>
+                <div className="plan-card-footer" style={{ marginTop: 'auto', width: '100%' }}>
                   <Button 
                     variant="primary" 
-                    className="plan-card-quote-btn"
+                    className="plan-card-view-btn"
+                    style={{ width: '100%', borderRadius: '50px' }}
                     onClick={(e) => { 
                       e.stopPropagation(); 
-                      openWhatsAppPlan(plan.title); 
+                      handleOpenModal(plan); 
                     }}
                   >
-                    Get Quote
+                    View Plans
                   </Button>
                 </div>
               </div>
             );
           })}
+          </div>
         </div>
 
       </div>

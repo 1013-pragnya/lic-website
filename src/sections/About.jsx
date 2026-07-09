@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Award, ShieldCheck, Mail, Calendar, CheckCircle, ShieldAlert, HeartHandshake, PhoneCall, FileCheck, Landmark } from 'lucide-react';
-import { agentConfig } from '../config/agentConfig';
+import { useConfig } from '../config/AppContext';
 import Button from '../components/Button';
 import './About.css';
 
@@ -10,7 +10,7 @@ function AnimatedCounter({ target, suffix = "", duration = 2000 }) {
 
   useEffect(() => {
     let start = 0;
-    const end = parseInt(target.replace(/,/g, ''), 10) || 0;
+    const end = parseInt(target.toString().replace(/,/g, ''), 10) || 0;
     if (end === 0) return;
     
     let startTime = null;
@@ -44,6 +44,7 @@ function AnimatedCounter({ target, suffix = "", duration = 2000 }) {
 }
 
 export default function About() {
+  const { agentConfig } = useConfig();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
   const portraitRef = useRef(null);
@@ -122,6 +123,10 @@ export default function About() {
     }
   ];
 
+  const experienceYears = agentConfig?.experience ? (parseInt(agentConfig.experience.match(/\d+/)?.[0] || '18')) : 18;
+  const familiesSecuredCount = agentConfig?.familiesSecured ? (parseInt(agentConfig.familiesSecured.replace(/,/g, '')) || 1200) : 1200;
+  const claimsSettledPercent = agentConfig?.claimsSettled ? agentConfig.claimsSettled : '99.2%';
+
   return (
     <section 
       id="about" 
@@ -132,7 +137,7 @@ export default function About() {
         
         <div className="section-header">
           <span className="section-subtitle">Meet Your Advisor</span>
-          <h2 className="section-title">About {agentConfig.name}</h2>
+          <h2 className="section-title">About {agentConfig?.name}</h2>
         </div>
 
         <div className="grid-2 about-grid">
@@ -147,14 +152,14 @@ export default function About() {
             >
               <div className="portrait-border-glow" />
               <img 
-                src={agentConfig.photoUrl} 
-                alt={agentConfig.name} 
+                src={agentConfig?.photoUrl} 
+                alt={agentConfig?.name} 
                 className="agent-portrait-img"
               />
               <div className="experience-sticker float-animation">
                 <Calendar className="sticker-icon" size={22} />
                 <div className="sticker-details">
-                  <span className="sticker-count">{agentConfig.experience.split(' ')[0]}</span>
+                  <span className="sticker-count">{experienceYears}</span>
                   <span className="sticker-label">Years of Service</span>
                 </div>
               </div>
@@ -163,30 +168,30 @@ export default function About() {
 
           {/* Bio text, Service Points, and Trust Badges column */}
           <div className="about-content-col">
-            <h3 className="agent-title-name">{agentConfig.name}</h3>
-            <span className="agent-sub-title">{agentConfig.title}</span>
+            <h3 className="agent-title-name">{agentConfig?.name}</h3>
+            <span className="agent-sub-title">{agentConfig?.title}</span>
             
-            <p className="agent-narrative">{agentConfig.aboutText}</p>
-
+            <p className="agent-narrative">{agentConfig?.aboutText}</p>
+ 
             {/* Stats Row with Animated Counters */}
             <div className="about-stats-grid card-container-3d">
               <div className="stat-card glass-panel card-3d">
                 <span className="stat-value text-gradient-gold">
-                  <AnimatedCounter target="18" suffix="+" />
+                  <AnimatedCounter target={experienceYears} suffix="+" />
                 </span>
                 <span className="stat-label">Years of Experience</span>
               </div>
               <div className="stat-card glass-panel card-3d">
                 <span className="stat-value text-gradient-gold">
-                  <AnimatedCounter target="1200" suffix="+" />
+                  <AnimatedCounter target={familiesSecuredCount} suffix="+" />
                 </span>
                 <span className="stat-label">Families Protected</span>
               </div>
               <div className="stat-card glass-panel card-3d">
                 <span className="stat-value text-gradient-gold">
-                  <AnimatedCounter target="3200" suffix="+" />
+                  <span className="text-gradient-gold">{claimsSettledPercent}</span>
                 </span>
-                <span className="stat-label">Policies Completed</span>
+                <span className="stat-label">Claims Settled</span>
               </div>
             </div>
 
