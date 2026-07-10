@@ -72,6 +72,19 @@ export const AppProvider = ({ children }) => {
             }
           ];
         }
+        if (currentConfig.banners && currentConfig.banners.length === 1) {
+          currentConfig.banners.push({
+            id: 'banner_2',
+            badge: "Premium Real Estate Ventures in Hyderabad",
+            title: "PREMIUM REAL ESTATE PORTFOLIO",
+            description: "Explore luxury villas, commercial spaces, and high-yielding land investments in Hyderabad's prime growth corridors.",
+            primaryButtonText: "EXPLORE PORTFOLIO",
+            secondaryButtonText: "BOOK CONSULTATION",
+            familiesCount: "1,200+",
+            backgroundImage: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1920",
+            hidden: false
+          });
+        }
         if (!currentConfig.sliderSettings) {
           currentConfig.sliderSettings = {
             autoPlay: true,

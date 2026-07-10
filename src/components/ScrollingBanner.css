@@ -1,6 +1,6 @@
 .scrolling-banner {
   margin-top: 80px; /* Matches fixed navbar height */
-  height: 16px; /* Reduced to 16px */
+  height: 20px; /* Increased to 20px */
   background-color: #0b1220;
   border-top: 1px solid #D4AF37; /* Gold border */
   border-bottom: 1px solid #D4AF37; /* Gold border */
@@ -24,10 +24,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 10px;
+  padding: 0 12px;
   font-family: 'Poppins', sans-serif !important;
   font-weight: 700;
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   letter-spacing: 0.5px;
   white-space: nowrap;
   box-shadow: 3px 0 8px rgba(0, 0, 0, 0.4);
@@ -37,7 +37,7 @@
 .scrolling-banner-track {
   display: flex;
   width: max-content;
-  padding-left: 105px; /* Offset for the left label */
+  padding-left: 115px; /* Offset for the left label */
 }
 
 /* Scrolling Content */
@@ -48,7 +48,7 @@
   white-space: nowrap;
   font-family: 'Poppins', sans-serif !important;
   font-weight: 600; /* Requirement: Font Weight 600 */
-  font-size: 0.55rem; /* Compact font size */
+  font-size: 0.65rem; /* Compact font size */
   color: #ffffff; /* Requirement: White scrolling text */
   will-change: transform;
   transform: translateZ(0);
