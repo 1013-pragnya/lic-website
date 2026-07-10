@@ -105,7 +105,7 @@ export default function Plans({ onGetQuote }) {
             <span className="section-subtitle">Secure & Grow</span>
             <h2 className="section-title">HEALTH & LIFE INSURANCE PLANS</h2>
           </div>
-          <button className="view-all-btn" onClick={() => navigate('/health-insurance/plans')}>
+          <button className="view-all-btn desktop-only-btn" onClick={() => navigate('/health-insurance/plans')}>
             VIEW ALL <span className="arrow">→</span>
           </button>
         </div>
@@ -220,6 +220,13 @@ export default function Plans({ onGetQuote }) {
             );
           })}
           </div>
+        </div>
+
+        {/* Mobile/Tablet View All Button */}
+        <div className="mobile-view-all-container">
+          <button className="view-all-btn mobile-only-btn" onClick={() => navigate('/health-insurance/plans')}>
+            VIEW ALL <span className="arrow">→</span>
+          </button>
         </div>
 
       </div>

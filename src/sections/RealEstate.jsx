@@ -83,7 +83,7 @@ export default function RealEstate({ onSelectConsultation }) {
               <span className="section-subtitle">Exclusive Listings</span>
               <h2 className="section-title">REAL ESTATE PROJECTS</h2>
             </div>
-            <button className="view-all-btn" onClick={() => navigate('/real-estate/projects')}>
+            <button className="view-all-btn desktop-only-btn" onClick={() => navigate('/real-estate/projects')}>
               VIEW ALL <span className="arrow">→</span>
             </button>
           </div>
@@ -145,6 +145,13 @@ export default function RealEstate({ onSelectConsultation }) {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Mobile/Tablet View All Button */}
+          <div className="mobile-view-all-container">
+            <button className="view-all-btn mobile-only-btn" onClick={() => navigate('/real-estate/projects')}>
+              VIEW ALL <span className="arrow">→</span>
+            </button>
           </div>
 
         </div>
