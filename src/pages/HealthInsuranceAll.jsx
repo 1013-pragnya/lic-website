@@ -222,8 +222,8 @@ export default function HealthInsuranceAll() {
                           </p>
                         </div>
                         
-                        <div className="property-footer flex-between" style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '16px', marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div className="property-price" style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div className="property-footer" style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '16px', marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
+                          <div className="property-price" style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                             <span className="price-label" style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Min Sum Assured</span>
                             <span className="price-value" style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--white)', marginTop: '2px' }}>{plan.eligibility?.minSumAssured || 'N/A'}</span>
                           </div>
@@ -234,7 +234,7 @@ export default function HealthInsuranceAll() {
                               e.stopPropagation(); 
                               handleEnquire(plan.title); 
                             }}
-                            style={{ padding: '8px 16px', fontSize: '0.82rem' }}
+                            style={{ width: '100%', padding: '10px 16px', fontSize: '0.85rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                           >
                             Get Quote
                           </Button>
