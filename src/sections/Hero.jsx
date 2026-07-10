@@ -128,9 +128,11 @@ export default function Hero() {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundImage: `linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 35%, rgba(15, 23, 42, 0.4) 65%, rgba(15, 23, 42, 0.15) 100%), url(${currentBgImage})`,
+              backgroundImage: isMobile
+                ? `linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.55) 50%, rgba(15, 23, 42, 0.95) 100%), url(${currentBgImage})`
+                : `linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 35%, rgba(15, 23, 42, 0.4) 65%, rgba(15, 23, 42, 0.15) 100%), url(${currentBgImage})`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundPosition: isMobile ? '80% center' : 'center',
               backgroundRepeat: 'no-repeat'
             }}
           />
