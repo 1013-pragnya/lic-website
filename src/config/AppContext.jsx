@@ -72,6 +72,17 @@ export const AppProvider = ({ children }) => {
             }
           ];
         }
+        if (!currentConfig.sliderSettings) {
+          currentConfig.sliderSettings = {
+            autoPlay: true,
+            duration: 5000,
+            transitionSpeed: 0.8,
+            animationType: 'fade',
+            infiniteLoop: true,
+            showDots: true,
+            showArrows: true
+          };
+        }
         if (!currentConfig.partners) {
           currentConfig.partners = [
             {
@@ -151,6 +162,15 @@ export const AppProvider = ({ children }) => {
               hidden: false
             }
           ],
+          sliderSettings: {
+            autoPlay: true,
+            duration: 5000,
+            transitionSpeed: 0.8,
+            animationType: 'fade',
+            infiniteLoop: true,
+            showDots: true,
+            showArrows: true
+          },
           partners: [
             {
               id: 'partner_lic',
@@ -452,6 +472,10 @@ export const AppProvider = ({ children }) => {
     saveConfig({ ...config, banners });
   };
 
+  const updateSliderSettings = (sliderSettings) => {
+    saveConfig({ ...config, sliderSettings });
+  };
+
   // CRUD for Insurance Partners
   const addPartner = (partner) => {
     const partners = [...(config.partners || [])];
@@ -559,6 +583,7 @@ export const AppProvider = ({ children }) => {
       addBanner,
       updateBanner,
       deleteBanner,
+      updateSliderSettings,
       addPartner,
       updatePartner,
       deletePartner,
