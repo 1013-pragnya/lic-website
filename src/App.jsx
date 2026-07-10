@@ -17,6 +17,7 @@ import Contact from './sections/Contact';
 import Footer from './components/Footer';
 
 // Admin Portal Components
+import ErrorBoundary from './components/ErrorBoundary';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminLayout from './components/AdminLayout';
 import Login from './pages/admin/Login';
@@ -194,7 +195,9 @@ export default function App() {
         {/* Protected Admin Routing */}
         <Route path="/admin" element={
           <ProtectedRoute>
-            <AdminLayout />
+            <ErrorBoundary>
+              <AdminLayout />
+            </ErrorBoundary>
           </ProtectedRoute>
         }>
           <Route index element={<Navigate to="/admin/dashboard" replace />} />

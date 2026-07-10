@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   FiFileText, FiPhoneCall, FiShield, FiHome, 
-  FiArrowRight, FiDownload, FiCheckCircle, FiClock, FiPlusCircle 
+  FiArrowRight, FiDownload, FiCheckCircle, FiClock, FiPlusCircle,
+  FiMessageSquare, FiLayers, FiActivity
 } from 'react-icons/fi';
 import { useConfig } from '../../config/AppContext';
 
