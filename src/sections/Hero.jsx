@@ -57,9 +57,33 @@ export default function Hero() {
     <section 
       id="home" 
       className="hero-section" 
-      style={currentBanner.backgroundImage ? { backgroundImage: `url(${currentBanner.backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
+      style={{ position: 'relative', overflow: 'hidden' }}
     >
-      <div className="container hero-container" style={{ position: 'relative', overflow: 'hidden', minHeight: '520px', display: 'flex', alignItems: 'center' }}>
+      {/* Background Images Cross-Fade */}
+      <div className="hero-bg-slider" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: 'easeInOut' }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundImage: `linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 35%, rgba(15, 23, 42, 0.4) 65%, rgba(15, 23, 42, 0.15) 100%), url(${currentBanner.backgroundImage || '/hero-bg.png'})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          />
+        </AnimatePresence>
+      </div>
+
+      <div className="container hero-container" style={{ position: 'relative', zIndex: 5, minHeight: '520px', display: 'flex', alignItems: 'center' }}>
         
         <AnimatePresence mode="wait">
           <motion.div
@@ -97,7 +121,7 @@ export default function Hero() {
             <p className="hero-description">
               {currentBanner.description}
             </p>
-
+ 
             <div className="hero-actions">
               <Button variant="primary" onClick={() => handleScrollTo('quote')}>
                 {currentBanner.primaryButtonText || 'GET FREE QUOTE'} <ArrowRight size={18} />
@@ -106,7 +130,7 @@ export default function Hero() {
                 {currentBanner.secondaryButtonText || 'EXPLORE SERVICES'}
               </Button>
             </div>
-
+ 
             {/* Quick trust stat badge */}
             <div className="hero-stat-badge glass-panel">
               <span className="stat-num text-gradient-gold">{currentBanner.familiesCount}</span>

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useConfig } from '../config/AppContext';
 import Button from '../components/Button';
 import { Shield, TrendingUp, Coins, Wallet, GraduationCap, Heart, CheckCircle, X, Search, SlidersHorizontal, ArrowLeft, ArrowRight } from 'lucide-react';
+import './RealEstateAll.css';
+import './PremiumPartnerPage.css';
 import './HealthInsuranceAll.css';
 
 const iconMap = {
@@ -28,9 +30,14 @@ export default function HealthInsuranceAll() {
   // Pagination states
   const [visibleCount, setVisibleCount] = useState(8);
 
-  // Scroll to top on mount
+  // Scroll to top on mount and set SEO metadata
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = "Compare Health & Life Insurance Plans | RRFS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', "Compare and choose from top-rated life and health insurance plans. Secure your family's future with sovereign guarantee options and premium health covers.");
+    }
   }, []);
 
   const plansList = (agentConfig?.plans || []).filter(plan => !plan.hidden);
@@ -77,25 +84,45 @@ export default function HealthInsuranceAll() {
 
   return (
     <div className="view-all-page health-insurance-all">
-      {/* Premium Header */}
-      <header className="all-header">
-        <div className="container header-container">
-          <button className="back-home-btn" onClick={() => navigate('/')}>
+      {/* Premium Hero Banner */}
+      <section 
+        className="partner-hero" 
+        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&q=80&w=1920')` }}
+      >
+        <div className="partner-hero-nav">
+          <button className="back-btn" onClick={() => navigate('/')}>
             <ArrowLeft size={16} /> Back to Home
           </button>
-          
-          <div className="header-title-box">
-            <span className="subtitle-gold">Government Approved & Allied Cover</span>
-            <h1 className="main-title">HEALTH & LIFE INSURANCE PLANS</h1>
-            <p className="description-secondary">
+        </div>
+
+        <div className="partner-hero-container">
+          <div className="partner-hero-content">
+            <div className="partner-badge">
+              Government Approved & Allied Cover
+            </div>
+            <h1 className="partner-hero-title">
+              HEALTH & <span className="highlight-gold">LIFE PLANS</span>
+            </h1>
+            <p className="partner-hero-subtitle">
               Compare premium life insurance, comprehensive medical policies, and tax-saving assets under sovereign government guarantees.
             </p>
+            <button className="partner-hero-btn" onClick={() => {
+              const el = document.getElementById('plans-filter-section');
+              if (el) {
+                window.scrollTo({
+                  top: el.offsetTop - 100,
+                  behavior: 'smooth'
+                });
+              }
+            }}>
+              EXPLORE PLANS
+            </button>
           </div>
         </div>
-      </header>
+      </section>
 
       {/* Advanced Filter Section */}
-      <section className="filter-section">
+      <section className="filter-section" id="plans-filter-section">
         <div className="container">
           <div className="filter-bar glass-panel">
             
@@ -153,35 +180,65 @@ export default function HealthInsuranceAll() {
             <>
               <div className="listing-grid">
                 {filteredPlans.slice(0, visibleCount).map((plan) => {
-                  const IconComponent = iconMap[plan.icon] || Shield;
                   return (
                     <div 
                       key={plan.id} 
-                      className="plan-card glass-panel glass-panel-hover card-3d"
+                      className="property-card glass-panel glass-panel-hover card-3d"
                       onClick={() => handleOpenModal(plan)}
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column' }}
                     >
-                      <div className="plan-logo-wrapper">
-                        <img src={plan.logo} alt={plan.provider} className="plan-logo-img" loading="lazy" />
+                      <div className="property-image-wrapper" style={{ height: '140px', background: 'rgba(255,255,255,0.02)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+                        {plan.logo ? (
+                          <img src={plan.logo} alt={plan.provider} className="property-img" style={{ maxWidth: '85%', maxHeight: '85%', objectFit: 'contain' }} loading="lazy" />
+                        ) : (
+                          <span style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
+                            {plan.provider}
+                          </span>
+                        )}
+                        <div className="property-category-badge" style={{ background: 'rgba(207, 168, 68, 0.1)', border: '1px solid var(--border-gold)', color: 'var(--primary-gold)' }}>
+                          {plan.provider}
+                        </div>
                       </div>
-                      <span className="plan-provider-name">{plan.provider.toUpperCase()} INSURANCE</span>
-                      <h3 className="plan-card-title">{plan.title}</h3>
-                      <p className="plan-card-desc">{plan.description}</p>
                       
-                      <div className="plan-card-footer" style={{ marginTop: 'auto' }}>
-                        <span className="plan-card-link-btn">
-                          View Details & Benefits <ArrowRight size={14} style={{ display: 'none' }} />
-                        </span>
-                        <Button 
-                          variant="primary" 
-                          className="plan-card-quote-btn"
-                          onClick={(e) => { 
-                            e.stopPropagation(); 
-                            handleEnquire(plan.title); 
-                          }}
-                        >
-                          Get Quote
-                        </Button>
+                      <div className="property-details" style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1, width: '100%', boxSizing: 'border-box' }}>
+                        <div className="property-location flex-align" style={{ gap: '6px', marginBottom: '8px' }}>
+                          <Shield size={14} className="text-gold" />
+                          <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--primary-gold)', letterSpacing: '1px' }}>
+                            {plan.provider.toUpperCase()} INSURANCE
+                          </span>
+                        </div>
+                        
+                        <h3 className="property-title" style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--white)', marginBottom: '8px', minHeight: '48px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                          {plan.title}
+                        </h3>
+                        
+                        <p className="property-type" style={{ fontSize: '0.82rem', color: 'var(--primary-gold)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
+                          {plan.tagline}
+                        </p>
+                        
+                        <div className="property-highlights" style={{ marginBottom: '16px', flex: 1 }}>
+                          <p className="highlight-text" style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '1.5', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                            {plan.description}
+                          </p>
+                        </div>
+                        
+                        <div className="property-footer flex-between" style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '16px', marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div className="property-price" style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span className="price-label" style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Min Sum Assured</span>
+                            <span className="price-value" style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--white)', marginTop: '2px' }}>{plan.eligibility?.minSumAssured || 'N/A'}</span>
+                          </div>
+                          <Button 
+                            variant="primary" 
+                            className="property-btn" 
+                            onClick={(e) => { 
+                              e.stopPropagation(); 
+                              handleEnquire(plan.title); 
+                            }}
+                            style={{ padding: '8px 16px', fontSize: '0.82rem' }}
+                          >
+                            Get Quote
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   );
