@@ -65,7 +65,7 @@ export default function RealEstate({ onSelectConsultation }) {
     sliderRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  const propertiesList = agentConfig?.realEstate || [];
+  const propertiesList = (agentConfig?.realEstate || []).filter(prop => !prop.hidden);
 
   // Filter properties based on active category tab
   const filteredProperties = activeCategory === 'All Properties'

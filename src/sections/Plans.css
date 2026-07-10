@@ -17,7 +17,9 @@
   flex: 1 1 calc(33.333% - 20px);
   max-width: calc(33.333% - 20px);
   min-width: 320px;
-  padding: 36px 30px;
+  padding: 0 !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -410,4 +412,196 @@
   transform: scale(1.03);
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.35);
 }
+
+/* Category Tabs and Pills (copied from RealEstate.css to maintain standalone styling) */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 45px;
+  flex-wrap: wrap;
+}
+
+.category-tab-btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 30px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-glass);
+}
+
+.category-tab-btn:hover {
+  border-color: var(--primary-gold);
+  color: var(--primary-gold);
+  transform: translateY(-2px);
+}
+
+.category-tab-btn.active {
+  background: var(--gold-gradient);
+  border-color: transparent;
+  color: #050a17;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(207, 168, 68, 0.25);
+}
+
+.category-tab-btn.active:hover {
+  color: #050a17;
+}
+
+/* property classes when used in plans cards context */
+.plans-section .plan-card {
+  height: 580px !important; /* Strict height consistency */
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+}
+
+.plans-section .property-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 140px !important;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.plans-section .plan-logo-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  padding: 24px !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-bottom: 1px solid var(--border-glass) !important;
+  margin-bottom: 0 !important;
+  box-sizing: border-box;
+}
+
+.plans-section .plan-logo-img {
+  max-width: 85% !important;
+  max-height: 85% !important;
+  object-fit: contain !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.plans-section .property-details {
+  padding: 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+  gap: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.plans-section .property-category-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(5, 10, 23, 0.8);
+  border: 1px solid var(--border-gold);
+  color: var(--primary-gold);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.plans-section .plan-provider-name {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: var(--primary-gold) !important;
+  letter-spacing: 1.5px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  margin-bottom: 0 !important;
+  display: block !important;
+}
+
+.plans-section .plan-card-title {
+  font-size: 1.25rem !important;
+  color: var(--white) !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  height: 48px !important; /* Allows exactly 2 lines of text */
+  line-height: 24px !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.plans-section .plan-card-desc {
+  font-size: 0.85rem !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  height: 63px !important; /* Allows exactly 3 lines of text */
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.plans-section .property-features {
+  background: rgba(15, 23, 42, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  margin-top: 0 !important;
+  height: 110px !important; /* Fixed height for 3 bullets list */
+  box-sizing: border-box !important;
+}
+
+.plans-section .features-label {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  margin-bottom: 6px !important;
+  color: var(--primary-gold) !important;
+}
+
+.plans-section .card-benefits-list-preview {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+}
+
+.plans-section .card-benefits-list-preview li {
+  display: flex !important;
+  gap: 8px !important;
+  font-size: 0.8rem !important;
+  color: var(--text-secondary) !important;
+  align-items: center !important;
+}
+
+.plans-section .card-benefits-list-preview li span {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.plans-section .plan-card-view-btn {
+  margin-top: auto !important; /* Align to bottom */
+  width: 100% !important;
+}
+
 

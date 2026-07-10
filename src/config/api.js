@@ -44,15 +44,23 @@ axiosClient.interceptors.response.use(
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const mockAuthService = {
-  login: async (passcode, password) => {
+  login: async (passcodeOrEmail, password) => {
     await delay(800); // Simulate network latency
 
-    // Check credentials (passcode: 1234 or password: admin)
-    if (passcode === '1234' || (password && password.toLowerCase() === 'admin')) {
+    const storedEmail = localStorage.getItem('admin_email') || 'admin@rrfs.com';
+    const storedPassword = localStorage.getItem('admin_password') || 'adminpassword';
+    const storedPasscode = localStorage.getItem('admin_passcode') || '1234';
+
+    // Validate using Email/Password or Passcode/Password override
+    const matchesEmailAuth = (passcodeOrEmail && passcodeOrEmail.toLowerCase() === storedEmail.toLowerCase() && password === storedPassword);
+    const matchesPasscodeAuth = (passcodeOrEmail === storedPasscode) || (password && password.toLowerCase() === 'admin');
+
+    if (matchesEmailAuth || matchesPasscodeAuth) {
       const payload = {
         sub: 'admin_user_01',
         name: 'Administrator',
         role: 'superadmin',
+        email: storedEmail,
         iat: Math.floor(Date.now() / 1000),
         exp: Math.floor(Date.now() / 1000) + (60 * 60 * 2) // 2 hours expiration
       };

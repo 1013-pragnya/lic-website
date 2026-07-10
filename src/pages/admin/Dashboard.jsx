@@ -21,6 +21,11 @@ export default function Dashboard() {
 
   const totalPlans = agentConfig?.plans?.length || 0;
   const totalProperties = agentConfig?.realEstate?.length || 0;
+  
+  const totalTestimonials = agentConfig?.testimonials?.length || 0;
+  const totalBanners = agentConfig?.banners?.length || 0;
+  const totalEnquiries = totalQuotes + totalContacts;
+  const totalVisitors = 52480;
 
   // Combine inquiries for recent activity feed
   const combinedInquiries = [
@@ -228,15 +233,20 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Cards */}
-      <motion.div variants={containerVariants} className="stats-grid">
+      <motion.div variants={containerVariants} className="stats-grid" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+        gap: '20px',
+        marginBottom: '30px'
+      }}>
         <motion.div variants={itemVariants} className="stat-card-admin">
           <div className="stat-icon-wrapper-admin">
             <FiFileText />
           </div>
           <div className="stat-info">
-            <span className="stat-val-admin">{totalQuotes}</span>
-            <span className="stat-lbl-admin">Quote Requests</span>
-            <span className="stat-subtext-admin">{newQuotes} new submissions</span>
+            <span className="stat-val-admin">{totalEnquiries}</span>
+            <span className="stat-lbl-admin">Total Enquiries</span>
+            <span className="stat-subtext-admin">{newQuotes + newContacts} new submissions</span>
           </div>
         </motion.div>
 
@@ -246,8 +256,8 @@ export default function Dashboard() {
           </div>
           <div className="stat-info">
             <span className="stat-val-admin">{totalContacts}</span>
-            <span className="stat-lbl-admin">Contact Requests</span>
-            <span className="stat-subtext-admin">{newContacts} active inquiries</span>
+            <span className="stat-lbl-admin">Callbacks</span>
+            <span className="stat-subtext-admin">{newContacts} pending calls</span>
           </div>
         </motion.div>
 
@@ -257,8 +267,8 @@ export default function Dashboard() {
           </div>
           <div className="stat-info">
             <span className="stat-val-admin">{totalPlans}</span>
-            <span className="stat-lbl-admin">Active Plans</span>
-            <span className="stat-subtext-admin">LIC Insurance products</span>
+            <span className="stat-lbl-admin">Insurance Plans</span>
+            <span className="stat-subtext-admin">Active products</span>
           </div>
         </motion.div>
 
@@ -268,8 +278,41 @@ export default function Dashboard() {
           </div>
           <div className="stat-info">
             <span className="stat-val-admin">{totalProperties}</span>
-            <span className="stat-lbl-admin">Listed Properties</span>
-            <span className="stat-subtext-admin">Residential & Commercial</span>
+            <span className="stat-lbl-admin">Properties</span>
+            <span className="stat-subtext-admin">Listed assets</span>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="stat-card-admin">
+          <div className="stat-icon-wrapper-admin" style={{ color: '#ec4899', background: 'rgba(236,72,153,0.05)', borderColor: 'rgba(236,72,153,0.2)' }}>
+            <FiMessageSquare />
+          </div>
+          <div className="stat-info">
+            <span className="stat-val-admin">{totalTestimonials}</span>
+            <span className="stat-lbl-admin">Testimonials</span>
+            <span className="stat-subtext-admin">Customer reviews</span>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="stat-card-admin">
+          <div className="stat-icon-wrapper-admin" style={{ color: '#a855f7', background: 'rgba(168,85,247,0.05)', borderColor: 'rgba(168,85,247,0.2)' }}>
+            <FiLayers />
+          </div>
+          <div className="stat-info">
+            <span className="stat-val-admin">{totalBanners}</span>
+            <span className="stat-lbl-admin">Hero Banners</span>
+            <span className="stat-subtext-admin">Carousel slides</span>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="stat-card-admin">
+          <div className="stat-icon-wrapper-admin" style={{ color: '#f59e0b', background: 'rgba(245,158,11,0.05)', borderColor: 'rgba(245,158,11,0.2)' }}>
+            <FiActivity />
+          </div>
+          <div className="stat-info">
+            <span className="stat-val-admin">{totalVisitors.toLocaleString()}</span>
+            <span className="stat-lbl-admin">Total Visitors</span>
+            <span className="stat-subtext-admin">Website traffic</span>
           </div>
         </motion.div>
       </motion.div>

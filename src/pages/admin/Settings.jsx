@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useConfig } from '../../config/AppContext';
 import { FiSave, FiSettings } from 'react-icons/fi';
@@ -6,6 +6,22 @@ import { FiSave, FiSettings } from 'react-icons/fi';
 export default function Settings() {
   const { agentConfig, updateSettings } = useConfig();
   const settings = agentConfig?.settings || {};
+
+  const [adminEmail, setAdminEmail] = useState(localStorage.getItem('admin_email') || 'admin@rrfs.com');
+  const [adminPassword, setAdminPassword] = useState(localStorage.getItem('admin_password') || 'adminpassword');
+  const [adminPasscode, setAdminPasscode] = useState(localStorage.getItem('admin_passcode') || '1234');
+
+  const handleSaveCredentials = (e) => {
+    e.preventDefault();
+    if (!adminEmail || !adminPassword || !adminPasscode) {
+      alert('All credentials fields are required.');
+      return;
+    }
+    localStorage.setItem('admin_email', adminEmail);
+    localStorage.setItem('admin_password', adminPassword);
+    localStorage.setItem('admin_passcode', adminPasscode);
+    alert('Admin login credentials updated successfully!');
+  };
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -158,6 +174,61 @@ export default function Settings() {
           <button type="submit" className="admin-btn admin-btn-primary">
             <FiSave />
             <span>Save Customization</span>
+          </button>
+        </div>
+      </form>
+
+      {/* Change Admin Credentials */}
+      <h3 style={{ fontSize: '0.9rem', color: 'var(--white)', marginTop: '40px', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em', borderTop: '1px solid var(--border-glass)', paddingTop: '20px' }}>
+        Change Administrator Credentials
+      </h3>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: '20px', fontSize: '0.82rem' }}>
+        Update the secure email address, password, and passcode used to access this Admin Panel.
+      </p>
+
+      <form onSubmit={handleSaveCredentials}>
+        <div className="admin-form-row">
+          <div className="admin-form-group">
+            <label className="admin-label">Login Email Address</label>
+            <input
+              type="email"
+              className="admin-input"
+              value={adminEmail}
+              onChange={(e) => setAdminEmail(e.target.value)}
+              placeholder="admin@rrfs.com"
+              required
+            />
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Login Passcode (Numeric)</label>
+            <input
+              type="text"
+              className="admin-input"
+              value={adminPasscode}
+              onChange={(e) => setAdminPasscode(e.target.value)}
+              placeholder="1234"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="admin-form-group">
+          <label className="admin-label">New Password</label>
+          <input
+            type="password"
+            className="admin-input"
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
+            placeholder="Enter new password"
+            required
+          />
+        </div>
+
+        <div style={{ marginTop: '20px' }}>
+          <button type="submit" className="admin-btn admin-btn-primary">
+            <FiSave />
+            <span>Update Credentials</span>
           </button>
         </div>
       </form>

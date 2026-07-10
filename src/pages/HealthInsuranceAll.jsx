@@ -33,7 +33,7 @@ export default function HealthInsuranceAll() {
     window.scrollTo(0, 0);
   }, []);
 
-  const plansList = agentConfig?.plans || [];
+  const plansList = (agentConfig?.plans || []).filter(plan => !plan.hidden);
 
   // Extract unique providers for the dropdown
   const uniqueProviders = ['All', ...new Set(plansList.map(p => p.provider).filter(Boolean))];

@@ -1,0 +1,265 @@
+/* Premium Partner Page CSS Stylesheet */
+
+.premium-partner-page {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Premium Hero Banner style */
+.partner-hero {
+  position: relative;
+  height: 650px; /* 600-700px on desktop */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: scroll; /* default scroll, will be overridden with parallax where supported */
+}
+
+/* Parallax Option */
+.partner-hero.parallax-bg {
+  background-attachment: fixed;
+}
+
+/* Dark overlay for readability */
+.partner-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(5, 10, 23, 0.4) 0%, 
+    rgba(5, 10, 23, 0.8) 60%, 
+    var(--bg-primary) 100%
+  ), 
+  radial-gradient(
+    circle at 20% 50%,
+    rgba(5, 10, 23, 0.8) 0%,
+    rgba(5, 10, 23, 0.95) 70%
+  );
+  z-index: 1;
+}
+
+/* Hero Container */
+.partner-hero-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Navigation button area inside Hero */
+.partner-hero-nav {
+  position: absolute;
+  top: 40px;
+  left: 24px;
+  z-index: 20;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  padding: 8px 16px;
+  border-radius: 50px;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.back-btn:hover {
+  background: rgba(207, 168, 68, 0.1);
+  border-color: var(--primary-gold);
+  color: var(--primary-gold);
+  transform: translateX(-4px);
+}
+
+/* Hero Content Area */
+.partner-hero-content {
+  max-width: 700px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: partnerFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes partnerFadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Provider badge */
+.partner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(207, 168, 68, 0.1);
+  border: 1px solid var(--border-gold);
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 24px;
+  color: var(--primary-gold);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Titles & headings */
+.partner-hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* Subtitles */
+.partner-hero-subtitle {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+/* Highlight text */
+.highlight-gold {
+  color: #D4AF37; /* Required gold color hex */
+  background: var(--gold-text-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+/* Hero CTA Button */
+.partner-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold-gradient);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 50px;
+  color: var(--bg-primary);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-gold), 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.partner-hero-btn:hover {
+  background: var(--gold-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(207, 168, 68, 0.35);
+}
+
+/* Layout section for the plans list */
+.partner-plans-section {
+  padding: 80px 0 120px;
+  position: relative;
+  z-index: 10;
+}
+
+.partner-section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.partner-section-subtitle {
+  color: var(--primary-gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.partner-section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+/* Grid layout for single provider cards */
+.partner-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.partner-card-single {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Responsiveness on Tablets and Mobiles */
+@media (max-width: 1024px) {
+  .partner-hero {
+    height: 550px;
+  }
+}
+
+@media (max-width: 768px) {
+  .partner-hero {
+    height: 500px;
+    background-attachment: scroll !important; /* disable parallax on mobile */
+  }
+  
+  .partner-hero-nav {
+    top: 24px;
+    left: 16px;
+  }
+  
+  .partner-hero-content {
+    padding-top: 60px;
+  }
+  
+  .partner-hero-title {
+    font-size: clamp(2rem, 6vw, 2.5rem);
+  }
+  
+  .partner-hero-subtitle {
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .partner-hero {
+    height: auto;
+    min-height: 480px;
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+  
+  .partner-hero-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

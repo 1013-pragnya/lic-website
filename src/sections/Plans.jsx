@@ -20,6 +20,7 @@ export default function Plans({ onGetQuote }) {
   const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('All');
   const sectionRef = useRef(null);
 
   // Slider Mouse Drag State
@@ -27,6 +28,14 @@ export default function Plans({ onGetQuote }) {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  const categories = [
+    { id: 'All', label: 'All Plans' },
+    { id: 'LIC', label: 'LIC Insurance' },
+    { id: 'Tata AIG', label: 'Tata AIG Insurance' },
+    { id: 'Care Health', label: 'Care Health Insurance' },
+    { id: 'HDFC ERGO', label: 'HDFC ERGO Insurance' }
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,7 +91,10 @@ export default function Plans({ onGetQuote }) {
     sliderRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  const plans = agentConfig?.plans || [];
+  const plansList = (agentConfig?.plans || []).filter(plan => !plan.hidden);
+  const filteredPlans = activeCategory === 'All'
+    ? plansList
+    : plansList.filter(plan => plan.provider && plan.provider.toLowerCase().includes(activeCategory.toLowerCase().split(' ')[0]));
 
   return (
     <section id="plans" ref={sectionRef} className="section plans-section">
@@ -98,7 +110,21 @@ export default function Plans({ onGetQuote }) {
           </button>
         </div>
 
-        <div className="slider-container">
+        {/* Category Filter Pills */}
+        <div className="category-tabs flex-center">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              className={`category-tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat.id)}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Keyed slider container to trigger CSS mount fade-in animation on transition */}
+        <div className="slider-container" key={activeCategory}>
           <div 
             ref={sliderRef}
             className={`slider-track ${isDragging ? 'dragging' : ''} ${isVisible ? 'revealed' : ''}`}
@@ -107,8 +133,7 @@ export default function Plans({ onGetQuote }) {
             onMouseUp={handleMouseUpTrack}
             onMouseMove={handleMouseMoveTrack}
           >
-            {plans.map((plan) => {
-              const IconComponent = iconMap[plan.icon];
+            {filteredPlans.map((plan) => {
               const cardRef = useRef(null);
 
               const handleMouseMove = (e) => {
@@ -145,18 +170,44 @@ export default function Plans({ onGetQuote }) {
                 onMouseLeave={handleMouseLeave}
                 onClick={() => handleOpenModal(plan)}
               >
-                <div className="plan-logo-wrapper">
-                  <img src={plan.logo} alt={plan.provider} className="plan-logo-img" loading="lazy" />
+                <div className="property-image-wrapper">
+                  <div className="plan-logo-wrapper">
+                    <img src={plan.logo} alt={plan.provider} className="plan-logo-img" loading="lazy" />
+                  </div>
+                  <div className="property-category-badge">{plan.provider}</div>
                 </div>
-                <span className="plan-provider-name">{plan.provider.toUpperCase()} INSURANCE</span>
-                <h3 className="plan-card-title">{plan.title}</h3>
-                <p className="plan-card-desc">{plan.description}</p>
                 
-                <div className="plan-card-footer" style={{ marginTop: 'auto', width: '100%' }}>
+                <div className="property-details">
+                  <span className="plan-provider-name">
+                    {plan.provider.toUpperCase()} INSURANCE
+                  </span>
+                  <h3 className="plan-card-title">
+                    {plan.title}
+                  </h3>
+                  
+                  <p className="plan-card-desc">
+                    {plan.description}
+                  </p>
+                  
+                  <div className="property-features">
+                    <h4 className="features-label text-gold">
+                      Key Benefits:
+                    </h4>
+                    <ul className="card-benefits-list-preview">
+                      {plan.benefits.slice(0, 3).map((benefit, idx) => (
+                        <li key={idx}>
+                          <CheckCircle size={12} className="text-gold" style={{ flexShrink: 0 }} />
+                          <span>
+                            {benefit}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
                   <Button 
                     variant="primary" 
-                    className="plan-card-view-btn"
-                    style={{ width: '100%', borderRadius: '50px' }}
+                    className="plan-card-view-btn property-btn"
                     onClick={(e) => { 
                       e.stopPropagation(); 
                       handleOpenModal(plan); 
@@ -183,7 +234,7 @@ export default function Plans({ onGetQuote }) {
             
             <div className="modal-header">
               <div className="modal-icon-box">
-                {React.createElement(iconMap[selectedPlan.icon], { size: 30, className: 'modal-icon' })}
+                {React.createElement(iconMap[selectedPlan.icon] || Shield, { size: 30, className: 'modal-icon' })}
               </div>
               <div className="modal-title-wrapper">
                 <h3 className="modal-title">{selectedPlan.title}</h3>

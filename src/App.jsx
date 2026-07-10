@@ -32,10 +32,15 @@ import ContactInfo from './pages/admin/ContactInfo';
 import SocialLinks from './pages/admin/SocialLinks';
 import QuotesList from './pages/admin/QuotesList';
 import Settings from './pages/admin/Settings';
+import PartnersCRUD from './pages/admin/PartnersCRUD';
 
 // Public Listing Pages
 import RealEstateAll from './pages/RealEstateAll';
 import HealthInsuranceAll from './pages/HealthInsuranceAll';
+import LicInsurance from './pages/LicInsurance';
+import TataAigInsurance from './pages/TataAigInsurance';
+import HdfcErgoInsurance from './pages/HdfcErgoInsurance';
+import CareHealthInsurance from './pages/CareHealthInsurance';
 
 function playChime() {
   try {
@@ -178,6 +183,10 @@ export default function App() {
         {/* View All Listing Pages */}
         <Route path="/real-estate/projects" element={<RealEstateAll />} />
         <Route path="/health-insurance/plans" element={<HealthInsuranceAll />} />
+        <Route path="/insurance/lic" element={<LicInsurance />} />
+        <Route path="/insurance/tata-aig" element={<TataAigInsurance />} />
+        <Route path="/insurance/hdfc-ergo" element={<HdfcErgoInsurance />} />
+        <Route path="/insurance/care-health" element={<CareHealthInsurance />} />
 
         {/* Admin Login */}
         <Route path="/admin/login" element={<Login />} />
@@ -193,6 +202,7 @@ export default function App() {
           <Route path="hero" element={<HeroSection />} />
           <Route path="about" element={<AboutSection />} />
           <Route path="plans" element={<PlansCRUD />} />
+          <Route path="partners" element={<PartnersCRUD />} />
           <Route path="benefits" element={<BenefitsCRUD />} />
           <Route path="testimonials" element={<TestimonialsCRUD />} />
           <Route path="real-estate" element={<RealEstateCRUD />} />

@@ -15,6 +15,7 @@ export default function AdminSidebar({ user, isOpen, onClose }) {
     { name: 'Hero Section', path: '/admin/hero', icon: FiLayers },
     { name: 'About', path: '/admin/about', icon: FiUser },
     { name: 'Insurance Plans', path: '/admin/plans', icon: FiShield },
+    { name: 'Insurance Partners', path: '/admin/partners', icon: FiActivity },
     { name: 'Benefits', path: '/admin/benefits', icon: FiAward },
     { name: 'Testimonials', path: '/admin/testimonials', icon: FiMessageSquare },
     { name: 'Real Estate', path: '/admin/real-estate', icon: FiHome },

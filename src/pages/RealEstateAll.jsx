@@ -4,6 +4,7 @@ import { useConfig } from '../config/AppContext';
 import Button from '../components/Button';
 import { MapPin, Building, ArrowUpRight, Search, SlidersHorizontal, ArrowLeft } from 'lucide-react';
 import './RealEstateAll.css';
+import './PremiumPartnerPage.css';
 
 export default function RealEstateAll() {
   const { agentConfig } = useConfig();
@@ -17,12 +18,17 @@ export default function RealEstateAll() {
   // Pagination states
   const [visibleCount, setVisibleCount] = useState(8);
 
-  // Scroll to top on mount
+  // Scroll to top on mount and set SEO meta tags
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = "Premium Real Estate Investments | Hyderabad Properties";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', "Explore premium villas, apartments, gated communities, commercial spaces, and investment properties in prime locations across Hyderabad.");
+    }
   }, []);
 
-  const propertiesList = agentConfig?.realEstate || [];
+  const propertiesList = (agentConfig?.realEstate || []).filter(prop => !prop.hidden);
 
   // Extract unique locations for the dropdown
   const uniqueLocations = ['All', ...new Set(propertiesList.map(p => p.location).filter(Boolean))];
@@ -58,25 +64,45 @@ export default function RealEstateAll() {
 
   return (
     <div className="view-all-page real-estate-all">
-      {/* Premium Header */}
-      <header className="all-header">
-        <div className="container header-container">
-          <button className="back-home-btn" onClick={() => navigate('/')}>
+      {/* Premium Hero Banner */}
+      <section 
+        className="partner-hero" 
+        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1920')` }}
+      >
+        <div className="partner-hero-nav">
+          <button className="back-btn" onClick={() => navigate('/')}>
             <ArrowLeft size={16} /> Back to Home
           </button>
-          
-          <div className="header-title-box">
-            <span className="subtitle-gold">Exclusive Portfolio</span>
-            <h1 className="main-title">REAL ESTATE PROJECTS</h1>
-            <p className="description-secondary">
-              Explore our master-listed luxury properties, commercial hubs, and high-yielding land investments.
+        </div>
+
+        <div className="partner-hero-container">
+          <div className="partner-hero-content">
+            <div className="partner-badge">
+              Exclusive Portfolio
+            </div>
+            <h1 className="partner-hero-title">
+              REAL <span className="highlight-gold">ESTATE</span>
+            </h1>
+            <p className="partner-hero-subtitle">
+              Explore premium villas, apartments, gated communities, commercial spaces, and investment properties in prime locations.
             </p>
+            <button className="partner-hero-btn" onClick={() => {
+              const el = document.getElementById('real-estate-filter-section');
+              if (el) {
+                window.scrollTo({
+                  top: el.offsetTop - 100,
+                  behavior: 'smooth'
+                });
+              }
+            }}>
+              EXPLORE PROPERTIES
+            </button>
           </div>
         </div>
-      </header>
+      </section>
 
       {/* Advanced Filter Section */}
-      <section className="filter-section">
+      <section className="filter-section" id="real-estate-filter-section">
         <div className="container">
           <div className="filter-bar glass-panel">
             

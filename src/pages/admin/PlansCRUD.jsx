@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useConfig } from '../../config/AppContext';
-import { FiPlus, FiEdit, FiTrash2, FiSave, FiX, FiCheck } from 'react-icons/fi';
+import { FiPlus, FiEdit, FiTrash2, FiSave, FiX, FiCheck, FiEye, FiEyeOff } from 'react-icons/fi';
 
 export default function PlansCRUD() {
   const { agentConfig, addPlan, updatePlan, deletePlan } = useConfig();
@@ -13,6 +13,13 @@ export default function PlansCRUD() {
   // Custom states for dynamic arrays
   const [benefitsList, setBenefitsList] = useState([]);
   const [newBenefit, setNewBenefit] = useState('');
+
+  const handleToggleHide = (plan) => {
+    updatePlan({
+      ...plan,
+      hidden: !plan.hidden
+    });
+  };
 
   const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
 
@@ -28,7 +35,8 @@ export default function PlansCRUD() {
         maxAge: '65 years',
         term: '10 to 40 years',
         minSumAssured: '₹25,00,000'
-      }
+      },
+      hidden: false
     });
     setBenefitsList([]);
     setView('create');
@@ -47,7 +55,8 @@ export default function PlansCRUD() {
         maxAge: plan.eligibility?.maxAge || '',
         term: plan.eligibility?.term || '',
         minSumAssured: plan.eligibility?.minSumAssured || ''
-      }
+      },
+      hidden: plan.hidden || false
     });
     setBenefitsList(plan.benefits || []);
     setView('edit');
@@ -120,6 +129,7 @@ export default function PlansCRUD() {
                 <th>Tagline</th>
                 <th>Term Options</th>
                 <th>Min Sum Assured</th>
+                <th>Status</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
@@ -143,6 +153,23 @@ export default function PlansCRUD() {
                   <td>{plan.tagline}</td>
                   <td>{plan.eligibility?.term}</td>
                   <td>{plan.eligibility?.minSumAssured}</td>
+                  <td>
+                    <button
+                      onClick={() => handleToggleHide(plan)}
+                      className={`admin-btn ${plan.hidden ? 'admin-btn-secondary' : 'admin-btn-primary'}`}
+                      style={{ padding: '4px 10px', fontSize: '0.72rem', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                    >
+                      {plan.hidden ? (
+                        <>
+                          <FiEyeOff /> <span>Hidden</span>
+                        </>
+                      ) : (
+                        <>
+                          <FiEye /> <span>Active</span>
+                        </>
+                      )}
+                    </button>
+                  </td>
                   <td style={{ textAlign: 'right' }}>
                     <div style={{ display: 'inline-flex', gap: '8px' }}>
                       <button 
@@ -331,6 +358,18 @@ export default function PlansCRUD() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div className="admin-form-group" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px', marginBottom: '24px' }}>
+            <input
+              type="checkbox"
+              id="hidden-check"
+              {...register('hidden')}
+              style={{ cursor: 'pointer', width: '18px', height: '18px' }}
+            />
+            <label htmlFor="hidden-check" className="admin-label" style={{ margin: 0, cursor: 'pointer' }}>
+              Hide this insurance plan (Draft status)
+            </label>
           </div>
 
           <div style={{ display: 'flex', gap: '12px' }}>

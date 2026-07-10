@@ -11,9 +11,18 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showForgotModal, setShowForgotModal] = useState(false);
   
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleResetDefaults = () => {
+    localStorage.setItem('admin_email', 'admin@rrfs.com');
+    localStorage.setItem('admin_password', 'adminpassword');
+    localStorage.setItem('admin_passcode', '1234');
+    alert('Admin credentials reset to defaults:\nEmail: admin@rrfs.com\nPassword: adminpassword\nPasscode: 1234');
+    setShowForgotModal(false);
+  };
   
   const from = location.state?.from?.pathname || '/admin/dashboard';
   const queryParams = new URLSearchParams(location.search);
@@ -211,16 +220,15 @@ export default function Login() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
-            <label className="form-label">Admin Passcode</label>
+            <label className="form-label">Email Address / Passcode</label>
             <div className="input-wrapper">
-              <FiLock className="input-icon" />
+              <FiUser className="input-icon" />
               <input
-                type="password"
-                placeholder="Enter passcode (1234)"
+                type="text"
+                placeholder="admin@rrfs.com or 1234"
                 className="login-input"
                 {...register('passcode', { 
-                  required: 'Passcode is required',
-                  minLength: { value: 4, message: 'Passcode must be 4 digits' }
+                  required: 'Email or Passcode is required'
                 })}
               />
             </div>
@@ -228,14 +236,14 @@ export default function Login() {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Password Override</label>
+            <label className="form-label">Password</label>
             <div className="input-wrapper">
-              <FiUser className="input-icon" />
+              <FiLock className="input-icon" />
               <input
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Or enter password (admin)"
+                placeholder="Enter password"
                 className="login-input"
-                {...register('password')}
+                {...register('password', { required: 'Password is required' })}
               />
               <button 
                 type="button" 
@@ -248,11 +256,68 @@ export default function Login() {
             {errors.password && <span className="field-error">{errors.password.message}</span>}
           </div>
 
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+            <button 
+              type="button" 
+              onClick={() => setShowForgotModal(true)} 
+              style={{ background: 'none', border: 'none', color: 'var(--primary-gold)', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+            >
+              Forgot Password?
+            </button>
+          </div>
+
           <button type="submit" disabled={isLoading} className="admin-btn admin-btn-primary" style={{ width: '100%' }}>
             {isLoading ? 'Authenticating...' : 'Sign In To Panel'}
           </button>
         </form>
       </motion.div>
+
+      {/* Forgot Password Modal */}
+      {showForgotModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(5, 10, 23, 0.85)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 999,
+          padding: '20px'
+        }}>
+          <div className="login-card" style={{ maxWidth: '400px' }}>
+            <h3 className="logo-title" style={{ fontSize: '1.2rem', marginBottom: '16px', color: 'var(--primary-gold)' }}>Credential Recovery</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: '1.5', marginBottom: '24px' }}>
+              If you forgot your customized admin credentials, you can restore the system default login details.
+              <br/><br/>
+              <strong>Default Credentials:</strong><br/>
+              • Email: <code style={{ color: '#fff' }}>admin@rrfs.com</code><br/>
+              • Password: <code style={{ color: '#fff' }}>adminpassword</code><br/>
+              • Passcode: <code style={{ color: '#fff' }}>1234</code>
+            </p>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button 
+                type="button" 
+                onClick={handleResetDefaults} 
+                className="admin-btn admin-btn-primary"
+                style={{ flex: 1 }}
+              >
+                Reset to Defaults
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setShowForgotModal(false)} 
+                className="admin-btn admin-btn-secondary"
+                style={{ flex: 1 }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
