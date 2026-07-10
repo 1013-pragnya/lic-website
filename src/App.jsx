@@ -12,7 +12,6 @@ import Quote from './sections/Quote';
 import Benefits from './sections/Benefits';
 import Calculator from './sections/Calculator';
 import RealEstate from './sections/RealEstate';
-import Gallery from './sections/Gallery';
 import Testimonials from './sections/Testimonials';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
@@ -142,7 +141,6 @@ function PublicLandingPage() {
         <Benefits />
         <Calculator />
         <RealEstate onSelectConsultation={setConsultationTab} />
-        <Gallery />
         <Testimonials />
         <Contact activeTab={consultationTab} setActiveTab={setConsultationTab} />
       </main>

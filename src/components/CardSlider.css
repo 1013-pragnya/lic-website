@@ -18,6 +18,7 @@
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
+  gap: 30px; /* Desktop Space Between Cards */
 }
 
 .slider-track::-webkit-scrollbar {
@@ -42,6 +43,9 @@
 
 /* Auto responsive media queries for layout widths */
 @media (max-width: 1200px) {
+  .slider-track {
+    gap: 24px; /* Tablet spacing gap */
+  }
   .slider-track .property-card,
   .slider-track .plan-card {
     flex: 0 0 calc((100% - 2 * 24px) / 2.5) !important; /* Large Tablet: 2.5 cards visible */
@@ -49,6 +53,9 @@
 }
 
 @media (max-width: 900px) {
+  .slider-track {
+    gap: 20px;
+  }
   .slider-track .property-card,
   .slider-track .plan-card {
     flex: 0 0 calc((100% - 1 * 20px) / 2) !important; /* Tablet: 2 cards visible */
@@ -56,6 +63,9 @@
 }
 
 @media (max-width: 600px) {
+  .slider-track {
+    gap: 16px;
+  }
   .slider-track .property-card,
   .slider-track .plan-card {
     flex: 0 0 calc((100% - 1 * 16px) / 1.2) !important; /* Mobile: 1.2 cards visible */

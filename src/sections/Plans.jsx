@@ -111,7 +111,7 @@ export default function Plans({ onGetQuote }) {
         </div>
 
         {/* Category Filter Pills */}
-        <div className="category-tabs flex-center">
+        <div className="category-tabs">
           {categories.map((cat) => (
             <button
               key={cat.id}

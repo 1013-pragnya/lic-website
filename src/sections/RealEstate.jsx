@@ -89,7 +89,7 @@ export default function RealEstate({ onSelectConsultation }) {
           </div>
 
           {/* Category Filter Buttons */}
-          <div className="category-tabs flex-center">
+          <div className="category-tabs">
             {categories.map((cat) => (
               <button
                 key={cat}
