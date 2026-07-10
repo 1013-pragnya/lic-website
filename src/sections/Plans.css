@@ -604,4 +604,24 @@
   width: 100% !important;
 }
 
+@media (max-width: 768px) {
+  .category-tabs {
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .category-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .category-tab-btn {
+    flex-shrink: 0;
+  }
+}
+
 
