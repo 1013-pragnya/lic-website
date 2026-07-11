@@ -229,6 +229,15 @@ export const agentConfig = {
       buttonText: 'VIEW PLANS',
       buttonLink: '/insurance/care-health',
       hidden: false
+    },
+    {
+      id: 'partner_star_health',
+      name: 'Star Health',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Star_Health_and_Allied_Insurance.svg',
+      description: 'Get cashless treatments and customized health policy options with Star Health, India’s leading standalone health insurance provider.',
+      buttonText: 'VIEW PLANS',
+      buttonLink: '/health-insurance/plans',
+      hidden: false
     }
   ],
   realEstate: [

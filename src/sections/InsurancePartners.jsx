@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useConfig } from '../config/AppContext';
+import { Shield } from 'lucide-react';
 import './InsurancePartners.css';
 
 export default function InsurancePartners() {
   const navigate = useNavigate();
   const { agentConfig } = useConfig();
   const [isVisible, setIsVisible] = useState(false);
+  const [imageErrors, setImageErrors] = useState({});
   const sectionRef = useRef(null);
 
   // Load from database partners list and filter out hidden partners
@@ -77,25 +79,29 @@ export default function InsurancePartners() {
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center', 
-                  height: '70px',
+                  height: '100px',
                   width: '100%',
                   marginBottom: '16px',
                   borderBottom: '1px solid var(--border-glass)',
-                  paddingBottom: '10px'
+                  paddingBottom: '12px'
                 }}>
-                  {partner.logo ? (
-                    <div style={{ background: '#ffffff', width: '100%', height: '100%', padding: '8px 12px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
+                  {!partner.logo || imageErrors[partner.id] ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                      <Shield size={28} className="text-gold" />
+                      <span style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
+                        {partner.name}
+                      </span>
+                    </div>
+                  ) : (
+                    <div style={{ background: '#ffffff', width: '100%', height: '100%', padding: '12px 16px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
                       <img 
                         src={partner.logo} 
                         alt={partner.name} 
                         style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
+                        onError={() => setImageErrors(prev => ({ ...prev, [partner.id]: true }))}
                         loading="lazy"
                       />
                     </div>
-                  ) : (
-                    <span style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
-                      {partner.name}
-                    </span>
                   )}
                 </div>
                 
