@@ -1,7 +1,8 @@
-import licLogo from '../assets/lic-logo.svg';
-import tataLogo from '../assets/tata-logo.svg';
-import careLogo from '../assets/care-logo.svg';
-import hdfcLogo from '../assets/hdfc-logo.svg';
+import licLogo from '../assets/lic-logo.png';
+import tataLogo from '../assets/tata-logo.png';
+import hdfcLogo from '../assets/hdfc-logo.png';
+import careLogo from '../assets/care-logo.png';
+import starLogo from '../assets/star-logo.png';
 
 import careSupremeImg from '../assets/care-supreme-plan.png';
 import childSecureImg from '../assets/child-secure-plan.png';
@@ -198,7 +199,7 @@ export const agentConfig = {
       id: 'partner_lic',
       name: 'LIC (Life Insurance Corporation of India)',
       category: 'Life Insurance',
-      logo: '/logos/lic.png',
+      logo: licLogo,
       description: "Secure your family's future with trusted life insurance plans backed by LIC. Choose reliable protection, long-term savings, and financial security.",
       buttonText: 'VIEW PLANS',
       buttonLink: '/insurance/lic',
@@ -208,7 +209,7 @@ export const agentConfig = {
       id: 'partner_tata_aig',
       name: 'Tata AIG General Insurance',
       category: 'General Insurance',
-      logo: '/logos/tata-aig.png',
+      logo: tataLogo,
       description: 'Protect your vehicle, home, travel, and business with comprehensive Tata AIG insurance solutions.',
       buttonText: 'VIEW PLANS',
       buttonLink: '/insurance/tata-aig',
@@ -218,7 +219,7 @@ export const agentConfig = {
       id: 'partner_hdfc_ergo',
       name: 'HDFC ERGO General Insurance',
       category: 'General Insurance',
-      logo: '/logos/hdfc-ergo.png',
+      logo: hdfcLogo,
       description: 'Comprehensive health and general insurance plans with cashless benefits and extensive coverage across India.',
       buttonText: 'VIEW PLANS',
       buttonLink: '/insurance/hdfc-ergo',
@@ -228,7 +229,7 @@ export const agentConfig = {
       id: 'partner_care_health',
       name: 'Care Health Insurance',
       category: 'Health Insurance',
-      logo: '/logos/care-health.png',
+      logo: careLogo,
       description: 'Get complete health protection with cashless hospitalization, critical illness cover, and family health plans.',
       buttonText: 'VIEW PLANS',
       buttonLink: '/insurance/care-health',
@@ -238,7 +239,7 @@ export const agentConfig = {
       id: 'partner_star_health',
       name: 'Star Health Insurance',
       category: 'Health Insurance',
-      logo: '/logos/star-health.png',
+      logo: starLogo,
       description: 'Get cashless treatments and customized health policy options with Star Health, India’s leading standalone health insurance provider.',
       buttonText: 'VIEW PLANS',
       buttonLink: '/health-insurance/plans',
