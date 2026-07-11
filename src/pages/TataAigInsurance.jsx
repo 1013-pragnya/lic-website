@@ -5,6 +5,70 @@ import Button from '../components/Button';
 import { Shield, CheckCircle, X, ArrowLeft, ArrowDown } from 'lucide-react';
 import './RealEstateAll.css';
 import './PremiumPartnerPage.css';
+import '../sections/Plans.css';
+
+function CardBanner({ src, alt, provider }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  const getProviderLogo = (prov) => {
+    switch (prov?.toUpperCase()) {
+      case 'LIC':
+        return 'https://upload.wikimedia.org/wikipedia/commons/e/e0/LIC_logo.svg';
+      case 'TATA AIG':
+        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/TATA_AIG_logo.png/512px-TATA_AIG_logo.png';
+      case 'HDFC ERGO':
+        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/HDFC_ERGO_General_Insurance_Company.svg/512px-HDFC_ERGO_General_Insurance_Company.svg.png';
+      case 'CARE HEALTH':
+      case 'CARE':
+        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Care_health_insurance_logo.png/512px-Care_health_insurance_logo.png';
+      case 'STAR HEALTH':
+      case 'STAR':
+        return 'https://upload.wikimedia.org/wikipedia/commons/2/23/Star_Health_and_Allied_Insurance.svg';
+      default:
+        return null;
+    }
+  };
+
+  const logoUrl = getProviderLogo(provider);
+
+  if (error || !src) {
+    return (
+      <div className="fallback-banner">
+        {logoUrl ? (
+          <div className="fallback-banner-logo-wrapper">
+            <img src={logoUrl} alt={provider} />
+          </div>
+        ) : (
+          <span style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
+            {provider}
+          </span>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '220px' }}>
+      {!loaded && <div className="skeleton-banner" />}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        onError={() => setError(true)}
+        style={{
+          display: loaded ? 'block' : 'none',
+          width: '100%',
+          height: '220px',
+          objectFit: 'cover',
+          objectPosition: 'center',
+          borderRadius: '20px 20px 0 0'
+        }}
+      />
+    </div>
+  );
+}
 
 export default function TataAigInsurance() {
   const { agentConfig } = useConfig();
@@ -118,7 +182,7 @@ export default function TataAigInsurance() {
                     onClick={() => handleOpenModal(plan)}
                   >
                     <div className="card-image-wrapper">
-                      <img src={plan.image} alt={plan.title} loading="lazy" />
+                      <CardBanner src={plan.image} alt={plan.title} provider={plan.provider} />
                     </div>
                     
                     <div className="card-details-wrapper">

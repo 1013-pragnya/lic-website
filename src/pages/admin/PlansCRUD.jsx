@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useConfig } from '../../config/AppContext';
 import { FiPlus, FiEdit, FiTrash2, FiSave, FiX, FiCheck, FiEye, FiEyeOff } from 'react-icons/fi';
+import { validateImageFile, cropAndResizeImage } from '../../utils/imageProcessor';
 
 export default function PlansCRUD() {
   const { agentConfig, addPlan, updatePlan, deletePlan } = useConfig();
@@ -23,6 +24,16 @@ export default function PlansCRUD() {
 
   const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
 
+  // Image cropping and optimization states
+  const [rawImage, setRawImage] = useState(null);
+  const [processedImage, setProcessedImage] = useState(null);
+  const [zoom, setZoom] = useState(1);
+  const [offsetX, setOffsetX] = useState(0.5);
+  const [offsetY, setOffsetY] = useState(0.5);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [imageError, setImageError] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+
   const handleCreate = () => {
     reset({
       title: '',
@@ -39,6 +50,13 @@ export default function PlansCRUD() {
       hidden: false
     });
     setBenefitsList([]);
+    setRawImage(null);
+    setProcessedImage(null);
+    setZoom(1);
+    setOffsetX(0.5);
+    setOffsetY(0.5);
+    setUploadProgress(0);
+    setImageError('');
     setView('create');
   };
 
@@ -59,6 +77,13 @@ export default function PlansCRUD() {
       hidden: plan.hidden || false
     });
     setBenefitsList(plan.benefits || []);
+    setRawImage(plan.image || null);
+    setProcessedImage(plan.image || null);
+    setZoom(1);
+    setOffsetX(0.5);
+    setOffsetY(0.5);
+    setUploadProgress(0);
+    setImageError('');
     setView('edit');
   };
 
@@ -79,9 +104,70 @@ export default function PlansCRUD() {
     setBenefitsList(benefitsList.filter((_, idx) => idx !== index));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const validation = validateImageFile(file);
+    if (!validation.valid) {
+      setImageError(validation.error);
+      setRawImage(null);
+      setProcessedImage(null);
+      return;
+    }
+
+    setImageError('');
+    setUploadProgress(10);
+    setIsProcessing(true);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setRawImage(event.target.result);
+      setZoom(1);
+      setOffsetX(0.5);
+      setOffsetY(0.5);
+      
+      let progress = 10;
+      const interval = setInterval(() => {
+        progress += 30;
+        if (progress >= 100) {
+          clearInterval(interval);
+          setUploadProgress(100);
+          
+          cropAndResizeImage(event.target.result, { zoom: 1, offsetX: 0.5, offsetY: 0.5 })
+            .then(processed => {
+              setProcessedImage(processed);
+              setIsProcessing(false);
+            })
+            .catch(() => {
+              setImageError('Failed to process image.');
+              setIsProcessing(false);
+            });
+        } else {
+          setUploadProgress(progress);
+        }
+      }, 80);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRecalculateCrop = (newZoom, newX, newY) => {
+    if (!rawImage) return;
+    setIsProcessing(true);
+    cropAndResizeImage(rawImage, { zoom: newZoom, offsetX: newX, offsetY: newY })
+      .then(processed => {
+        setProcessedImage(processed);
+        setIsProcessing(false);
+      })
+      .catch(() => {
+        setIsProcessing(false);
+      });
+  };
+
   const onSubmit = (data) => {
     const planObject = {
       ...data,
+      image: processedImage,
       benefits: benefitsList
     };
 
@@ -358,6 +444,175 @@ export default function PlansCRUD() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Image Upload & Repositioning System */}
+          <div style={{ marginTop: '24px', borderTop: '1px solid var(--border-glass)', paddingTop: '20px', marginBottom: '24px' }}>
+            <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--white)', marginBottom: '16px', letterSpacing: '0.05em' }}>
+              Product Banner Image
+            </h3>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                <input
+                  type="file"
+                  id="plan-banner-file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
+                  style={{ display: 'none' }}
+                  onChange={handleFileChange}
+                />
+                <button
+                  type="button"
+                  onClick={() => document.getElementById('plan-banner-file').click()}
+                  className="admin-btn admin-btn-secondary"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                >
+                  Choose Banner File
+                </button>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                  Accepts JPG, PNG, WebP (Max 5MB). Resized to 1200x675 px (16:9).
+                </span>
+              </div>
+
+              {imageError && (
+                <div style={{ color: '#ef4444', fontSize: '0.85rem', fontWeight: '500' }}>
+                  {imageError}
+                </div>
+              )}
+
+              {uploadProgress > 0 && uploadProgress < 100 && (
+                <div style={{ width: '100%', maxWidth: '400px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                    <span>Processing & optimizing...</span>
+                    <span>{uploadProgress}%</span>
+                  </div>
+                  <div style={{ width: '100%', height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
+                    <div style={{ width: `${uploadProgress}%`, height: '100%', background: 'var(--primary-gold)', transition: 'width 0.1s ease' }}></div>
+                  </div>
+                </div>
+              )}
+
+              {rawImage && (
+                <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', marginTop: '10px' }}>
+                  {/* Cropper controls */}
+                  <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    <h4 style={{ fontSize: '0.85rem', color: 'var(--white)', margin: 0 }}>Reposition & Zoom</h4>
+                    
+                    <div className="admin-form-group" style={{ margin: 0 }}>
+                      <label className="admin-label" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span>Zoom</span>
+                        <span>{zoom.toFixed(1)}x</span>
+                      </label>
+                      <input
+                        type="range"
+                        min="1"
+                        max="3"
+                        step="0.1"
+                        value={zoom}
+                        onChange={(e) => {
+                          const val = parseFloat(e.target.value);
+                          setZoom(val);
+                          handleRecalculateCrop(val, offsetX, offsetY);
+                        }}
+                        style={{ width: '100%', accentColor: 'var(--primary-gold)' }}
+                      />
+                    </div>
+
+                    <div className="admin-form-group" style={{ margin: 0 }}>
+                      <label className="admin-label" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span>Horizontal Position (X)</span>
+                        <span>{Math.round(offsetX * 100)}%</span>
+                      </label>
+                      <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value={offsetX}
+                        onChange={(e) => {
+                          const val = parseFloat(e.target.value);
+                          setOffsetX(val);
+                          handleRecalculateCrop(zoom, val, offsetY);
+                        }}
+                        style={{ width: '100%', accentColor: 'var(--primary-gold)' }}
+                      />
+                    </div>
+
+                    <div className="admin-form-group" style={{ margin: 0 }}>
+                      <label className="admin-label" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span>Vertical Position (Y)</span>
+                        <span>{Math.round(offsetY * 100)}%</span>
+                      </label>
+                      <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value={offsetY}
+                        onChange={(e) => {
+                          const val = parseFloat(e.target.value);
+                          setOffsetY(val);
+                          handleRecalculateCrop(zoom, offsetX, val);
+                        }}
+                        style={{ width: '100%', accentColor: 'var(--primary-gold)' }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* 16:9 Banner Preview */}
+                  <div style={{ flex: '1 1 320px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <span className="admin-label" style={{ margin: 0 }}>Live 16:9 Cropped Preview</span>
+                    <div style={{
+                      width: '100%',
+                      aspectRatio: '16/9',
+                      background: '#090f1d',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      border: '1px solid var(--border-glass)',
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      {processedImage ? (
+                        <img
+                          src={processedImage}
+                          alt="Optimized Banner"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                      ) : (
+                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                          Processing crop...
+                        </span>
+                      )}
+                      {isProcessing && (
+                        <div style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          background: 'rgba(9,15,29,0.7)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'var(--primary-gold)',
+                          fontSize: '0.8rem',
+                          fontWeight: '600'
+                        }}>
+                          Optimizing...
+                        </div>
+                      )}
+                    </div>
+                    {processedImage && (
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textAlign: 'right' }}>
+                        Ready to Save (~1200x675 px, WebP compressed)
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="admin-form-group" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px', marginBottom: '24px' }}>
