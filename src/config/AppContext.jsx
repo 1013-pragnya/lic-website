@@ -27,6 +27,8 @@ export const AppProvider = ({ children }) => {
         currentConfig = JSON.parse(localConfig);
         // Force sync the 4 premium plans config
         currentConfig.plans = agentConfig.plans;
+        // Force sync the partners config with colored logos
+        currentConfig.partners = agentConfig.partners;
         // Force sync branding name
         if (currentConfig.settings) {
           currentConfig.settings.logoText = "RR Consultancy";
@@ -184,44 +186,7 @@ export const AppProvider = ({ children }) => {
             showDots: true,
             showArrows: true
           },
-          partners: [
-            {
-              id: 'partner_lic',
-              name: 'LIC',
-              logo: 'data:image/svg+xml;utf8,<svg viewBox="0 0 120 70" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 12C54 12 50 17 50 23C50 31 60 38 60 38C60 38 70 31 70 23C70 17 66 12 60 12Z" stroke="%23D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M60 20C57.5 20 56 22 56 24.5C56 27.5 60 31 60 31C60 31 64 27.5 64 24.5C64 22 62.5 20 60 20Z" fill="%23D4AF37"/><path d="M42 32C46 36 52 38 58 39" stroke="%23D4AF37" stroke-width="2" stroke-linecap="round"/><path d="M78 32C74 36 68 38 62 39" stroke="%23D4AF37" stroke-width="2" stroke-linecap="round"/><text x="60" y="52" font-size="9" font-family="Poppins" font-weight="800" text-anchor="middle" letter-spacing="2" fill="%23D4AF37">LIC</text></svg>',
-              description: "Secure your family's future with trusted life insurance plans backed by LIC. Choose reliable protection, long-term savings, and financial security.",
-              buttonText: 'VIEW PLANS',
-              buttonLink: '/insurance/lic',
-              hidden: false
-            },
-            {
-              id: 'partner_tata_aig',
-              name: 'Tata AIG',
-              logo: 'data:image/svg+xml;utf8,<svg viewBox="0 0 120 70" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="60" y="24" font-size="16" font-family="Poppins" font-weight="900" text-anchor="middle" letter-spacing="1" fill="%23D4AF37">TATA</text><line x1="30" y1="32" x2="90" y2="32" stroke="%23D4AF37" stroke-width="1.5"/><text x="60" y="48" font-size="13" font-family="Poppins" font-weight="700" text-anchor="middle" letter-spacing="3" fill="%23D4AF37">AIG</text></svg>',
-              description: 'Protect your vehicle, home, travel, and business with comprehensive Tata AIG insurance solutions.',
-              buttonText: 'VIEW PLANS',
-              buttonLink: '/insurance/tata-aig',
-              hidden: false
-            },
-            {
-              id: 'partner_hdfc_ergo',
-              name: 'HDFC ERGO',
-              logo: 'data:image/svg+xml;utf8,<svg viewBox="0 0 120 70" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="60" y="24" font-size="14" font-family="Poppins" font-weight="900" text-anchor="middle" fill="%23D4AF37">HDFC</text><rect x="25" y="30" width="70" height="2" fill="%23D4AF37"/><text x="60" y="47" font-size="12" font-family="Poppins" font-weight="700" text-anchor="middle" letter-spacing="3" fill="%23D4AF37">ERGO</text></svg>',
-              description: 'Comprehensive health and general insurance plans with cashless benefits and extensive coverage across India.',
-              buttonText: 'VIEW PLANS',
-              buttonLink: '/insurance/hdfc-ergo',
-              hidden: false
-            },
-            {
-              id: 'partner_care_health',
-              name: 'Care Health',
-              logo: 'data:image/svg+xml;utf8,<svg viewBox="0 0 120 70" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 14C54 7 42 7 42 19C42 30 60 41 60 41C60 41 78 30 78 19C78 7 66 7 60 14Z" stroke="%23D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M57 24C51 20 46 22 46 24C46 27 60 36 60 36" stroke="%23D4AF37" stroke-width="1.5" stroke-linecap="round"/><text x="60" y="52" font-size="10" font-family="Poppins" font-weight="800" text-anchor="middle" letter-spacing="2" fill="%23D4AF37">CARE</text></svg>',
-              description: 'Get complete health protection with cashless hospitalization, critical illness cover, and family health plans.',
-              buttonText: 'VIEW PLANS',
-              buttonLink: '/insurance/care-health',
-              hidden: false
-            }
-          ],
+          partners: agentConfig.partners,
           benefits: [
             { id: 'b1', icon: 'Shield', title: 'Sovereign Guarantee', description: 'All LIC policies are backed by the sovereign guarantee of the Government of India, ensuring absolute safety.' },
             { id: 'b2', icon: 'Award', title: '18+ Years Experience', description: 'Serving clients with trust, helping them navigate complex financial options and securing their assets.' },

@@ -84,11 +84,14 @@ export default function InsurancePartners() {
                   paddingBottom: '10px'
                 }}>
                   {partner.logo ? (
-                    <img 
-                      src={partner.logo} 
-                      alt={partner.name} 
-                      style={{ maxWidth: '85%', maxHeight: '85%', objectFit: 'contain' }} 
-                    />
+                    <div style={{ background: '#ffffff', width: '100%', height: '100%', padding: '8px 12px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
+                      <img 
+                        src={partner.logo} 
+                        alt={partner.name} 
+                        style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
+                        loading="lazy"
+                      />
+                    </div>
                   ) : (
                     <span style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
                       {partner.name}

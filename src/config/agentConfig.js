@@ -193,6 +193,44 @@ export const agentConfig = {
       }
     }
   ],
+  partners: [
+    {
+      id: 'partner_lic',
+      name: 'LIC',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/LIC_logo.svg',
+      description: "Secure your family's future with trusted life insurance plans backed by LIC. Choose reliable protection, long-term savings, and financial security.",
+      buttonText: 'VIEW PLANS',
+      buttonLink: '/insurance/lic',
+      hidden: false
+    },
+    {
+      id: 'partner_tata_aig',
+      name: 'Tata AIG',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/TATA_AIG_logo.png/512px-TATA_AIG_logo.png',
+      description: 'Protect your vehicle, home, travel, and business with comprehensive Tata AIG insurance solutions.',
+      buttonText: 'VIEW PLANS',
+      buttonLink: '/insurance/tata-aig',
+      hidden: false
+    },
+    {
+      id: 'partner_hdfc_ergo',
+      name: 'HDFC ERGO',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/HDFC_ERGO_General_Insurance_Company.svg/512px-HDFC_ERGO_General_Insurance_Company.svg.png',
+      description: 'Comprehensive health and general insurance plans with cashless benefits and extensive coverage across India.',
+      buttonText: 'VIEW PLANS',
+      buttonLink: '/insurance/hdfc-ergo',
+      hidden: false
+    },
+    {
+      id: 'partner_care_health',
+      name: 'Care Health',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Care_health_insurance_logo.png/512px-Care_health_insurance_logo.png',
+      description: 'Get complete health protection with cashless hospitalization, critical illness cover, and family health plans.',
+      buttonText: 'VIEW PLANS',
+      buttonLink: '/insurance/care-health',
+      hidden: false
+    }
+  ],
   realEstate: [
     // Residential: Luxury Villas, Premium Apartments, Gated Community Homes
     {
