@@ -7,6 +7,12 @@ import './RealEstateAll.css';
 import './PremiumPartnerPage.css';
 import '../sections/Plans.css';
 
+import licLogo from '../assets/lic-logo.png';
+import tataLogo from '../assets/tata-logo.png';
+import hdfcLogo from '../assets/hdfc-logo.png';
+import careLogo from '../assets/care-logo.png';
+import starLogo from '../assets/star-logo.png';
+
 function CardBanner({ src, alt, provider }) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -14,17 +20,17 @@ function CardBanner({ src, alt, provider }) {
   const getProviderLogo = (prov) => {
     switch (prov?.toUpperCase()) {
       case 'LIC':
-        return 'https://upload.wikimedia.org/wikipedia/commons/e/e0/LIC_logo.svg';
+        return licLogo;
       case 'TATA AIG':
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/TATA_AIG_logo.png/512px-TATA_AIG_logo.png';
+        return tataLogo;
       case 'HDFC ERGO':
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/HDFC_ERGO_General_Insurance_Company.svg/512px-HDFC_ERGO_General_Insurance_Company.svg.png';
+        return hdfcLogo;
       case 'CARE HEALTH':
       case 'CARE':
-        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Care_health_insurance_logo.png/512px-Care_health_insurance_logo.png';
+        return careLogo;
       case 'STAR HEALTH':
       case 'STAR':
-        return 'https://upload.wikimedia.org/wikipedia/commons/2/23/Star_Health_and_Allied_Insurance.svg';
+        return starLogo;
       default:
         return null;
     }
@@ -37,7 +43,7 @@ function CardBanner({ src, alt, provider }) {
       <div className="fallback-banner">
         {logoUrl ? (
           <div className="fallback-banner-logo-wrapper">
-            <img src={logoUrl} alt={provider} />
+            <img src={logoUrl} alt={provider} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
           </div>
         ) : (
           <span style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
