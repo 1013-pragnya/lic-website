@@ -55,8 +55,13 @@ function CardBanner({ src, alt, provider }) {
   }
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '220px' }}>
-      {!loaded && <div className="skeleton-banner" />}
+    <div style={{ position: 'relative', width: '100%', height: '220px', overflow: 'hidden', borderRadius: '20px 20px 0 0' }}>
+      {!loaded && (
+        <div 
+          className="skeleton-banner" 
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2 }} 
+        />
+      )}
       <img
         src={src}
         alt={alt}
@@ -64,12 +69,11 @@ function CardBanner({ src, alt, provider }) {
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
         style={{
-          display: loaded ? 'block' : 'none',
           width: '100%',
-          height: '220px',
+          height: '100%',
           objectFit: 'cover',
           objectPosition: 'center',
-          borderRadius: '20px 20px 0 0'
+          display: 'block'
         }}
       />
     </div>
