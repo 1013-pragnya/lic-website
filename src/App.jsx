@@ -42,6 +42,7 @@ import LicInsurance from './pages/LicInsurance';
 import TataAigInsurance from './pages/TataAigInsurance';
 import HdfcErgoInsurance from './pages/HdfcErgoInsurance';
 import CareHealthInsurance from './pages/CareHealthInsurance';
+import InsurancePartnersAll from './pages/InsurancePartnersAll';
 
 function playChime() {
   try {
@@ -188,6 +189,7 @@ export default function App() {
         <Route path="/insurance/tata-aig" element={<TataAigInsurance />} />
         <Route path="/insurance/hdfc-ergo" element={<HdfcErgoInsurance />} />
         <Route path="/insurance/care-health" element={<CareHealthInsurance />} />
+        <Route path="/insurance/partners" element={<InsurancePartnersAll />} />
 
         {/* Admin Login */}
         <Route path="/admin/login" element={<Login />} />
