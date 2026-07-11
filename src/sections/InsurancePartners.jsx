@@ -63,14 +63,9 @@ export default function InsurancePartners() {
     >
       <div className="container">
         
-        <div className="section-header-split">
-          <div className="section-header-left">
-            <span className="section-subtitle">WE OFFER POLICIES FROM INDIA'S LEADING INSURANCE COMPANIES</span>
-            <h2 className="section-title">OUR TRUSTED INSURANCE PARTNERS</h2>
-          </div>
-          <button className="view-all-btn desktop-only-btn" onClick={() => navigate('/insurance/partners')}>
-            VIEW PARTNERS <span className="arrow">→</span>
-          </button>
+        <div className="section-header">
+          <span className="section-subtitle">WE OFFER POLICIES FROM INDIA'S LEADING INSURANCE COMPANIES</span>
+          <h2 className="section-title">OUR TRUSTED INSURANCE PARTNERS</h2>
         </div>
 
         <div className="partners-grid">
@@ -107,13 +102,6 @@ export default function InsurancePartners() {
               </div>
             );
           })}
-        </div>
-
-        {/* Mobile/Tablet View All Button */}
-        <div className="mobile-view-all-container">
-          <button className="view-all-btn mobile-only-btn" onClick={() => navigate('/insurance/partners')}>
-            VIEW PARTNERS <span className="arrow">→</span>
-          </button>
         </div>
 
       </div>
