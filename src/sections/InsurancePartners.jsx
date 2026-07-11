@@ -46,6 +46,15 @@ export default function InsurancePartners() {
     }
   };
 
+  const getShortName = (name) => {
+    if (name.includes('LIC')) return 'LIC';
+    if (name.includes('Tata AIG')) return 'Tata AIG';
+    if (name.includes('HDFC ERGO')) return 'HDFC ERGO';
+    if (name.includes('Care Health')) return 'Care Health';
+    if (name.includes('Star Health')) return 'Star Health';
+    return name;
+  };
+
   return (
     <section 
       id="partners" 
@@ -64,92 +73,37 @@ export default function InsurancePartners() {
           </button>
         </div>
 
-        <div className="partners-grid-slider">
+        <div className="partners-grid">
           {activePartners.map((partner, index) => {
             return (
               <div 
                 key={partner.id} 
-                className="partner-card glass-panel partner-card-slider"
+                className="partner-card"
+                onClick={() => handlePartnerClick(partner.buttonLink)}
                 style={{ 
-                  transitionDelay: `${index * 80}ms`,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  padding: '24px',
-                  borderRadius: '18px',
-                  boxSizing: 'border-box',
-                  minHeight: '280px'
+                  transitionDelay: `${index * 80}ms`
                 }}
               >
-                <div className="partner-logo-container" style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  height: '100px',
-                  width: '100%',
-                  marginBottom: '16px',
-                  borderBottom: '1px solid var(--border-glass)',
-                  paddingBottom: '12px'
-                }}>
+                <div className="partner-logo-container">
                   {!partner.logo || imageErrors[partner.id] ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                    <div className="partner-logo-fallback">
                       <Shield size={28} className="text-gold" />
-                      <span style={{ fontSize: '0.9rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
-                        {partner.name}
-                      </span>
+                      <span className="partner-fallback-name">{getShortName(partner.name)}</span>
                     </div>
                   ) : (
-                    <div style={{ background: '#ffffff', width: '100%', height: '100%', padding: '12px 16px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
-                      <img 
-                        src={partner.logo} 
-                        alt={partner.name} 
-                        style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
-                        onError={() => setImageErrors(prev => ({ ...prev, [partner.id]: true }))}
-                        referrerPolicy="no-referrer"
-                        loading="lazy"
-                      />
-                    </div>
+                    <img 
+                      src={partner.logo} 
+                      alt={partner.name} 
+                      className="partner-logo-img"
+                      onError={() => setImageErrors(prev => ({ ...prev, [partner.id]: true }))}
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                    />
                   )}
                 </div>
                 
-                <span className="partner-name" style={{ 
-                  fontSize: '0.9rem', 
-                  fontWeight: '700', 
-                  color: 'var(--white)',
-                  marginBottom: '12px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px'
-                }}>
-                  {partner.name}
-                </span>
-
-                {partner.description && (
-                  <p className="partner-desc" style={{
-                    fontSize: '0.78rem',
-                    color: 'var(--text-secondary)',
-                    lineHeight: '1.4',
-                    margin: '0 0 16px 0',
-                    textAlign: 'center',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis'
-                  }}>
-                    {partner.description}
-                  </p>
-                )}
-
-                <button 
-                  className="partner-btn"
-                  onClick={() => handlePartnerClick(partner.buttonLink)}
-                  style={{
-                    marginTop: 'auto',
-                    width: '100%'
-                  }}
-                >
-                  {partner.buttonText || 'VIEW PLANS'}
-                </button>
+                <h3 className="partner-card-name">{getShortName(partner.name)}</h3>
+                <span className="partner-card-category">{partner.category || 'Insurance'}</span>
               </div>
             );
           })}
