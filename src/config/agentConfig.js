@@ -3,11 +3,11 @@ import tataLogo from '../assets/tata-logo.svg';
 import careLogo from '../assets/care-logo.svg';
 import hdfcLogo from '../assets/hdfc-logo.svg';
 
-import careSupremeImg from '../assets/care-supreme-plan.jpg';
-import childSecureImg from '../assets/child-secure-plan.jpg';
-import licRetirementImg from '../assets/lic-retirement-planning.jpg';
-import careTravelImg from '../assets/care-travel-insurance.jpg';
-import tataMedicareImg from '../assets/tata-aig-medicare-select.jpg';
+import careSupremeImg from '../assets/care-supreme-plan.png';
+import childSecureImg from '../assets/child-secure-plan.png';
+import licRetirementImg from '../assets/lic-retirement-planning.png';
+import careTravelImg from '../assets/care-travel-insurance.png';
+import tataMedicareImg from '../assets/tata-aig-medicare-select.png';
 
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
