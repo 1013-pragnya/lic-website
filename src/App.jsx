@@ -144,7 +144,7 @@ function PublicLandingPage() {
         <Testimonials />
         <Contact activeTab={consultationTab} setActiveTab={setConsultationTab} />
       </main>
-      <Footer onOpenAdmin={() => navigate('/admin')} />
+      <Footer />
     </div>
   );
 }
@@ -191,6 +191,9 @@ export default function App() {
 
         {/* Admin Login */}
         <Route path="/admin/login" element={<Login />} />
+
+        {/* Public Redirects */}
+        <Route path="/login" element={<Navigate to="/admin/login" replace />} />
 
         {/* Protected Admin Routing */}
         <Route path="/admin" element={

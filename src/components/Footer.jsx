@@ -142,23 +142,6 @@ export default function Footer({ onOpenAdmin }) {
           </div>
           <div className="footer-copyright">
             <p>&copy; {new Date().getFullYear()} {agentConfig.name}. All Rights Reserved. Authorized LIC Advisor & Real Estate Consultant.</p>
-            <p className="credit">
-              Designed with Premium 3D Glassmorphism &bull;{' '}
-              <button 
-                onClick={onOpenAdmin} 
-                style={{ 
-                  background: 'none', 
-                  border: 'none', 
-                  color: 'var(--text-muted)', 
-                  cursor: 'pointer',
-                  fontSize: 'inherit',
-                  textDecoration: 'underline',
-                  padding: 0
-                }}
-              >
-                Admin Panel
-              </button>
-            </p>
           </div>
         </div>
 
