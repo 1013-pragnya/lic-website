@@ -3,6 +3,12 @@ import tataLogo from '../assets/tata-logo.svg';
 import careLogo from '../assets/care-logo.svg';
 import hdfcLogo from '../assets/hdfc-logo.svg';
 
+import careSupremeImg from '../assets/care-supreme-plan.jpg';
+import childSecureImg from '../assets/child-secure-plan.jpg';
+import licRetirementImg from '../assets/lic-retirement-planning.jpg';
+import careTravelImg from '../assets/care-travel-insurance.jpg';
+import tataMedicareImg from '../assets/tata-aig-medicare-select.jpg';
+
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
   title: "Insurance & Real Estate Consultant",
@@ -44,68 +50,117 @@ export const agentConfig = {
   plans: [
     {
       id: "lic-life",
-      title: "LIC Life Protection",
+      title: "LIC Child Secure",
       provider: "LIC",
-      tagline: "High coverage protection for your family",
+      tagline: "High coverage child secure plans",
       icon: "Shield",
-      description: "Secure your family's financial future with high sum assured life covers that act as a reliable safety net in your absence, backed by sovereign guarantee.",
+      description: "Secure your child's education and future with attractive interest rates, low premiums, and 0% GST options.",
       logo: licLogo,
+      image: childSecureImg,
       benefits: [
-        "High life coverage at extremely affordable premium rates",
+        "Highly attractive interest rates on child policies",
         "Tax benefits under Section 80C on premium payments",
         "Sovereign Guarantee backed by the Government of India",
         "Optional riders: Accidental Death Benefit & Critical Illness",
         "Maturity amount is fully tax-free under Section 10(10D)"
       ],
       eligibility: {
+        minAge: "0 years (newborn)",
+        maxAge: "12 years",
+        term: "10 to 25 years",
+        minSumAssured: "₹30 Lacs onwards"
+      }
+    },
+    {
+      id: "lic-retirement",
+      title: "LIC Retirement Planning",
+      provider: "LIC",
+      tagline: "Sovereign guaranteed lifetime income options",
+      icon: "TrendingUp",
+      description: "Secure your retirement with Jeevan Utsav and Protection Plus combinations. Invest for 5 years and get lifetime income benefits.",
+      logo: licLogo,
+      image: licRetirementImg,
+      benefits: [
+        "Invest ₹2,00,000 per year for just 5 years",
+        "75% Jeevan Utsav + 25% Protection Plus combination",
+        "Lifetime tax-free guaranteed returns under Section 10(10D)",
+        "Accidental Death & Disability Benefit riders included",
+        "Approx. 1.80L to 1.90L annual returns from 5th year onwards"
+      ],
+      eligibility: {
         minAge: "18 years",
-        maxAge: "65 years",
-        term: "10 to 40 years",
-        minSumAssured: "₹25,00,000"
+        maxAge: "49 years",
+        term: "Lifetime cover",
+        minSumAssured: "₹10,00,000"
       }
     },
     {
       id: "tata-general",
-      title: "Tata AIG Asset Protection",
+      title: "Tata AIG Medicare Select",
       provider: "Tata AIG",
-      tagline: "Comprehensive motor, home & travel insurance",
-      icon: "TrendingUp",
-      description: "Protect your valuable assets (cars, homes, businesses) against accidents, natural calamities, theft, and third-party liabilities with quick claim settlements.",
+      tagline: "Affordable health protection for everyone",
+      icon: "Heart",
+      description: "Comprehensive quality health cover with private room options, zero room rent limit, no percentage copay, and pre-post hospital coverage.",
       logo: tataLogo,
+      image: tataMedicareImg,
       benefits: [
-        "Cashless repairs across nationwide network of authorized garages",
-        "No Claim Bonus (NCB) protection & depreciation cover",
-        "Quick and paperless claim registration through mobile app",
-        "Customizable add-ons: Return to Invoice, Engine Secure",
-        "24/7 road-side assistance for auto emergencies"
+        "Cashless repairs & medical bills at network hospitals",
+        "High sum insured options up to ₹1 crore",
+        "Pre & Post hospitalization expenses fully covered",
+        "Zero room rent limit - private rooms fully covered",
+        "No percentage-based copay for senior citizens"
       ],
       eligibility: {
-        minAge: "18 years",
-        maxAge: "N/A",
-        term: "1 to 5 years",
-        minSumAssured: "Based on asset value (IDV)"
+        minAge: "91 days",
+        maxAge: "65 years",
+        term: "1 to 3 years",
+        minSumAssured: "₹5,00,000 to ₹1 Cr"
       }
     },
     {
       id: "care-health",
-      title: "Care Health Mediclaim",
+      title: "Care Supreme Plan",
       provider: "Care Health",
-      tagline: "Super premium health cover for families",
-      icon: "Heart",
-      description: "Ensure your savings are safe in medical emergencies. Comprehensive cashless coverage for hospital expenses, day-care procedures, and critical illness care.",
+      tagline: "Up to 600% bonus & 7x coverage growth",
+      icon: "Shield",
+      description: "One of the most powerful health insurance plans that grows with you and your family. Cashless treatment and unlimited auto-recharge.",
       logo: careLogo,
+      image: careSupremeImg,
       benefits: [
-        "Cashless hospitalization at over 22,000+ partner hospitals",
-        "100% automatic restore of sum insured upon exhaustion",
-        "Annual health check-ups and OPD cover support",
-        "Tax savings on premium payments under Section 80D",
-        "No upper age limit for enrollment on family plans"
+        "100% cashless treatment at network hospitals",
+        "No co-payment and no upper age limit",
+        "Unlimited automatic restore of sum insured",
+        "Pre & post hospitalization covered (60 & 180 days)",
+        "Wellness discounts up to 30% on renewal"
       ],
       eligibility: {
-        minAge: "90 days (newborn)",
+        minAge: "90 days",
         maxAge: "No limit",
-        term: "1 to 3 years (Renewable for life)",
+        term: "1 to 3 years",
         minSumAssured: "₹5,00,000 to ₹1 Cr"
+      }
+    },
+    {
+      id: "care-travel",
+      title: "Care Health Travel Insurance",
+      provider: "Care Health",
+      tagline: "Travel worry-free with comprehensive coverage",
+      icon: "Globe",
+      description: "Comprehensive medical and flight delay protection for a safe and worry-free international journey with direct cashless support.",
+      logo: careLogo,
+      image: careTravelImg,
+      benefits: [
+        "24x7 emergency medical assistance and evacuation",
+        "Worldwide cashless hospitalization network",
+        "Flight delay, missed connections, and baggage loss cover",
+        "Hassle-free direct claims processing",
+        "Optional extensions for adventure sports & multi-trips"
+      ],
+      eligibility: {
+        minAge: "1 day",
+        maxAge: "85 years",
+        term: "Single trip / Multi-trip annually",
+        minSumAssured: "$50,000 to $1,000,000"
       }
     },
     {

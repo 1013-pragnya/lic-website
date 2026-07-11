@@ -104,8 +104,10 @@ export default function HdfcErgoInsurance() {
                   onClick={() => handleOpenModal(plan)}
                   style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column' }}
                 >
-                  <div className="property-image-wrapper" style={{ height: '140px', background: 'rgba(255,255,255,0.02)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
-                    {plan.logo ? (
+                  <div className="property-image-wrapper" style={{ height: '220px', background: '#090f1d', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+                    {plan.image ? (
+                      <img src={plan.image} alt={plan.title} className="property-img" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} loading="lazy" />
+                    ) : plan.logo ? (
                       <img src={plan.logo} alt={plan.provider} className="property-img" style={{ maxWidth: '85%', maxHeight: '85%', objectFit: 'contain' }} loading="lazy" />
                     ) : (
                       <span style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
@@ -182,6 +184,18 @@ export default function HdfcErgoInsurance() {
                 <span className="modal-tagline">{selectedPlan.tagline}</span>
               </div>
             </div>
+
+            {selectedPlan.image && (
+              <div className="modal-flyer-wrapper" style={{ padding: '0 24px 16px', borderBottom: '1px solid var(--border-glass)', marginBottom: '16px' }}>
+                <img 
+                  src={selectedPlan.image} 
+                  alt={selectedPlan.title} 
+                  style={{ width: '100%', maxHeight: '320px', objectFit: 'contain', borderRadius: '8px', cursor: 'zoom-in', display: 'block', margin: '0 auto' }} 
+                  onClick={() => window.open(selectedPlan.image, '_blank')}
+                  title="Click to view full flyer"
+                />
+              </div>
+            )}
 
             <div className="modal-body-grid">
               {/* Benefits */}
