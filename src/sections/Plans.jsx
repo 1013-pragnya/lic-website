@@ -125,7 +125,7 @@ export default function Plans({ onGetQuote }) {
 
         {/* Keyed grid container to trigger CSS mount fade-in animation on transition */}
         <div className="plans-container-grid" key={activeCategory} style={{ width: '100%', marginTop: '40px' }}>
-          <div className="premium-insurance-grid">
+          <div className="premium-insurance-grid-slider">
             {filteredPlans.map((plan) => {
               // Truncate description at 95 characters without appending "..."
               const truncateDesc = (text) => {
@@ -143,7 +143,7 @@ export default function Plans({ onGetQuote }) {
               return (
                 <div 
                   key={plan.id}
-                  className="premium-insurance-card"
+                  className="premium-insurance-card premium-insurance-card-slider"
                   onClick={() => handleOpenModal(plan)}
                 >
                   <div className="card-image-wrapper">
