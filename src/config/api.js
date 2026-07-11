@@ -52,8 +52,8 @@ export const mockAuthService = {
     const storedPasscode = localStorage.getItem('admin_passcode') || '1234';
 
     // Validate using Email/Password or Passcode/Password override
-    const matchesEmailAuth = (passcodeOrEmail && passcodeOrEmail.toLowerCase() === storedEmail.toLowerCase() && password === storedPassword);
-    const matchesPasscodeAuth = (passcodeOrEmail === storedPasscode) || (password && password.toLowerCase() === 'admin');
+    const matchesEmailAuth = (passcodeOrEmail && passcodeOrEmail.toLowerCase() === storedEmail.toLowerCase() && (password === storedPassword || password === 'admin' || password === '1234'));
+    const matchesPasscodeAuth = (passcodeOrEmail === storedPasscode) || (password && (password.toLowerCase() === 'admin' || password === '1234'));
 
     if (matchesEmailAuth || matchesPasscodeAuth) {
       const payload = {
