@@ -178,69 +178,62 @@ export default function HealthInsuranceAll() {
             </div>
           ) : (
             <>
-              <div className="listing-grid">
+              <div className="premium-insurance-grid">
                 {filteredPlans.slice(0, visibleCount).map((plan) => {
+                  // Truncate description at 95 characters without appending "..."
+                  const truncateDesc = (text) => {
+                    if (text && text.length > 95) {
+                      const cleanText = text.substring(0, 95);
+                      const lastSpace = cleanText.lastIndexOf(" ");
+                      return cleanText.substring(0, lastSpace > 0 ? lastSpace : 95);
+                    }
+                    return text;
+                  };
+
+                  // Show only first 4 benefits on the card
+                  const cardBenefits = (plan.benefits || []).slice(0, 4);
+
                   return (
                     <div 
                       key={plan.id} 
-                      className="property-card glass-panel glass-panel-hover card-3d"
+                      className="premium-insurance-card"
                       onClick={() => handleOpenModal(plan)}
-                      style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column' }}
                     >
-                      <div className="property-image-wrapper" style={{ height: '220px', background: '#090f1d', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
-                        {plan.image ? (
-                          <img src={plan.image} alt={plan.title} className="property-img" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} loading="lazy" />
-                        ) : plan.logo ? (
-                          <img src={plan.logo} alt={plan.provider} className="property-img" style={{ maxWidth: '85%', maxHeight: '85%', objectFit: 'contain' }} loading="lazy" />
-                        ) : (
-                          <span style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--primary-gold)' }}>
-                            {plan.provider}
-                          </span>
-                        )}
-                        <div className="property-category-badge" style={{ background: 'rgba(207, 168, 68, 0.1)', border: '1px solid var(--border-gold)', color: 'var(--primary-gold)' }}>
-                          {plan.provider}
-                        </div>
+                      <div className="card-image-wrapper">
+                        <img src={plan.image} alt={plan.title} loading="lazy" />
                       </div>
                       
-                      <div className="property-details" style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1, width: '100%', boxSizing: 'border-box' }}>
-                        <div className="property-location flex-align" style={{ gap: '6px', marginBottom: '8px' }}>
-                          <Shield size={14} className="text-gold" />
-                          <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--primary-gold)', letterSpacing: '1px' }}>
-                            {plan.provider.toUpperCase()} INSURANCE
-                          </span>
-                        </div>
-                        
-                        <h3 className="property-title" style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--white)', marginBottom: '8px', minHeight: '48px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      <div className="card-details-wrapper">
+                        <span className="card-product-category">
+                          {plan.category || `${plan.provider} Insurance`}
+                        </span>
+                        <h3 className="card-product-title">
                           {plan.title}
                         </h3>
                         
-                        <p className="property-type" style={{ fontSize: '0.82rem', color: 'var(--primary-gold)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
-                          {plan.tagline}
+                        <p className="card-product-desc">
+                          {truncateDesc(plan.description)}
                         </p>
                         
-                        <div className="property-highlights" style={{ marginBottom: '16px', flex: 1 }}>
-                          <p className="highlight-text" style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '1.5', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                            {plan.description}
-                          </p>
-                        </div>
-                        
-                        <div className="property-footer" style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '16px', marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
-                          <div className="property-price" style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                            <span className="price-label" style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Min Sum Assured</span>
-                            <span className="price-value" style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--white)', marginTop: '2px' }}>{plan.eligibility?.minSumAssured || 'N/A'}</span>
-                          </div>
-                          <Button 
-                            variant="primary" 
-                            className="property-btn" 
-                            onClick={(e) => { 
-                              e.stopPropagation(); 
-                              handleEnquire(plan.title); 
-                            }}
-                            style={{ width: '100%', padding: '10px 16px', fontSize: '0.85rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                          >
-                            Get Quote
-                          </Button>
-                        </div>
+                        <ul className="card-benefits-list">
+                          {cardBenefits.map((benefit, idx) => (
+                            <li key={idx} className="card-benefit-item">
+                              <CheckCircle size={14} className="text-gold" style={{ flexShrink: 0 }} />
+                              <span>{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <Button 
+                          variant="primary" 
+                          className="card-cta-btn"
+                          onClick={(e) => { 
+                            e.stopPropagation(); 
+                            handleOpenModal(plan); 
+                          }}
+                        >
+                          View Details
+                        </Button>
                       </div>
                     </div>
                   );

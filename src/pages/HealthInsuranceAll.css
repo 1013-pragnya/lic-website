@@ -320,6 +320,9 @@
   padding: 40px;
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.12);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
   animation: modalScaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -342,6 +345,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  z-index: 100;
   transition: all 0.2s ease;
 }
 
@@ -654,5 +658,184 @@
   letter-spacing: 1.5px;
   margin-bottom: 8px;
   display: block;
+}
+
+/* ==========================================================================
+   PREMIUM INSURANCE PRODUCT CARDS - REDESIGN
+   ========================================================================== */
+
+.premium-insurance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.premium-insurance-card {
+  height: 560px;
+  background: rgba(9, 15, 29, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.premium-insurance-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary-gold);
+  box-shadow: 0 12px 30px rgba(207, 168, 68, 0.18), 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.premium-insurance-card .card-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #050a17;
+}
+
+.premium-insurance-card .card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.premium-insurance-card:hover .card-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.premium-insurance-card .card-company-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(5, 10, 23, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-gold);
+  color: var(--primary-gold);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 2;
+}
+
+.premium-insurance-card .card-details-wrapper {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.premium-insurance-card .card-product-category {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary-gold);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.premium-insurance-card .card-product-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.35;
+  height: 3.3rem; /* Budget height for exactly 2 lines */
+}
+
+.premium-insurance-card .card-product-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 3.8rem; /* Budget height for exactly 3 lines */
+}
+
+.premium-insurance-card .card-benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 98px; /* Budget height for exactly 4 lines */
+  overflow: hidden;
+}
+
+.premium-insurance-card .card-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.premium-insurance-card .card-benefit-item span {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}
+
+.premium-insurance-card .card-cta-btn {
+  width: 100%;
+  padding: 12px 20px;
+  margin-top: auto;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+}
+
+@media (max-width: 1100px) {
+  .premium-insurance-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .premium-insurance-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .premium-insurance-card {
+    height: auto;
+    min-height: 520px;
+  }
 }
 

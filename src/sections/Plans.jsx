@@ -123,106 +123,68 @@ export default function Plans({ onGetQuote }) {
           ))}
         </div>
 
-        {/* Keyed slider container to trigger CSS mount fade-in animation on transition */}
-        <div className="slider-container" key={activeCategory}>
-          <div 
-            ref={sliderRef}
-            className={`slider-track ${isDragging ? 'dragging' : ''} ${isVisible ? 'revealed' : ''}`}
-            onMouseDown={handleMouseDown}
-            onMouseLeave={handleMouseLeaveTrack}
-            onMouseUp={handleMouseUpTrack}
-            onMouseMove={handleMouseMoveTrack}
-          >
+        {/* Keyed grid container to trigger CSS mount fade-in animation on transition */}
+        <div className="plans-container-grid" key={activeCategory} style={{ width: '100%', marginTop: '40px' }}>
+          <div className="premium-insurance-grid">
             {filteredPlans.map((plan) => {
-              const cardRef = useRef(null);
-
-              const handleMouseMove = (e) => {
-                if (isDragging) return;
-                const card = cardRef.current;
-                if (!card) return;
-                
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const rotateX = -(y - rect.height / 2) / (rect.height / 2) * 10;
-                const rotateY = (x - rect.width / 2) / (rect.width / 2) * 10;
-                
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-                card.style.borderColor = 'rgba(207, 168, 68, 0.45)';
-                card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.55), 0 0 25px rgba(207, 168, 68, 0.15)';
+              // Truncate description at 95 characters without appending "..."
+              const truncateDesc = (text) => {
+                if (text && text.length > 95) {
+                  const cleanText = text.substring(0, 95);
+                  const lastSpace = cleanText.lastIndexOf(" ");
+                  return cleanText.substring(0, lastSpace > 0 ? lastSpace : 95);
+                }
+                return text;
               };
 
-              const handleMouseLeave = () => {
-                const card = cardRef.current;
-                if (!card) return;
-                card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
-                card.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                card.style.boxShadow = 'var(--shadow-glass)';
-              };
+              // Show only first 4 benefits on the card
+              const cardBenefits = (plan.benefits || []).slice(0, 4);
 
-            return (
-              <div 
-                key={plan.id}
-                ref={cardRef}
-                className="plan-card glass-panel card-3d"
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                onClick={() => handleOpenModal(plan)}
-              >
-                <div className="property-image-wrapper" style={{ height: '220px', background: '#090f1d', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {plan.image ? (
-                    <img src={plan.image} alt={plan.title} className="property-img" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} loading="lazy" />
-                  ) : (
-                    <div className="plan-logo-wrapper">
-                      <img src={plan.logo} alt={plan.provider} className="plan-logo-img" loading="lazy" />
-                    </div>
-                  )}
-                  <div className="property-category-badge">{plan.provider}</div>
-                </div>
-                
-                <div className="property-details">
-                  <span className="plan-provider-name">
-                    {plan.provider.toUpperCase()} INSURANCE
-                  </span>
-                  <h3 className="plan-card-title">
-                    {plan.title}
-                  </h3>
+              return (
+                <div 
+                  key={plan.id}
+                  className="premium-insurance-card"
+                  onClick={() => handleOpenModal(plan)}
+                >
+                  <div className="card-image-wrapper">
+                    <img src={plan.image} alt={plan.title} loading="lazy" />
+                  </div>
                   
-                  <p className="plan-card-desc">
-                    {plan.description}
-                  </p>
-                  
-                  <div className="property-features">
-                    <h4 className="features-label text-gold">
-                      Key Benefits:
-                    </h4>
-                    <ul className="card-benefits-list-preview">
-                      {plan.benefits.slice(0, 3).map((benefit, idx) => (
-                        <li key={idx}>
-                          <CheckCircle size={12} className="text-gold" style={{ flexShrink: 0 }} />
-                          <span>
-                            {benefit}
-                          </span>
+                  <div className="card-details-wrapper">
+                    <span className="card-product-category">
+                      {plan.category || `${plan.provider} Insurance`}
+                    </span>
+                    <h3 className="card-product-title">
+                      {plan.title}
+                    </h3>
+                    
+                    <p className="card-product-desc">
+                      {truncateDesc(plan.description)}
+                    </p>
+                    
+                    <ul className="card-benefits-list">
+                      {cardBenefits.map((benefit, idx) => (
+                        <li key={idx} className="card-benefit-item">
+                          <CheckCircle size={14} className="text-gold" style={{ flexShrink: 0 }} />
+                          <span>{benefit}</span>
                         </li>
                       ))}
                     </ul>
-                  </div>
 
-                  <Button 
-                    variant="primary" 
-                    className="plan-card-view-btn property-btn"
-                    onClick={(e) => { 
-                      e.stopPropagation(); 
-                      handleOpenModal(plan); 
-                    }}
-                  >
-                    View Plans
-                  </Button>
+                    <Button 
+                      variant="primary" 
+                      className="card-cta-btn"
+                      onClick={(e) => { 
+                        e.stopPropagation(); 
+                        handleOpenModal(plan); 
+                      }}
+                    >
+                      View Details
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
           </div>
         </div>
 
