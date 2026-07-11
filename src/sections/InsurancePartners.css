@@ -179,3 +179,37 @@
     letter-spacing: 0.8px;
   }
 }
+
+/* Horizontal scrolling slider styles for partners */
+.partners-grid-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 4px 24px 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.partners-grid-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.partner-card-slider {
+  flex: 0 0 calc(28.57% - 22px); /* Exactly 3.5 cards on desktop */
+  scroll-snap-align: start;
+}
+
+@media (max-width: 1024px) {
+  .partner-card-slider {
+    flex: 0 0 calc(45% - 15px); /* Exactly 2.2 cards on tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .partner-card-slider {
+    flex: 0 0 calc(85% - 10px); /* Exactly 1.2 cards on mobile */
+  }
+}

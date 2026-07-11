@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useConfig } from '../config/AppContext';
 import { Shield } from 'lucide-react';
+import Button from '../components/Button';
 import './InsurancePartners.css';
 
 export default function InsurancePartners() {
@@ -58,12 +59,12 @@ export default function InsurancePartners() {
           <h2 className="section-title">OUR TRUSTED INSURANCE PARTNERS</h2>
         </div>
 
-        <div className="partners-grid">
+        <div className="partners-grid-slider">
           {activePartners.map((partner, index) => {
             return (
               <div 
                 key={partner.id} 
-                className="partner-card glass-panel"
+                className="partner-card glass-panel partner-card-slider"
                 style={{ 
                   transitionDelay: `${index * 80}ms`,
                   display: 'flex',
@@ -99,6 +100,7 @@ export default function InsurancePartners() {
                         alt={partner.name} 
                         style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} 
                         onError={() => setImageErrors(prev => ({ ...prev, [partner.id]: true }))}
+                        referrerPolicy="no-referrer"
                         loading="lazy"
                       />
                     </div>
@@ -146,6 +148,12 @@ export default function InsurancePartners() {
               </div>
             );
           })}
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+          <Button variant="secondary" onClick={() => navigate('/health-insurance/plans')}>
+            View All Partners
+          </Button>
         </div>
 
       </div>
