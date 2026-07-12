@@ -13,6 +13,7 @@ import tataMedicareImg from '../assets/tata-aig-medicare-select.png';
 import hitekParkMain from '../assets/hitek-park-main.jpg';
 import hitekParkPrice from '../assets/hitek-park-price.jpg';
 import hitekParkMap from '../assets/hitek-park-map.jpg';
+import wealthEstateComboImg from '../assets/wealth-estate-combo.jpg';
 
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
@@ -298,6 +299,118 @@ export const agentConfig = {
         "19+ Years of Excellence",
         "100% Clear Documentation",
         "International Presence"
+      ]
+    },
+    {
+      id: "wealth-estate-combo",
+      title: "LIC & Premium Estate Combo",
+      category: "Residential Property",
+      location: "Gachibowli & Jubilee Hills, Hyderabad",
+      type: "Wealth & Estate Combo",
+      benefits: "Guaranteed life coverage plus premier property asset ownership in Hyderabad's top corridors.",
+      price: "Starting from ₹2.5 Cr*",
+      image: wealthEstateComboImg,
+      developer: "LIC & Premier Estate",
+      approvals: ["IRDAI Cleared", "RERA Certified"],
+      gift: "Complimentary Gold Sovereigns worth ₹50,000 on Booking",
+      highlights: [
+        "Guaranteed LIC Life Protection",
+        "Strategic High-Appreciation Real Estate",
+        "Triple Tax Benefits Sec 10(10D) & 80C",
+        "Secure Sovereign Wealth Guarantee",
+        "High Yielding Rental Estate Potential"
+      ],
+      investmentBenefits: [
+        "IDBI & Leading Bank Loan Support",
+        "Dual Portfolio Yield Optimization",
+        "Inflation-Hedged Capital Preservation",
+        "Asset Protection for Family Security"
+      ],
+      locationAdvantages: [
+        "Prime Gachibowli IT Corridor Connection",
+        "Immediate Outer Ring Road Proximity",
+        "Easy Access to International Airport",
+        "Surrounded by Top Gated Communities"
+      ],
+      trustBadges: [
+        "Authorized LIC Advisor Portfolio",
+        "1,200+ Satisfied Wealth Families",
+        "18+ Years Financial Planning Trust",
+        "100% Verified Clean Documentation"
+      ]
+    },
+    {
+      id: "res-villas",
+      title: "Golden Crest Luxury Villas",
+      category: "Residential Property",
+      location: "Gachibowli, Hyderabad",
+      type: "Luxury Villas",
+      benefits: "High rental yield, private garden, premium amenities, smart home automation.",
+      price: "Starting from ₹3.5 Cr*",
+      image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800",
+      developer: "Crest Group Builders",
+      approvals: ["HMDA Approved", "RERA Certified"],
+      highlights: [
+        "Premium Private Swimming Pool",
+        "Smart Home Automation Enabled",
+        "24/7 Multi-Tier Gate Security",
+        "Ultra-Modern Modular Clubhouse",
+        "Lush Landscaped Private Gardens"
+      ],
+      investmentBenefits: [
+        "Excellent Rental Return Yield",
+        "Quick Bank Loan Tie-up Available",
+        "Premium Capital Appreciation corridor",
+        "Immediate Sale Deed Registration"
+      ],
+      locationAdvantages: [
+        "2 mins to Financial District",
+        "Direct Access to Nehru ORR",
+        "Top International Schools nearby",
+        "World-class Healthcare Close By"
+      ],
+      trustBadges: [
+        "Delivered by Top Luxury Developer",
+        "RERA Compliant Development",
+        "100% Vastu-Compliant Design",
+        "Transparent Legally-Vetted Titles"
+      ]
+    },
+    {
+      id: "comm-office",
+      title: "Signature Tech Park Offices",
+      category: "Commercial Property",
+      location: "Hitec City, Hyderabad",
+      type: "Office Spaces",
+      benefits: "Pre-leased high yield, prime location, modern energy-efficient infrastructure.",
+      price: "Starting from ₹1.2 Cr*",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800",
+      developer: "Signature Hub Infrastructure",
+      approvals: ["GHMC Approved", "RERA Certified"],
+      highlights: [
+        "Grade-A Corporate IT Spaces",
+        "Double Height Grand Reception Lobby",
+        "High-Speed Passenger Elevators",
+        "100% Power Backup & Central AC",
+        "Multi-Level Automated Parking"
+      ],
+      investmentBenefits: [
+        "Assured 9.5% Rental ROI Yield",
+        "Leased to AAA Grade Multinational Tenants",
+        "High Liquidity Capital Appreciation",
+        "Flexible Workspace Layout Options"
+      ],
+      locationAdvantages: [
+        "Heart of Hitec City Tech Hub",
+        "Walking Distance to Metro Station",
+        "Positioned in Elite Commercial Corridor",
+        "Surrounded by 5-Star Luxury Hotels"
+      ],
+      trustBadges: [
+        "Vetted Corporate Lease Agreements",
+        "Designed by International Architects",
+        "High Sustainability LEED Certified",
+        "Zero Post-Handover Maintenance Worries"
       ]
     }
   ],
