@@ -214,6 +214,11 @@ export default function RealEstateAll() {
                   <img src={selectedProperty.image} alt={selectedProperty.title} />
                 </div>
                 <div className="modal-thumbs-grid">
+                  {selectedProperty.priceCardImage && (
+                    <div className="modal-thumb-item">
+                      <img src={selectedProperty.priceCardImage} alt="QR Codes" onClick={() => window.open(selectedProperty.priceCardImage, '_blank')} />
+                    </div>
+                  )}
                   {selectedProperty.mapImage && (
                     <div className="modal-thumb-item">
                       <img src={selectedProperty.mapImage} alt="Location Map" onClick={() => window.open(selectedProperty.mapImage, '_blank')} />

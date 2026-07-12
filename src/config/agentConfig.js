@@ -14,6 +14,9 @@ import hitekParkMain from '../assets/hitek-park-main.jpg';
 import hitekParkPrice from '../assets/hitek-park-price.jpg';
 import hitekParkMap from '../assets/hitek-park-map.jpg';
 import wealthEstateComboImg from '../assets/wealth-estate-combo.jpg';
+import trueIkoniaMain from '../assets/true-ikonia-main.jpg';
+import trueIkoniaMap from '../assets/true-ikonia-map.jpg';
+import trueIkoniaPrice from '../assets/true-ikonia-price.jpg';
 
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
@@ -302,41 +305,50 @@ export const agentConfig = {
       ]
     },
     {
-      id: "wealth-estate-combo",
-      title: "LIC & Premium Estate Combo",
-      category: "Residential Property",
-      location: "Gachibowli & Jubilee Hills, Hyderabad",
-      type: "Wealth & Estate Combo",
-      benefits: "Guaranteed life coverage plus premier property asset ownership in Hyderabad's top corridors.",
-      price: "Starting from ₹2.5 Cr*",
-      image: wealthEstateComboImg,
-      developer: "LIC & Premier Estate",
-      approvals: ["IRDAI Cleared", "RERA Certified"],
-      gift: "Complimentary Gold Sovereigns worth ₹50,000 on Booking",
+      id: "bbg-true-ikonia",
+      title: "True Ikonia Sadasivpet",
+      category: "Land Investment",
+      location: "Sadasivpet, West Hyderabad",
+      type: "Premium Open Plots",
+      benefits: "DTCP Approved, RERA Certified, BBG Resort-Club Access, ₹1,000/Sq.Yd Bangarutallulaku Offer",
+      price: "Starting from ₹11,999 / Sq.Yd*",
+      image: trueIkoniaMain,
+      priceCardImage: trueIkoniaPrice,
+      mapImage: trueIkoniaMap,
+      developer: "BBG (Building Blocks Group)",
+      approvals: ["DTCP Approved", "RERA Certified"],
+      gift: "₹1,000 Off per Sq.Yard (Bangarutallulaku Offer)",
       highlights: [
-        "Guaranteed LIC Life Protection",
-        "Strategic High-Appreciation Real Estate",
-        "Triple Tax Benefits Sec 10(10D) & 80C",
-        "Secure Sovereign Wealth Guarantee",
-        "High Yielding Rental Estate Potential"
+        "DTCP Approved & RERA Certified gated layouts",
+        "Exclusive BBG Resort-Club access for owners",
+        "24×7 multi-tier gated community security",
+        "Wide and spacious blacktop (BT) roads",
+        "Underground drainage & sewage network",
+        "Avenue plantation & designer street lights",
+        "Consistent water supply & electricity lines",
+        "Rainwater harvesting & eco-drainage pits",
+        "Children's play areas, gardens & parks",
+        "Ready-to-build plots with boundary markers"
       ],
       investmentBenefits: [
-        "IDBI & Leading Bank Loan Support",
-        "Dual Portfolio Yield Optimization",
-        "Inflation-Hedged Capital Preservation",
-        "Asset Protection for Family Security"
+        "Bank Loan Available (IDBI Bank)",
+        "Free Building Plan on Registration",
+        "Free 3 Years Society Monitoring & Maintenance",
+        "Bangarutallulaku Registration Discount Offer"
       ],
       locationAdvantages: [
-        "Prime Gachibowli IT Corridor Connection",
-        "Immediate Outer Ring Road Proximity",
-        "Easy Access to International Airport",
-        "Surrounded by Top Gated Communities"
+        "Near 13,000-acre Zaheerabad NIMZ",
+        "Near Woxsen School of Business & Educational Hub",
+        "Easy Access to Mumbai Highway (NH65)",
+        "Proximity to IIT Hyderabad",
+        "Near Major IT Hubs (Microsoft, Infosys, TCS)"
       ],
       trustBadges: [
-        "Authorized LIC Advisor Portfolio",
-        "1,200+ Satisfied Wealth Families",
-        "18+ Years Financial Planning Trust",
-        "100% Verified Clean Documentation"
+        "India's Largest Plot Developer",
+        "740+ Projects Delivered Successfully",
+        "19+ Years of Gated Layout Excellence",
+        "100% Clear Documentation & Titles",
+        "World Associate Offices in 5 Countries"
       ]
     },
     {
