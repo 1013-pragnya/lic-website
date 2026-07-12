@@ -1,12 +1,13 @@
 .premium-property-card {
   background-color: #080C1A;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 24px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   height: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  min-height: 480px; /* Force consistent minimum height */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
               border-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -14,68 +15,69 @@
   cursor: pointer;
 }
 
-/* Hover effects */
+/* Luxury hover effect */
 .premium-property-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   border-color: #D4AF37;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
-              0 0 25px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+              0 0 25px rgba(212, 175, 55, 0.25);
 }
 
+/* Image section */
 .premium-image-wrapper {
   position: relative;
   width: 100%;
-  height: 270px;
+  height: 260px; /* Consistent height within 260-300px */
   overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Subtle dark gradient overlay at the bottom to improve badge readability */
-.premium-image-wrapper::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 40%;
-  background: linear-gradient(to top, rgba(8, 12, 26, 0.95) 0%, rgba(8, 12, 26, 0) 100%);
-  z-index: 1;
-  pointer-events: none;
 }
 
 .premium-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 300ms ease;
+  transition: transform 400ms ease;
 }
 
-/* Image zoom on hover (scale: 1.05) */
+/* Smooth zoom on hover */
 .premium-property-card:hover .premium-img {
   transform: scale(1.05);
 }
 
-/* Glassmorphism Category Badge */
+/* Subtle dark gradient overlay to make badges pop */
+.premium-image-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 45%;
+  background: linear-gradient(to top, rgba(8, 12, 26, 0.95) 0%, rgba(8, 12, 26, 0.3) 50%, rgba(8, 12, 26, 0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Category Badge (Top-Left) */
 .premium-category-badge {
   position: absolute;
   top: 16px;
   left: 16px;
-  background: rgba(8, 12, 26, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(8, 12, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #D4AF37;
   padding: 6px 14px;
   border-radius: 30px;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   z-index: 2;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
 
-/* Gold Price Tag Overlay */
+/* Price Tag Overlay (Bottom-Right) */
 .premium-price-tag {
   position: absolute;
   bottom: 16px;
@@ -87,25 +89,25 @@
   font-size: 0.85rem;
   font-weight: 800; /* Extra Bold 800 */
   z-index: 2;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
   letter-spacing: 0.5px;
 }
 
+/* Details Section */
 .premium-details {
-  padding: 24px;
+  padding: 20px 24px 24px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 18px;
+  gap: 14px;
 }
 
-/* Typography settings */
 .premium-name {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 700; /* Bold 700 */
   color: #ffffff;
   margin: 0;
-  line-height: 1.25;
+  line-height: 1.3;
   letter-spacing: -0.01em;
 }
 
@@ -127,7 +129,7 @@
 }
 
 .location-text {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 500; /* Medium 500 */
   white-space: nowrap;
   overflow: hidden;
@@ -135,170 +137,69 @@
 }
 
 .type-text {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 400; /* Regular 400 */
+  color: #cbd5e0;
 }
 
-/* Approval badges */
-.premium-approval-row {
+/* Key Tags Row */
+.premium-tags-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
-.approval-badge {
+.premium-tag-pill {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
   color: #ffffff;
   background: rgba(212, 175, 55, 0.08);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.15);
   padding: 4px 10px;
   border-radius: 6px;
-}
-
-/* Section Blocks inside card */
-.premium-section-block {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 12px;
-}
-
-.premium-section-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #D4AF37;
-  margin: 0;
-  letter-spacing: 1px;
-}
-
-/* Highlights Grid */
-.premium-highlights-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-}
-
-.highlight-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  font-size: 0.78rem;
-  color: #cbd5e0;
-  line-height: 1.3;
-}
-
-.dot-bullet {
-  color: #D4AF37;
-  font-weight: 800;
-}
-
-/* Benefits & Advantages lists */
-.premium-benefits-list,
-.premium-advantages-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.benefit-item,
-.advantage-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  color: #cbd5e0;
-}
-
-.benefit-item svg {
-  flex-shrink: 0;
-}
-
-/* Trust Badges Row */
-.premium-trust-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.trust-badge-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 4px 8px;
-  border-radius: 8px;
   white-space: nowrap;
 }
 
-.trust-badge-item svg {
-  flex-shrink: 0;
+.premium-tag-pill.developer-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #cbd5e0;
 }
 
-/* Actions Row & Buttons */
+/* Button Actions - Aligned perfectly at the bottom */
 .premium-actions-row {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 12px;
-  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  margin-top: auto; /* Push buttons to the bottom of the card */
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 16px;
 }
 
 .premium-btn-gold {
+  width: 100%;
   background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%) !important;
   color: #080C1A !important;
   border: none !important;
   font-weight: 700 !important;
-  font-size: 0.82rem !important;
+  font-size: 0.85rem !important;
   border-radius: 12px !important;
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.15) !important;
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  padding: 12px 16px !important;
+  transition: all 250ms ease !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  white-space: nowrap !important;
 }
 
 .premium-btn-gold:hover {
   transform: translateY(-2px) !important;
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.45) !important;
-  background: linear-gradient(135deg, #f3d066 0%, #c49520 100%) !important;
 }
 
-.premium-btn-outline {
-  background: transparent !important;
-  color: #D4AF37 !important;
-  border: 1px solid rgba(212, 175, 55, 0.35) !important;
-  font-weight: 600 !important;
-  font-size: 0.82rem !important;
-  border-radius: 12px !important;
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.premium-btn-outline:hover {
-  background: rgba(212, 175, 55, 0.08) !important;
-  border-color: #D4AF37 !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2) !important;
-}
-
-/* Glowing animations inside buttons when card is hovered */
+/* Hover glows */
 .premium-property-card:hover .premium-btn-gold {
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.55);
-}
-
-.premium-property-card:hover .premium-btn-outline {
-  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
