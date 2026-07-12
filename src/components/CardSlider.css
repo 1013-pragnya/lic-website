@@ -34,6 +34,7 @@
 
 /* Base card width and snap-alignment settings */
 .slider-track .property-card,
+.slider-track .premium-property-card,
 .slider-track .plan-card {
   flex: 0 0 calc((100% - 3 * 30px) / 3.5); /* Desktop Default: 3.5 cards visible */
   scroll-snap-align: start;
@@ -47,6 +48,7 @@
     gap: 24px; /* Tablet spacing gap */
   }
   .slider-track .property-card,
+  .slider-track .premium-property-card,
   .slider-track .plan-card {
     flex: 0 0 calc((100% - 2 * 24px) / 2.5) !important; /* Large Tablet: 2.5 cards visible */
   }
@@ -57,6 +59,7 @@
     gap: 20px;
   }
   .slider-track .property-card,
+  .slider-track .premium-property-card,
   .slider-track .plan-card {
     flex: 0 0 calc((100% - 1 * 20px) / 2) !important; /* Tablet: 2 cards visible */
   }
@@ -67,6 +70,7 @@
     gap: 16px;
   }
   .slider-track .property-card,
+  .slider-track .premium-property-card,
   .slider-track .plan-card {
     flex: 0 0 calc((100% - 1 * 16px) / 1.2) !important; /* Mobile: 1.2 cards visible */
   }
@@ -74,6 +78,7 @@
 
 /* Premium animations & hover transitions for slider items */
 .slider-track .property-card,
+.slider-track .premium-property-card,
 .slider-track .plan-card {
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
               border-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -82,6 +87,7 @@
 
 /* Hover Lift & Gold Border Glow */
 .slider-track .property-card:hover,
+.slider-track .premium-property-card:hover,
 .slider-track .plan-card:hover {
   transform: translateY(-8px) scale(1.01) !important;
   border-color: #d4af37 !important;
@@ -89,15 +95,18 @@
 }
 
 /* Image zoom on hover for property cards */
-.slider-track .property-image-wrapper {
+.slider-track .property-image-wrapper,
+.slider-track .premium-image-wrapper {
   overflow: hidden;
   border-radius: 20px 20px 0 0;
 }
 
-.slider-track .property-img {
+.slider-track .property-img,
+.slider-track .premium-img {
   transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.slider-track .property-card:hover .property-img {
-  transform: scale(1.08); /* Image Zoom on hover */
+.slider-track .property-card:hover .property-img,
+.slider-track .premium-property-card:hover .premium-img {
+  transform: scale(1.05); /* Image Zoom on hover */
 }
