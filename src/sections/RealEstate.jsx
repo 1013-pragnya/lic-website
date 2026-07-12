@@ -2,15 +2,17 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RealEstateScene from '../components/RealEstateScene';
 import Button from '../components/Button';
-import { MapPin, Building, ArrowUpRight, BadgePercent, CheckCircle, Mail, Shield } from 'lucide-react';
+import { MapPin, Building, ArrowUpRight, BadgePercent, CheckCircle, Mail, Shield, X } from 'lucide-react';
 import { useConfig } from '../config/AppContext';
 import './RealEstate.css';
 import '../components/CardSlider.css';
+import RealEstateCard from '../components/RealEstateCard';
 
 export default function RealEstate({ onSelectConsultation }) {
   const { agentConfig } = useConfig();
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('All Properties');
+  const [selectedProperty, setSelectedProperty] = useState(null);
 
   // Slider Mouse Drag State
   const sliderRef = useRef(null);
@@ -112,37 +114,11 @@ export default function RealEstate({ onSelectConsultation }) {
               onMouseMove={handleMouseMove}
             >
               {filteredProperties.map((prop) => (
-                <div key={prop.id} className="property-card glass-panel glass-panel-hover card-3d">
-                  <div className="property-image-wrapper">
-                    <img src={prop.image} alt={prop.title} className="property-img" loading="lazy" />
-                    <div className="property-category-badge">{prop.category}</div>
-                    <div className="property-price-tag">{prop.price}</div>
-                  </div>
-                  
-                  <div className="property-details">
-                    <h3 className="property-name">{prop.title}</h3>
-                    
-                    <div className="property-meta">
-                      <div className="meta-item">
-                        <MapPin size={14} className="text-gold" />
-                        <span>{prop.location}</span>
-                      </div>
-                      <div className="meta-item">
-                        <Building size={14} className="text-gold" />
-                        <span>{prop.type}</span>
-                      </div>
-                    </div>
-
-                    <div className="property-features">
-                      <h4 className="features-label text-gold">Property Highlights:</h4>
-                      <p className="features-text">{prop.benefits}</p>
-                    </div>
-
-                    <Button variant="primary" className="property-btn" onClick={() => handleScrollTo('contact')}>
-                      Enquire Now <ArrowUpRight size={16} />
-                    </Button>
-                  </div>
-                </div>
+                <RealEstateCard 
+                  key={prop.id} 
+                  property={prop} 
+                  onViewDetails={setSelectedProperty} 
+                />
               ))}
             </div>
           </div>
@@ -269,9 +245,99 @@ export default function RealEstate({ onSelectConsultation }) {
               </div>
             </div>
           </div>
-
         </div>
       </section>
+      {/* Property Details Modal */}
+      {selectedProperty && (
+        <div className="property-modal-overlay" onClick={() => setSelectedProperty(null)}>
+          <div className="property-modal-card glass-panel" onClick={(e) => e.stopPropagation()}>
+            <button className="property-modal-close" onClick={() => setSelectedProperty(null)}>
+              <X size={20} />
+            </button>
+            
+            <div className="property-modal-grid">
+              {/* Left Column: Images Gallery */}
+              <div className="property-modal-gallery">
+                <div className="modal-main-image">
+                  <img src={selectedProperty.image} alt={selectedProperty.title} />
+                </div>
+                <div className="modal-thumbs-grid">
+                  {selectedProperty.priceCardImage && (
+                    <div className="modal-thumb-item">
+                      <img src={selectedProperty.priceCardImage} alt="Price Card" onClick={() => window.open(selectedProperty.priceCardImage, '_blank')} />
+                      <span>Price Details</span>
+                    </div>
+                  )}
+                  {selectedProperty.mapImage && (
+                    <div className="modal-thumb-item">
+                      <img src={selectedProperty.mapImage} alt="Location Map" onClick={() => window.open(selectedProperty.mapImage, '_blank')} />
+                      <span>Location Advantages</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              {/* Right Column: Specifications */}
+              <div className="property-modal-info">
+                <span className="property-category-badge">{selectedProperty.category}</span>
+                <h2 className="modal-property-title">{selectedProperty.title}</h2>
+                <div className="modal-meta-row">
+                  <span className="modal-meta-item"><MapPin size={16} className="text-gold" /> {selectedProperty.location}</span>
+                  <span className="modal-meta-item"><Building size={16} className="text-gold" /> {selectedProperty.type}</span>
+                </div>
+                
+                <div className="modal-price-box">
+                  <span className="price-label">Plot Rate:</span>
+                  <span className="price-value">{selectedProperty.price}</span>
+                </div>
+
+                {selectedProperty.gift && (
+                  <div className="modal-gift-box">
+                    <span className="gift-icon">🎁</span>
+                    <div>
+                      <strong>Special Offer:</strong>
+                      <p>{selectedProperty.gift}</p>
+                    </div>
+                  </div>
+                )}
+
+                {selectedProperty.highlights && (
+                  <div className="modal-details-section">
+                    <h4 className="text-gold">Project Highlights</h4>
+                    <ul className="modal-highlights-list">
+                      {selectedProperty.highlights.map((hl, i) => (
+                        <li key={i}><CheckCircle size={14} className="text-gold" /> {hl}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {selectedProperty.locationAdvantages && (
+                  <div className="modal-details-section">
+                    <h4 className="text-gold">Location Advantages</h4>
+                    <ul className="modal-highlights-list">
+                      {selectedProperty.locationAdvantages.map((la, i) => (
+                        <li key={i}><CheckCircle size={14} className="text-gold" /> {la}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <Button 
+                  variant="primary" 
+                  className="modal-enquire-btn" 
+                  onClick={() => {
+                    setSelectedProperty(null);
+                    handleScrollTo('contact');
+                  }}
+                >
+                  Schedule Site Visit & Enquire Now
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

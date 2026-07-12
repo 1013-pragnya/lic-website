@@ -10,6 +10,10 @@ import licRetirementImg from '../assets/lic-retirement-planning.png';
 import careTravelImg from '../assets/care-travel-insurance.png';
 import tataMedicareImg from '../assets/tata-aig-medicare-select.png';
 
+import hitekParkMain from '../assets/hitek-park-main.jpg';
+import hitekParkPrice from '../assets/hitek-park-price.jpg';
+import hitekParkMap from '../assets/hitek-park-map.jpg';
+
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
   title: "Insurance & Real Estate Consultant",
@@ -247,98 +251,54 @@ export const agentConfig = {
     }
   ],
   realEstate: [
-    // Residential: Luxury Villas, Premium Apartments, Gated Community Homes
     {
-      id: "res-villas",
-      title: "Golden Crest Luxury Villas",
-      category: "Residential Property",
-      location: "Gachibowli, Hyderabad",
-      type: "Luxury Villas",
-      benefits: "High rental yield, private garden, premium amenities, smart home automation",
-      price: "Starting from ₹3.5 Cr*",
-      image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: "res-apts",
-      title: "Vastu-Compliant Sky Residences",
-      category: "Residential Property",
-      location: "Jubilee Hills, Hyderabad",
-      type: "Premium Apartments",
-      benefits: "Heart of the city, premium connectivity, zero wastage layout, sky lounge access",
-      price: "Starting from ₹2.8 Cr*",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: "res-homes",
-      title: "Royal Meadows Gated Homes",
-      category: "Residential Property",
-      location: "Kondapur, Hyderabad",
-      type: "Gated Community Homes",
-      benefits: "Eco-friendly township, modular architecture, club house membership, 24/7 security",
-      price: "Starting from ₹1.9 Cr*",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
-    },
-    // Commercial: Office Spaces, Business Parks, Retail Spaces
-    {
-      id: "comm-office",
-      title: "Signature Tech Park Offices",
-      category: "Commercial Property",
-      location: "Hitec City, Hyderabad",
-      type: "Office Spaces",
-      benefits: "Pre-leased high yield, prime location, modern energy-efficient infrastructure",
-      price: "Starting from ₹1.2 Cr*",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: "comm-parks",
-      title: "Meridian Business Park",
-      category: "Commercial Property",
-      location: "Kokapet, Hyderabad",
-      type: "Business Parks",
-      benefits: "High capital appreciation, Grade-A IT hub, corporate leases, extensive parking",
-      price: "Starting from ₹4.5 Cr*",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: "comm-retail",
-      title: "Avenue Galleria Retail Hub",
-      category: "Commercial Property",
-      location: "Banjara Hills, Hyderabad",
-      type: "Retail Spaces",
-      benefits: "High footfall, main double-height storefront, double-digit rental ROI",
-      price: "Starting from ₹95 L*",
-      image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&q=80&w=800"
-    },
-    // Land Investment: Gated Plots, Gated Community Villa Plots, Farm Land
-    {
-      id: "land-res",
-      title: "Eco-Valley Premium Plots",
+      id: "bbg-hitek-park",
+      title: "Hitek Park Balanagar",
       category: "Land Investment",
-      location: "Shamshabad Corridor, Hyderabad",
-      type: "Residential Plots",
-      benefits: "Excellent appreciation potential, scenic views, 100% clear titles, loan approved",
-      price: "Starting from ₹75 L*",
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: "land-comm",
-      title: "Aerotropolis Commercial Plots",
-      category: "Land Investment",
-      location: "Adibatla Aerospace Corridor, Hyderabad",
-      type: "Commercial Plots",
-      benefits: "Ready-for-construction, zero boundary disputes, ideal for logistics or warehouse",
-      price: "Starting from ₹2.1 Cr*",
-      image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: "land-farm",
-      title: "Green Valley Agro Farms",
-      category: "Land Investment",
-      location: "Shadnagar Outer Limits, Hyderabad",
-      type: "Farm Land",
-      benefits: "Organic soil certificate, managed farmhouse setup, tax-free agricultural revenue",
-      price: "Starting from ₹45 L*",
-      image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=800"
+      location: "Balanagar, Shadnagar, Hyderabad",
+      type: "Premium Open Plots",
+      benefits: "MUDA Approved, RERA Certified, Nakshatravanam Park, GRT Jewellery Voucher worth ₹15,000",
+      price: "Starting from ₹16,999 / Sq.Yd*",
+      image: hitekParkMain,
+      priceCardImage: hitekParkPrice,
+      mapImage: hitekParkMap,
+      developer: "BBG (Building Blocks Group)",
+      approvals: ["MUDA Approved", "RERA Certified"],
+      gift: "GRT Jewellery Voucher worth ₹15,000 on every ₹10 Lakhs Purchase",
+      highlights: [
+        "Near NH44",
+        "Near ORR",
+        "Near RRR",
+        "Premium Gated Community",
+        "Wide BT Roads",
+        "Underground Drainage",
+        "Water Supply",
+        "Rainwater Harvesting",
+        "Children's Play Area",
+        "Designer Street Lights",
+        "24×7 Security",
+        "Nakshatravanam Park"
+      ],
+      investmentBenefits: [
+        "Bank Loan Available (IDBI)",
+        "₹15,000 GRT Jewellery Voucher",
+        "High Appreciation Potential",
+        "Ready for Registration"
+      ],
+      locationAdvantages: [
+        "Near Balanagar Industrial Area",
+        "Upcoming Logistics Hub",
+        "Railway Station Nearby",
+        "Near Pharma SEZ",
+        "Excellent Road Connectivity"
+      ],
+      trustBadges: [
+        "India's Largest Plot Developer",
+        "300+ Projects Delivered",
+        "19+ Years of Excellence",
+        "100% Clear Documentation",
+        "International Presence"
+      ]
     }
   ],
   testimonials: [

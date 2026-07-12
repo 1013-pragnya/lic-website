@@ -265,7 +265,7 @@
 /* Responsiveness overrides */
 @media (max-width: 1200px) {
   .listing-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns on Tablet */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on Tablet */
     gap: 24px;
   }
   .main-title {
@@ -290,7 +290,7 @@
 
 @media (max-width: 768px) {
   .listing-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on Mobile */
+    grid-template-columns: 1fr; /* 1 column on Mobile */
     gap: 20px;
   }
   .all-header {
@@ -310,6 +310,7 @@
     width: 100%;
   }
   .listing-grid {
+    grid-template-columns: 1fr;
     gap: 16px;
   }
   .main-title {

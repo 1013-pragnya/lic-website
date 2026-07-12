@@ -665,3 +665,245 @@
     font-size: 0.9rem !important;
   }
 }
+
+/* Property Details Modal styling */
+.property-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 10, 23, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.property-modal-card {
+  width: 100%;
+  max-width: 1000px;
+  max-height: 90vh;
+  background: #091224;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  position: relative;
+  overflow-y: auto;
+  padding: 30px;
+  box-sizing: border-box;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.property-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.property-modal-close:hover {
+  background: var(--primary-gold);
+  border-color: var(--primary-gold);
+  color: #050a17;
+}
+
+.property-modal-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.property-modal-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-main-image {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-main-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.modal-thumbs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.modal-thumb-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.modal-thumb-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.modal-thumb-item img:hover {
+  opacity: 0.8;
+}
+
+.modal-thumb-item span {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.property-modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #ffffff;
+}
+
+.modal-property-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.modal-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.modal-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.modal-price-box {
+  background: rgba(207, 168, 68, 0.08);
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-price-box .price-label {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.modal-price-box .price-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary-gold);
+}
+
+.modal-gift-box {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid #10b981;
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 0.85rem;
+}
+
+.modal-gift-box .gift-icon {
+  font-size: 1.35rem;
+}
+
+.modal-gift-box p {
+  margin: 4px 0 0 0;
+  color: #a7f3d0;
+}
+
+.modal-details-section h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.modal-highlights-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.modal-highlights-list li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.modal-enquire-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 14px !important;
+  font-size: 0.95rem !important;
+}
+
+@media (max-width: 900px) {
+  .property-modal-grid {
+    grid-template-columns: 1fr;
+  }
+  .property-modal-card {
+    padding: 20px;
+    max-height: 95vh;
+  }
+}
+

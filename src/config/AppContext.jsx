@@ -29,6 +29,8 @@ export const AppProvider = ({ children }) => {
         currentConfig.plans = agentConfig.plans;
         // Force sync the partners config with colored logos
         currentConfig.partners = agentConfig.partners;
+        // Force sync the real estate properties config
+        currentConfig.realEstate = agentConfig.realEstate;
         // Force sync branding name
         if (currentConfig.settings) {
           currentConfig.settings.logoText = "RR Consultancy";
