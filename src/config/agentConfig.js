@@ -265,6 +265,104 @@ export const agentConfig = {
   ],
   realEstate: [
     {
+      id: "bbg-true-highlands-1",
+      title: "True Highlands - 1",
+      category: "Land Investment",
+      location: "Raikal, Shadnagar, Hyderabad",
+      type: "Premium Open Plots",
+      benefits: "DTCP Approved, RERA Certified, IDBI Bank Loan, ₹1,000/Sq.Yd Bangarutallulaku Offer",
+      price: "Starting from ₹12,999 / Sq.Yd*",
+      image: trueHighlandsMain,
+      priceCardImage: trueHighlandsQrs,
+      mapImage: trueHighlandsMap,
+      developer: "BBG (Building Blocks Group)",
+      approvals: ["DTCP Approved", "RERA Certified"],
+      gift: "GRT Jewellery Voucher worth ₹15,000 on every ₹10 Lakhs Purchase",
+      highlights: [
+        "DTCP Approved & RERA Certified Gated Layouts",
+        "Exclusive Guarded Gated Community",
+        "24x7 Multi-Tier Gated Community Security",
+        "Wide and Spacious Blacktop (BT) Roads",
+        "Electrical Lines with Designer Street Lights",
+        "Underground Drainage & Sewage Network",
+        "Children's Play Areas, Gardens & Parks",
+        "Consistent Water Supply & Rainwater Harvesting",
+        "Affordable Properties near NH44, ORR & RRR"
+      ],
+      investmentBenefits: [
+        "Bank Loan Available (IDBI Bank)",
+        "₹1,000 Off per Sq.Yard (Bangarutallulaku Offer)",
+        "GRT Jewellery Gift Voucher worth ₹15,000 on Every ₹10 Lakhs Purchase",
+        "Free Building Plan along with Registration Document",
+        "Free 3 Years Society Monitoring & Maintenance"
+      ],
+      locationAdvantages: [
+        "Strategic Location near Hyderabad-Bangalore Highway (NH-44)",
+        "Near Upcoming Regional Ring Road (RRR)",
+        "Easy Access to Outer Ring Road (ORR)",
+        "Proximity to Rajiv Gandhi International Airport",
+        "Close to Educational Institutions & Balanagar Industrial Area",
+        "Excellent Road Connectivity & High Appreciation Corridor"
+      ],
+      trustBadges: [
+        "India's Largest Plot Developer",
+        "BBG - Building Blocks Group",
+        "19+ Years of Gated Layout Excellence",
+        "100% Clear Documentation & Titles",
+        "World Associate Offices in India, USA, UK, UAE, Australia",
+        "World Customers in 5 Countries, 7 States & 15 Cities"
+      ]
+    },
+    {
+      id: "bbg-royal-highway-meadows",
+      title: "Royal Highway Meadows",
+      category: "Land Investment",
+      location: "Yadadri, East Hyderabad",
+      type: "Premium Open Plots",
+      benefits: "DTCP Approved, 500-Acre Township, 54+ Resort Club Facilities, IDBI & YES Bank Loans, 2 Grams Gold Coins Offer",
+      price: "Starting from ₹9,499 / Sq.Yd*",
+      image: royalHighwayMeadowsMain,
+      priceCardImage: royalHighwayMeadowsQrs,
+      mapImage: royalHighwayMeadowsMap,
+      developer: "BBG (Building Blocks Group)",
+      approvals: ["DTCP Approved"],
+      gift: "2 Grams of Gold Coins on Registration",
+      highlights: [
+        "DTCP Approved Layout within 500-Acre Township",
+        "Access to World-Class Resort Club (54+ Facilities)",
+        "Entrance Arch with Gated Community Security",
+        "Wide and Spacious Blacktop (BT) Roads",
+        "Electrical Lines with Designer Street Lights",
+        "Underground Water Pipelines & Water Tank Facility",
+        "Children's Play Areas, Gardens & Avenue Plantation",
+        "Rainwater Harvesting and Drainage System",
+        "Affordable Properties near Warangal Highway & Rajiv Rahadari"
+      ],
+      investmentBenefits: [
+        "Multiple Bank Loan Options (IDBI Bank, Yes Bank, Piramal)",
+        "2 Grams of Gold Coins on Registration",
+        "₹500 Off per Sq.Yard (Bangarutallulaku Offer)",
+        "Free Building Plan along with Registration Document",
+        "Free 10 Years Society Monitoring & Maintenance"
+      ],
+      locationAdvantages: [
+        "Close to 2500-Acre Yadadri Laxmi Narasimha Swamy Temple",
+        "Near Proposed Temple City Corridor",
+        "Within YTDA Limits (Yadagirigutta Development Authority)",
+        "Excellent Connectivity near Warangal Highway",
+        "Proximity to Proposed Regional Ring Road (RRR)",
+        "Close to Aler & Yadagirigutta Tourist Spots"
+      ],
+      trustBadges: [
+        "India's Largest Plot Developer",
+        "BBG - Building Blocks Group",
+        "17+ Years of Gated Layout Excellence",
+        "100% Clear Documentation & Transactions",
+        "World Associate Offices in India, USA, UK, UAE, Australia",
+        "World Customers in 5 Countries, 7 States & 15 Cities"
+      ]
+    },
+    {
       id: "bbg-hitek-park",
       title: "Hitek Park Balanagar",
       category: "Land Investment",
@@ -434,104 +532,7 @@ export const agentConfig = {
         "Zero Post-Handover Maintenance Worries"
       ]
     },
-    {
-      id: "bbg-true-highlands-1",
-      title: "True Highlands - 1",
-      category: "Land Investment",
-      location: "Raikal, Shadnagar, Hyderabad",
-      type: "Premium Open Plots",
-      benefits: "DTCP Approved, RERA Certified, IDBI Bank Loan, ₹1,000/Sq.Yd Bangarutallulaku Offer",
-      price: "Starting from ₹12,999 / Sq.Yd*",
-      image: trueHighlandsMain,
-      priceCardImage: trueHighlandsQrs,
-      mapImage: trueHighlandsMap,
-      developer: "BBG (Building Blocks Group)",
-      approvals: ["DTCP Approved", "RERA Certified"],
-      gift: "GRT Jewellery Voucher worth ₹15,000 on every ₹10 Lakhs Purchase",
-      highlights: [
-        "DTCP Approved & RERA Certified Gated Layouts",
-        "Exclusive Guarded Gated Community",
-        "24x7 Multi-Tier Gated Community Security",
-        "Wide and Spacious Blacktop (BT) Roads",
-        "Electrical Lines with Designer Street Lights",
-        "Underground Drainage & Sewage Network",
-        "Children's Play Areas, Gardens & Parks",
-        "Consistent Water Supply & Rainwater Harvesting",
-        "Affordable Properties near NH44, ORR & RRR"
-      ],
-      investmentBenefits: [
-        "Bank Loan Available (IDBI Bank)",
-        "₹1,000 Off per Sq.Yard (Bangarutallulaku Offer)",
-        "GRT Jewellery Gift Voucher worth ₹15,000 on Every ₹10 Lakhs Purchase",
-        "Free Building Plan along with Registration Document",
-        "Free 3 Years Society Monitoring & Maintenance"
-      ],
-      locationAdvantages: [
-        "Strategic Location near Hyderabad-Bangalore Highway (NH-44)",
-        "Near Upcoming Regional Ring Road (RRR)",
-        "Easy Access to Outer Ring Road (ORR)",
-        "Proximity to Rajiv Gandhi International Airport",
-        "Close to Educational Institutions & Balanagar Industrial Area",
-        "Excellent Road Connectivity & High Appreciation Corridor"
-      ],
-      trustBadges: [
-        "India's Largest Plot Developer",
-        "BBG - Building Blocks Group",
-        "19+ Years of Gated Layout Excellence",
-        "100% Clear Documentation & Titles",
-        "World Associate Offices in India, USA, UK, UAE, Australia",
-        "World Customers in 5 Countries, 7 States & 15 Cities"
-      ]
-    },
-    {
-      id: "bbg-royal-highway-meadows",
-      title: "Royal Highway Meadows",
-      category: "Land Investment",
-      location: "Yadadri, East Hyderabad",
-      type: "Premium Open Plots",
-      benefits: "DTCP Approved, 500-Acre Township, 54+ Resort Club Facilities, IDBI & YES Bank Loans, 2 Grams Gold Coins Offer",
-      price: "Starting from ₹9,499 / Sq.Yd*",
-      image: royalHighwayMeadowsMain,
-      priceCardImage: royalHighwayMeadowsQrs,
-      mapImage: royalHighwayMeadowsMap,
-      developer: "BBG (Building Blocks Group)",
-      approvals: ["DTCP Approved"],
-      gift: "2 Grams of Gold Coins on Registration",
-      highlights: [
-        "DTCP Approved Layout within 500-Acre Township",
-        "Access to World-Class Resort Club (54+ Facilities)",
-        "Entrance Arch with Gated Community Security",
-        "Wide and Spacious Blacktop (BT) Roads",
-        "Electrical Lines with Designer Street Lights",
-        "Underground Water Pipelines & Water Tank Facility",
-        "Children's Play Areas, Gardens & Avenue Plantation",
-        "Rainwater Harvesting and Drainage System",
-        "Affordable Properties near Warangal Highway & Rajiv Rahadari"
-      ],
-      investmentBenefits: [
-        "Multiple Bank Loan Options (IDBI Bank, Yes Bank, Piramal)",
-        "2 Grams of Gold Coins on Registration",
-        "₹500 Off per Sq.Yard (Bangarutallulaku Offer)",
-        "Free Building Plan along with Registration Document",
-        "Free 10 Years Society Monitoring & Maintenance"
-      ],
-      locationAdvantages: [
-        "Close to 2500-Acre Yadadri Laxmi Narasimha Swamy Temple",
-        "Near Proposed Temple City Corridor",
-        "Within YTDA Limits (Yadagirigutta Development Authority)",
-        "Excellent Connectivity near Warangal Highway",
-        "Proximity to Proposed Regional Ring Road (RRR)",
-        "Close to Aler & Yadagirigutta Tourist Spots"
-      ],
-      trustBadges: [
-        "India's Largest Plot Developer",
-        "BBG - Building Blocks Group",
-        "17+ Years of Gated Layout Excellence",
-        "100% Clear Documentation & Transactions",
-        "World Associate Offices in India, USA, UK, UAE, Australia",
-        "World Customers in 5 Countries, 7 States & 15 Cities"
-      ]
-    }
+
   ],
   testimonials: [
     {
