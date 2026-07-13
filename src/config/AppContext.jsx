@@ -31,6 +31,8 @@ export const AppProvider = ({ children }) => {
         currentConfig.partners = agentConfig.partners;
         // Force sync the real estate properties config
         currentConfig.realEstate = agentConfig.realEstate;
+        // Force sync the testimonials config
+        currentConfig.testimonials = agentConfig.testimonials;
         // Force sync branding name
         if (currentConfig.settings) {
           currentConfig.settings.logoText = "RR INSURANCE &\nFINANCIAL SERVICES";
