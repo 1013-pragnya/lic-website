@@ -65,7 +65,6 @@ export default function Navbar() {
         <div className="logo" onClick={() => handleLinkClick('home')}>
           <div className="logo-image-container">
             <img src={agentConfig?.settings?.logoUrl || "/logo.png"} alt="Logo" className="logo-img-element" />
-            <span className="logo-image-subtext">INSURANCE &<br />FINANCIAL SERVICE</span>
           </div>
           <div className="logo-text">
             <span className="logo-title text-gradient-gold">{agentConfig?.settings?.logoText || "RRFS ADVISOR"}</span>

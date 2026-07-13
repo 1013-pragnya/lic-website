@@ -26,7 +26,6 @@ export default function Footer({ onOpenAdmin }) {
             <div className="logo" onClick={() => handleLinkClick('home')}>
               <div className="logo-image-container">
                 <img src={agentConfig?.settings?.logoUrl || "/logo.png"} alt="Logo" className="logo-img-element" style={{ height: '36px', objectFit: 'contain', borderRadius: '4px' }} />
-                <span className="logo-image-subtext">INSURANCE &<br />FINANCIAL SERVICE</span>
               </div>
               <span className="logo-title text-gradient-gold">{agentConfig?.settings?.logoText || "RRFS ADVISOR"}</span>
             </div>

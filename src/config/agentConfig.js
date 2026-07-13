@@ -18,6 +18,11 @@ import trueIkoniaMain from '../assets/true-ikonia-main.jpg';
 import trueIkoniaMap from '../assets/true-ikonia-map.jpg';
 import trueIkoniaPrice from '../assets/true-ikonia-price.jpg';
 
+import trueHighlandsMain from '../assets/true-highlands-main.jpg';
+import trueHighlandsMap from '../assets/true-highlands-map.jpg';
+import trueHighlandsPrice from '../assets/true-highlands-price.jpg';
+import trueHighlandsQrs from '../assets/true-highlands-qrs.jpg';
+
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
   title: "Insurance & Real Estate Consultant",
@@ -423,6 +428,56 @@ export const agentConfig = {
         "Designed by International Architects",
         "High Sustainability LEED Certified",
         "Zero Post-Handover Maintenance Worries"
+      ]
+    },
+    {
+      id: "bbg-true-highlands-1",
+      title: "True Highlands - 1",
+      category: "Land Investment",
+      location: "Raikal, Shadnagar, Hyderabad",
+      type: "Premium Open Plots",
+      benefits: "DTCP Approved, RERA Certified, IDBI Bank Loan, ₹1,000/Sq.Yd Bangarutallulaku Offer",
+      price: "Starting from ₹12,999 / Sq.Yd*",
+      image: trueHighlandsMain,
+      priceCardImage: trueHighlandsPrice,
+      mapImage: trueHighlandsMap,
+      qrImage: trueHighlandsQrs,
+      developer: "BBG (Building Blocks Group)",
+      approvals: ["DTCP Approved", "RERA Certified"],
+      gift: "GRT Jewellery Voucher worth ₹15,000 on every ₹10 Lakhs Purchase",
+      highlights: [
+        "DTCP Approved & RERA Certified Gated Layouts",
+        "Exclusive Guarded Gated Community",
+        "24x7 Multi-Tier Gated Community Security",
+        "Wide and Spacious Blacktop (BT) Roads",
+        "Electrical Lines with Designer Street Lights",
+        "Underground Drainage & Sewage Network",
+        "Children's Play Areas, Gardens & Parks",
+        "Consistent Water Supply & Rainwater Harvesting",
+        "Affordable Properties near NH44, ORR & RRR"
+      ],
+      investmentBenefits: [
+        "Bank Loan Available (IDBI Bank)",
+        "₹1,000 Off per Sq.Yard (Bangarutallulaku Offer)",
+        "GRT Jewellery Gift Voucher worth ₹15,000 on Every ₹10 Lakhs Purchase",
+        "Free Building Plan along with Registration Document",
+        "Free 3 Years Society Monitoring & Maintenance"
+      ],
+      locationAdvantages: [
+        "Strategic Location near Hyderabad-Bangalore Highway (NH-44)",
+        "Near Upcoming Regional Ring Road (RRR)",
+        "Easy Access to Outer Ring Road (ORR)",
+        "Proximity to Rajiv Gandhi International Airport",
+        "Close to Educational Institutions & Balanagar Industrial Area",
+        "Excellent Road Connectivity & High Appreciation Corridor"
+      ],
+      trustBadges: [
+        "India's Largest Plot Developer",
+        "BBG - Building Blocks Group",
+        "19+ Years of Gated Layout Excellence",
+        "100% Clear Documentation & Titles",
+        "World Associate Offices in India, USA, UK, UAE, Australia",
+        "World Customers in 5 Countries, 7 States & 15 Cities"
       ]
     }
   ],
