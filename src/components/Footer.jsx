@@ -27,7 +27,21 @@ export default function Footer({ onOpenAdmin }) {
               <div className="logo-image-container">
                 <img src={agentConfig?.settings?.logoUrl || "/logo.png"} alt="Logo" className="logo-img-element" style={{ height: '36px', objectFit: 'contain', borderRadius: '4px' }} />
               </div>
-              <span className="logo-title text-gradient-gold">{agentConfig?.settings?.logoText || "RRFS ADVISOR"}</span>
+              <span className="logo-title text-gradient-gold">
+                {agentConfig?.settings?.logoText ? (
+                  agentConfig.settings.logoText.includes('&') ? (
+                    <>
+                      {agentConfig.settings.logoText.split('&')[0]}&
+                      <br />
+                      {agentConfig.settings.logoText.split('&')[1].trim()}
+                    </>
+                  ) : (
+                    agentConfig.settings.logoText
+                  )
+                ) : (
+                  "RRFS ADVISOR"
+                )}
+              </span>
             </div>
             <p className="footer-bio">
               Empowering individuals and families to secure their future with custom wealth protection plans and high-appreciation premium property investments.

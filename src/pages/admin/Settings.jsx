@@ -66,7 +66,7 @@ export default function Settings() {
             <input
               type="text"
               className="admin-input"
-              placeholder="e.g. RR INSURANCE & FINANCIAL SERVICE"
+              placeholder="e.g. RR INSURANCE & FINANCIAL SERVICES"
               {...register('logoText')}
             />
           </div>
