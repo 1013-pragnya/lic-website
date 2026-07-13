@@ -27,6 +27,12 @@ import royalHighwayMeadowsMap from '../assets/royal-highway-meadows-map.jpg';
 import royalHighwayMeadowsPrice from '../assets/royal-highway-meadows-price.jpg';
 import royalHighwayMeadowsQrs from '../assets/royal-highway-meadows-qrs.jpg';
 
+import testimonialYazmeena from '../assets/testimonial-yazmeena.jpg';
+import testimonialNizar from '../assets/testimonial-nizar.jpg';
+import testimonialShelina from '../assets/testimonial-shelina.jpg';
+import testimonialMuskaan from '../assets/testimonial-muskaan.jpg';
+import testimonialAltaf from '../assets/testimonial-altaf.jpg';
+
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
   title: "Insurance & Real Estate Consultant",
@@ -536,38 +542,38 @@ export const agentConfig = {
   ],
   testimonials: [
     {
-      name: "Amit & Priya Sharma",
-      location: "Hyderabad",
+      name: "Yazmeena",
+      location: "Gujarat",
       policy: "Child Future Plan & Term Protection",
-      avatarUrl: "/avatar1.webp",
+      avatarUrl: testimonialYazmeena,
       text: "Shamsuddin helped us plan our daughter's higher education fund. His transparent advice, patience in explaining riders, and custom calculations gave us complete peace of mind. Highly recommended!"
     },
     {
-      name: "Col. Vikram Malhotra (Retd.)",
+      name: "Nizar Ratnani",
       location: "Secunderabad",
       policy: "Jeevan Shanti Pension Plan",
-      avatarUrl: "/avatar2.webp",
+      avatarUrl: testimonialNizar,
       text: "Finding a reliable pension advisor after retirement was crucial. Mr. Shamsuddin Ratnani guided me to the perfect immediate annuity plan. His processing was incredibly fast and professional."
     },
     {
-      name: "Sneha Patel",
+      name: "Shelina Ratnani",
       location: "Hyderabad",
       policy: "Endowment Growth & Tax Saver",
-      avatarUrl: "/avatar3.webp",
+      avatarUrl: testimonialShelina,
       text: "As an IT professional, I wanted to maximize tax saving under 80C and 10(10D) while building a wealth corpus. Shamsuddin's smart visual charts showed exactly how endowment policies perform. Superb execution!"
     },
     {
-      name: "Rohan & Meera Sen",
+      name: "Muskaan",
       location: "Hyderabad",
       policy: "Eco-Valley Plots & Asset Planning",
-      avatarUrl: "/avatar1.webp",
+      avatarUrl: testimonialMuskaan,
       text: "We were looking for high-appreciation land investments. Shamsuddin guided us to Eco-Valley Plots. His analysis of property growth patterns and documentation verification was flawless."
     },
     {
-      name: "Dr. Sandeep Vardhan",
+      name: "Altaf Hamirani",
       location: "Hyderabad",
       policy: "Commercial Space Acquisition",
-      avatarUrl: "/avatar3.webp",
+      avatarUrl: testimonialAltaf,
       text: "Shamsuddin helped me diversify my clinic's capital into commercial office spaces. His knowledge of both wealth protection via LIC and wealth creation via real estate is truly unmatched."
     }
   ]
