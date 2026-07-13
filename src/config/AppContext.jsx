@@ -33,7 +33,7 @@ export const AppProvider = ({ children }) => {
         currentConfig.realEstate = agentConfig.realEstate;
         // Force sync branding name
         if (currentConfig.settings) {
-          currentConfig.settings.logoText = "RR INSURANCE & FINANCIAL SERVICES";
+          currentConfig.settings.logoText = "RR INSURANCE &\nFINANCIAL SERVICES";
         }
         // Migrate old default hero values to new premium ones
         if (currentConfig.hero) {
@@ -205,7 +205,7 @@ export const AppProvider = ({ children }) => {
             { id: 'g5', url: '/shamsuddin-event.jpg', caption: 'Award Ceremony' }
           ],
           settings: {
-            logoText: "RR INSURANCE & FINANCIAL SERVICES",
+            logoText: "RR INSURANCE &\nFINANCIAL SERVICES",
             logoUrl: "",
             faviconUrl: "",
             primaryColor: "#cfa844",

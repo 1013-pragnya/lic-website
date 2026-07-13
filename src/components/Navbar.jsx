@@ -67,21 +67,7 @@ export default function Navbar() {
             <img src={agentConfig?.settings?.logoUrl || "/logo.png"} alt="Logo" className="logo-img-element" />
           </div>
           <div className="logo-text">
-            <span className="logo-title text-gradient-gold">
-              {agentConfig?.settings?.logoText ? (
-                agentConfig.settings.logoText.includes('&') ? (
-                  <>
-                    {agentConfig.settings.logoText.split('&')[0]}&
-                    <br />
-                    {agentConfig.settings.logoText.split('&')[1].trim()}
-                  </>
-                ) : (
-                  agentConfig.settings.logoText
-                )
-              ) : (
-                "RRFS ADVISOR"
-              )}
-            </span>
+            <span className="logo-title text-gradient-gold">{agentConfig?.settings?.logoText || "RRFS ADVISOR"}</span>
             <span className="logo-subtitle">{agentConfig?.name}</span>
           </div>
         </div>
