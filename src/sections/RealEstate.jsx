@@ -264,14 +264,7 @@ export default function RealEstate({ onSelectConsultation }) {
                 <div className="modal-thumbs-grid">
                   {selectedProperty.priceCardImage && (
                     <div className="modal-thumb-item">
-                      <img src={selectedProperty.priceCardImage} alt="Price Card" onClick={() => window.open(selectedProperty.priceCardImage, '_blank')} />
-                      <span>{selectedProperty.id === 'bbg-true-highlands-1' ? 'Price Card' : 'QR Codes'}</span>
-                    </div>
-                  )}
-                  {selectedProperty.qrImage && (
-                    <div className="modal-thumb-item">
-                      <img src={selectedProperty.qrImage} alt="QR Codes" onClick={() => window.open(selectedProperty.qrImage, '_blank')} />
-                      <span>QR Codes</span>
+                      <img src={selectedProperty.priceCardImage} alt="QR Codes" onClick={() => window.open(selectedProperty.priceCardImage, '_blank')} />
                     </div>
                   )}
                   {selectedProperty.mapImage && (

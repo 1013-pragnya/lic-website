@@ -20,7 +20,6 @@ import trueIkoniaPrice from '../assets/true-ikonia-price.jpg';
 
 import trueHighlandsMain from '../assets/true-highlands-main.jpg';
 import trueHighlandsMap from '../assets/true-highlands-map.jpg';
-import trueHighlandsPrice from '../assets/true-highlands-price.jpg';
 import trueHighlandsQrs from '../assets/true-highlands-qrs.jpg';
 
 export const agentConfig = {
@@ -439,9 +438,8 @@ export const agentConfig = {
       benefits: "DTCP Approved, RERA Certified, IDBI Bank Loan, ₹1,000/Sq.Yd Bangarutallulaku Offer",
       price: "Starting from ₹12,999 / Sq.Yd*",
       image: trueHighlandsMain,
-      priceCardImage: trueHighlandsPrice,
+      priceCardImage: trueHighlandsQrs,
       mapImage: trueHighlandsMap,
-      qrImage: trueHighlandsQrs,
       developer: "BBG (Building Blocks Group)",
       approvals: ["DTCP Approved", "RERA Certified"],
       gift: "GRT Jewellery Voucher worth ₹15,000 on every ₹10 Lakhs Purchase",
