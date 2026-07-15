@@ -540,41 +540,113 @@ export const agentConfig = {
     },
 
   ],
+  media: [
+    {
+      id: "media_yazmeena",
+      file_name: "testimonial-yazmeena.jpg",
+      original_name: "media__1783938384187.jpg",
+      file_url: testimonialYazmeena,
+      file_size: "31.93 kB",
+      mime_type: "image/jpeg",
+      width: 300,
+      height: 300,
+      uploaded_at: "2026-07-13T10:28:17.000Z"
+    },
+    {
+      id: "media_nizar",
+      file_name: "testimonial-nizar.jpg",
+      original_name: "media__1783938383668.jpg",
+      file_url: testimonialNizar,
+      file_size: "40.17 kB",
+      mime_type: "image/jpeg",
+      width: 300,
+      height: 300,
+      uploaded_at: "2026-07-13T10:28:17.000Z"
+    },
+    {
+      id: "media_shelina",
+      file_name: "testimonial-shelina.jpg",
+      original_name: "media__1783938383934.jpg",
+      file_url: testimonialShelina,
+      file_size: "28.95 kB",
+      mime_type: "image/jpeg",
+      width: 300,
+      height: 300,
+      uploaded_at: "2026-07-13T10:28:17.000Z"
+    },
+    {
+      id: "media_muskaan",
+      file_name: "testimonial-muskaan.jpg",
+      original_name: "media__1783938384168.jpg",
+      file_url: testimonialMuskaan,
+      file_size: "23.56 kB",
+      mime_type: "image/jpeg",
+      width: 300,
+      height: 300,
+      uploaded_at: "2026-07-13T10:28:17.000Z"
+    },
+    {
+      id: "media_altaf",
+      file_name: "testimonial-altaf.jpg",
+      original_name: "media__1783938383486.jpg",
+      file_url: testimonialAltaf,
+      file_size: "18.01 kB",
+      mime_type: "image/jpeg",
+      width: 300,
+      height: 300,
+      uploaded_at: "2026-07-13T10:28:17.000Z"
+    }
+  ],
   testimonials: [
     {
-      name: "Yazmeena",
-      location: "Gujarat",
-      policy: "Child Future Plan & Term Protection",
-      avatarUrl: testimonialYazmeena,
-      text: "Shamsuddin helped us plan our daughter's higher education fund. His transparent advice, patience in explaining riders, and custom calculations gave us complete peace of mind. Highly recommended!"
+      id: "test_yazmeena",
+      client_name: "Yazmeena",
+      client_location: "Gujarat",
+      policy_name: "Child Future Plan & Term Protection",
+      review: "Shamsuddin helped us plan our daughter's higher education fund. His transparent advice, patience in explaining riders, and custom calculations gave us complete peace of mind. Highly recommended!",
+      image_id: "media_yazmeena",
+      created_at: "2026-07-13T10:28:17.000Z",
+      updated_at: "2026-07-13T10:28:17.000Z"
     },
     {
-      name: "Nizar Ratnani",
-      location: "Secunderabad",
-      policy: "Jeevan Shanti Pension Plan",
-      avatarUrl: testimonialNizar,
-      text: "Finding a reliable pension advisor after retirement was crucial. Mr. Shamsuddin Ratnani guided me to the perfect immediate annuity plan. His processing was incredibly fast and professional."
+      id: "test_nizar",
+      client_name: "Nizar Ratnani",
+      client_location: "Secunderabad",
+      policy_name: "Jeevan Shanti Pension Plan",
+      review: "Finding a reliable pension advisor after retirement was crucial. Mr. Shamsuddin Ratnani guided me to the perfect immediate annuity plan. His processing was incredibly fast and professional.",
+      image_id: "media_nizar",
+      created_at: "2026-07-13T10:28:17.000Z",
+      updated_at: "2026-07-13T10:28:17.000Z"
     },
     {
-      name: "Shelina Ratnani",
-      location: "Hyderabad",
-      policy: "Endowment Growth & Tax Saver",
-      avatarUrl: testimonialShelina,
-      text: "As an IT professional, I wanted to maximize tax saving under 80C and 10(10D) while building a wealth corpus. Shamsuddin's smart visual charts showed exactly how endowment policies perform. Superb execution!"
+      id: "test_shelina",
+      client_name: "Shelina Ratnani",
+      client_location: "Hyderabad",
+      policy_name: "Endowment Growth & Tax Saver",
+      review: "As an IT professional, I wanted to maximize tax saving under 80C and 10(10D) while building a wealth corpus. Shamsuddin's smart visual charts showed exactly how endowment policies perform. Superb execution!",
+      image_id: "media_shelina",
+      created_at: "2026-07-13T10:28:17.000Z",
+      updated_at: "2026-07-13T10:28:17.000Z"
     },
     {
-      name: "Muskaan",
-      location: "Hyderabad",
-      policy: "Eco-Valley Plots & Asset Planning",
-      avatarUrl: testimonialMuskaan,
-      text: "We were looking for high-appreciation land investments. Shamsuddin guided us to Eco-Valley Plots. His analysis of property growth patterns and documentation verification was flawless."
+      id: "test_muskaan",
+      client_name: "Muskaan",
+      client_location: "Hyderabad",
+      policy_name: "Eco-Valley Plots & Asset Planning",
+      review: "We were looking for high-appreciation land investments. Shamsuddin guided us to Eco-Valley Plots. His analysis of property growth patterns and documentation verification was flawless.",
+      image_id: "media_muskaan",
+      created_at: "2026-07-13T10:28:17.000Z",
+      updated_at: "2026-07-13T10:28:17.000Z"
     },
     {
-      name: "Altaf Hamirani",
-      location: "Hyderabad",
-      policy: "Commercial Space Acquisition",
-      avatarUrl: testimonialAltaf,
-      text: "Shamsuddin helped me diversify my clinic's capital into commercial office spaces. His knowledge of both wealth protection via LIC and wealth creation via real estate is truly unmatched."
+      id: "test_altaf",
+      client_name: "Altaf Hamirani",
+      client_location: "Hyderabad",
+      policy_name: "Commercial Space Acquisition",
+      review: "Shamsuddin helped me diversify my clinic's capital into commercial office spaces. His knowledge of both wealth protection via LIC and wealth creation via real estate is truly unmatched.",
+      image_id: "media_altaf",
+      created_at: "2026-07-13T10:28:17.000Z",
+      updated_at: "2026-07-13T10:28:17.000Z"
     }
   ]
 };

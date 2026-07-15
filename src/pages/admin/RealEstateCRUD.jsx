@@ -133,7 +133,7 @@ export default function RealEstateCRUD() {
                       src={prop.image} 
                       alt={prop.title} 
                       style={{ width: '48px', height: '36px', borderRadius: '4px', objectFit: 'cover' }}
-                      onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800'; }}
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800'; }}
                     />
                   </td>
                   <td>

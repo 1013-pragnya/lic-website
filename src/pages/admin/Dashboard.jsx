@@ -43,7 +43,7 @@ export default function Dashboard() {
     const rows = combinedInquiries.map(l => [
       l.timestamp,
       l.type,
-      l.name.replace(/"/g, '""'),
+      (l.name || '').replace(/"/g, '""'),
       l.phone,
       l.email,
       l.type === 'Quote' ? `${l.provider} (${l.category})` : `Plan: ${l.plan}, Prop: ${l.propertyInterest}`,

@@ -34,6 +34,7 @@ import SocialLinks from './pages/admin/SocialLinks';
 import QuotesList from './pages/admin/QuotesList';
 import Settings from './pages/admin/Settings';
 import PartnersCRUD from './pages/admin/PartnersCRUD';
+import MediaLibrary from './pages/admin/MediaLibrary';
 
 // Public Listing Pages
 import RealEstateAll from './pages/RealEstateAll';
@@ -212,6 +213,7 @@ export default function App() {
           <Route path="plans" element={<PlansCRUD />} />
           <Route path="partners" element={<PartnersCRUD />} />
           <Route path="benefits" element={<BenefitsCRUD />} />
+          <Route path="media" element={<MediaLibrary />} />
           <Route path="testimonials" element={<TestimonialsCRUD />} />
           <Route path="real-estate" element={<RealEstateCRUD />} />
           <Route path="gallery" element={<GalleryManagement />} />

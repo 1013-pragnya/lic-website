@@ -51,8 +51,10 @@ export default function Login() {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 20px;
+          padding: 40px 20px;
           font-family: var(--font-body);
+          overflow-y: auto;
+          box-sizing: border-box;
         }
         .login-card {
           width: 100%;

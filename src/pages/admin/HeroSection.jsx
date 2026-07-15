@@ -330,7 +330,7 @@ export default function HeroSection() {
                             src={banner.backgroundImage} 
                             alt="Desktop Banner" 
                             style={{ width: '60px', height: '36px', borderRadius: '4px', objectFit: 'cover' }} 
-                            onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&q=80&w=200'; }}
+                            onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&q=80&w=200'; }}
                           />
                         ) : (
                           <div style={{ width: '60px', height: '36px', borderRadius: '4px', background: 'linear-gradient(135deg, #091024, #050a17)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', color: 'var(--text-muted)' }}>
@@ -344,7 +344,7 @@ export default function HeroSection() {
                             src={banner.mobileImage} 
                             alt="Mobile Banner" 
                             style={{ width: '30px', height: '40px', borderRadius: '4px', objectFit: 'cover' }} 
-                            onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&q=80&w=150'; }}
+                            onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&q=80&w=150'; }}
                           />
                         ) : (
                           <div style={{ width: '30px', height: '40px', borderRadius: '4px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.5rem', color: 'var(--text-muted)', textAlign: 'center' }}>

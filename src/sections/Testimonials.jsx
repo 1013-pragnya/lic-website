@@ -63,39 +63,45 @@ export default function Testimonials() {
           <Quote className="quote-icon-bg text-gold" size={140} />
 
           <div className="testimonial-slide-viewport">
-            {items.map((testimonial, idx) => (
-              <div 
-                key={idx}
-                ref={idx === activeIndex ? cardRef : null}
-                className={`testimonial-slide glass-panel card-3d ${idx === activeIndex ? 'active' : ''}`}
-                onMouseMove={idx === activeIndex ? handleMouseMove : null}
-                onMouseLeave={idx === activeIndex ? handleMouseLeave : null}
-              >
-                <div className="testimonial-avatar-wrapper">
-                  <img 
-                    src={testimonial.avatarUrl} 
-                    alt={testimonial.name} 
-                    className="testimonial-avatar" 
-                  />
-                  <div className="avatar-gold-glow" />
-                </div>
+            {items.map((testimonial, idx) => {
+              const media = agentConfig?.media?.find(m => m.id === testimonial.image_id);
+              const avatarSrc = media ? media.file_url : '/avatar1.webp';
 
-                <div className="rating-stars">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={15} fill="var(--primary-gold)" stroke="none" />
-                  ))}
+              return (
+                <div 
+                  key={idx}
+                  ref={idx === activeIndex ? cardRef : null}
+                  className={`testimonial-slide glass-panel card-3d ${idx === activeIndex ? 'active' : ''}`}
+                  onMouseMove={idx === activeIndex ? handleMouseMove : null}
+                  onMouseLeave={idx === activeIndex ? handleMouseLeave : null}
+                >
+                  <div className="testimonial-avatar-wrapper">
+                    <img 
+                      src={avatarSrc} 
+                      alt={testimonial.client_name} 
+                      className="testimonial-avatar" 
+                      onError={(e) => { e.target.onerror = null; e.target.src = '/avatar1.webp'; }}
+                    />
+                    <div className="avatar-gold-glow" />
+                  </div>
+
+                  <div className="rating-stars">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={15} fill="var(--primary-gold)" stroke="none" />
+                    ))}
+                  </div>
+                  
+                  <p className="testimonial-quote">"{testimonial.review}"</p>
+                  
+                  <div className="testimonial-author-box">
+                    <h4 className="author-name">{testimonial.client_name}</h4>
+                    <span className="author-details">
+                      {testimonial.client_location} &bull; <span className="text-gold">{testimonial.policy_name}</span>
+                    </span>
+                  </div>
                 </div>
-                
-                <p className="testimonial-quote">"{testimonial.text}"</p>
-                
-                <div className="testimonial-author-box">
-                  <h4 className="author-name">{testimonial.name}</h4>
-                  <span className="author-details">
-                    {testimonial.location} &bull; <span className="text-gold">{testimonial.policy}</span>
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Controls Panel */}
