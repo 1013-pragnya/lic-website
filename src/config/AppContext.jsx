@@ -401,7 +401,7 @@ export const AppProvider = ({ children }) => {
           console.log("Supabase tables are empty. Seeding default data...");
           
           // Seed settings
-          await supabase.from('settings').upsert([
+          const { error: settingsErr } = await supabase.from('settings').upsert([
             {
               key: 'about_settings',
               value: {
@@ -449,11 +449,11 @@ export const AppProvider = ({ children }) => {
             {
               key: 'gallery_settings',
               value: [
-                { id: 'g1', url: '/shamsuddin-suit1.jpg', caption: 'Professional Portrait' },
-                { id: 'g2', url: '/shamsuddin-suit2.jpg', caption: 'Financial Advisory Session' },
-                { id: 'g3', url: '/shamsuddin-office1.jpg', caption: 'Office Consultation Room' },
-                { id: 'g4', url: '/shamsuddin-office2.jpg', caption: 'Client Meeting' },
-                { id: 'g5', url: '/shamsuddin-event.jpg', caption: 'Award Ceremony' }
+                { id: 'g1', url: '/src/assets/shamsuddin-suit1.jpg', caption: 'Professional Portrait' },
+                { id: 'g2', url: '/src/assets/shamsuddin-suit2.jpg', caption: 'Financial Advisory Session' },
+                { id: 'g3', url: '/src/assets/shamsuddin-office1.jpg', caption: 'Office Consultation Room' },
+                { id: 'g4', url: '/src/assets/shamsuddin-office2.jpg', caption: 'Client Meeting' },
+                { id: 'g5', url: '/src/assets/shamsuddin-event.jpg', caption: 'Award Ceremony' }
               ]
             },
             {
@@ -469,9 +469,10 @@ export const AppProvider = ({ children }) => {
               }
             }
           ]);
+          if (settingsErr) throw new Error("Settings seeding failed: " + settingsErr.message);
 
           // Seed banners
-          await supabase.from('banners').insert([
+          const { error: bannersErr } = await supabase.from('banners').upsert([
             {
               id: 'banner_1',
               badge: "Authorized Advisor: LIC, Tata AIG, Care Health, Star Health",
@@ -497,9 +498,10 @@ export const AppProvider = ({ children }) => {
               sort_order: 1
             }
           ]);
+          if (bannersErr) throw new Error("Banners seeding failed: " + bannersErr.message);
 
           // Seed benefits
-          await supabase.from('benefits').insert([
+          const { error: benefitsErr } = await supabase.from('benefits').upsert([
             { id: 'b1', icon: 'Shield', title: 'Sovereign Guarantee', description: 'All LIC policies are backed by the sovereign guarantee of the Government of India, ensuring absolute safety.', hidden: false, sort_order: 0 },
             { id: 'b2', icon: 'Award', title: '18+ Years Experience', description: 'Serving clients with trust, helping them navigate complex financial options and securing their assets.', hidden: false, sort_order: 1 },
             { id: 'b3', icon: 'Heart', title: '99.2% Claim Settlement', description: 'Hassle-free claims processing with dedicated support when you and your family need it the most.', hidden: false, sort_order: 2 },
@@ -507,6 +509,7 @@ export const AppProvider = ({ children }) => {
             { id: 'b5', icon: 'Users', title: '1,200+ Secured Families', description: 'A growing community of satisfied clients who trust us for their life, health, and property needs.', hidden: false, sort_order: 4 },
             { id: 'b6', icon: 'Clock', title: '24/7 Dedicated Support', description: 'Direct assistance via WhatsApp, phone, or email to answer any inquiries or help during emergencies.', hidden: false, sort_order: 5 }
           ]);
+          if (benefitsErr) throw new Error("Benefits seeding failed: " + benefitsErr.message);
 
           // Seed default media
           const mediaToInsert = agentConfig.media.map(m => ({
@@ -520,7 +523,8 @@ export const AppProvider = ({ children }) => {
             height: m.height,
             uploaded_at: m.uploaded_at
           }));
-          await supabase.from('media').insert(mediaToInsert);
+          const { error: mediaErr } = await supabase.from('media').upsert(mediaToInsert);
+          if (mediaErr) throw new Error("Media seeding failed: " + mediaErr.message);
 
           // Seed testimonials
           const testimonialsToInsert = agentConfig.testimonials.map((t, idx) => ({
@@ -533,7 +537,8 @@ export const AppProvider = ({ children }) => {
             hidden: false,
             sort_order: idx
           }));
-          await supabase.from('testimonials').insert(testimonialsToInsert);
+          const { error: testimonialsErr } = await supabase.from('testimonials').upsert(testimonialsToInsert);
+          if (testimonialsErr) throw new Error("Testimonials seeding failed: " + testimonialsErr.message);
 
           // Seed partners
           const partnersToInsert = agentConfig.partners.map((p, idx) => ({
@@ -547,7 +552,8 @@ export const AppProvider = ({ children }) => {
             hidden: false,
             sort_order: idx
           }));
-          await supabase.from('partners').insert(partnersToInsert);
+          const { error: partnersErr } = await supabase.from('partners').upsert(partnersToInsert);
+          if (partnersErr) throw new Error("Partners seeding failed: " + partnersErr.message);
 
           // Seed plans
           const plansToInsert = agentConfig.plans.map((p, idx) => ({
@@ -565,7 +571,8 @@ export const AppProvider = ({ children }) => {
             hidden: false,
             sort_order: idx
           }));
-          await supabase.from('plans').insert(plansToInsert);
+          const { error: plansInsertErr } = await supabase.from('plans').upsert(plansToInsert);
+          if (plansInsertErr) throw new Error("Plans seeding failed: " + plansInsertErr.message);
 
           // Seed real estate
           const propertiesToInsert = agentConfig.realEstate.map((p, idx) => ({
@@ -591,7 +598,8 @@ export const AppProvider = ({ children }) => {
             hidden: p.hidden || false,
             sort_order: idx
           }));
-          await supabase.from('real_estate').insert(propertiesToInsert);
+          const { error: propertiesInsertErr } = await supabase.from('real_estate').upsert(propertiesToInsert);
+          if (propertiesInsertErr) throw new Error("Real estate seeding failed: " + propertiesInsertErr.message);
 
           // Seed default quotes
           const defaultQuotes = [
@@ -618,7 +626,8 @@ export const AppProvider = ({ children }) => {
               status: "Contacted"
             }
           ];
-          await supabase.from('quotes').insert(defaultQuotes);
+          const { error: quotesErr } = await supabase.from('quotes').upsert(defaultQuotes);
+          if (quotesErr) throw new Error("Quotes seeding failed: " + quotesErr.message);
 
           // Seed default contacts
           const defaultContacts = [
@@ -634,8 +643,11 @@ export const AppProvider = ({ children }) => {
               status: "New"
             }
           ];
-          await supabase.from('contacts').insert(defaultContacts);
+          const { error: contactsErr } = await supabase.from('contacts').upsert(defaultContacts);
+          if (contactsErr) throw new Error("Contacts seeding failed: " + contactsErr.message);
         }
+
+
 
         // 2. Fetch all collections from Supabase
         const [
