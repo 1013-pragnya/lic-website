@@ -137,7 +137,8 @@ export default function Plans({ onGetQuote }) {
   const openWhatsAppPlan = (title) => {
     const firstName = agentConfig?.name.split(' ')[0] || "Advisor";
     const text = encodeURIComponent(`Hi ${firstName}, I'm interested in the LIC policy plan: "${title}". Please share details and premium options.`);
-    window.open(`https://wa.me/${agentConfig?.contact?.whatsapp}?text=${text}`, '_blank');
+    const whatsappNum = agentConfig?.contact?.whatsapp?.replace(/\D/g, '') || '';
+    window.open(`https://wa.me/${whatsappNum}?text=${text}`, '_blank');
   };
 
   // Drag Handlers

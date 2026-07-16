@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useConfig } from '../../config/AppContext';
-import { FiPlus, FiEdit, FiTrash2, FiSave, FiX, FiHome, FiArrowUp, FiArrowDown, FiEye, FiEyeOff, FiStar } from 'react-icons/fi';
+import { 
+  FiPlus, FiEdit, FiTrash2, FiSave, FiX, FiHome, 
+  FiArrowUp, FiArrowDown, FiEye, FiEyeOff, FiStar,
+  FiUpload, FiFolder, FiImage
+} from 'react-icons/fi';
+import MediaLibrary from './MediaLibrary';
 
 export default function RealEstateCRUD() {
-  const { agentConfig, addRealEstate, updateRealEstate, deleteRealEstate, reorderProperties } = useConfig();
+  const { 
+    agentConfig, 
+    addRealEstate, 
+    updateRealEstate, 
+    deleteRealEstate, 
+    reorderProperties,
+    addMediaItem 
+  } = useConfig();
   const realEstateList = agentConfig?.realEstate || [];
+  const mediaList = agentConfig?.media || [];
 
   const [view, setView] = useState('list'); // 'list', 'create', 'edit'
   const [activePropId, setActivePropId] = useState(null);
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  // Media Selector States & Refs
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [showMediaModal, setShowMediaModal] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
 
   const handleCreate = () => {
+    setSelectedImage(null);
     reset({
       title: '',
       category: 'Residential Property',
@@ -30,6 +50,9 @@ export default function RealEstateCRUD() {
 
   const handleEdit = (prop) => {
     setActivePropId(prop.id);
+    const matchingMedia = mediaList.find(m => m.file_url === prop.image);
+    setSelectedImage(matchingMedia || { file_url: prop.image, file_name: 'External URL / Default' });
+
     reset({
       title: prop.title,
       category: prop.category,
@@ -43,6 +66,42 @@ export default function RealEstateCRUD() {
       hidden: prop.hidden || false
     });
     setView('edit');
+  };
+
+  // Direct upload handler inside form
+  const handleDirectUpload = async (e) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+
+    // Basic validation
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      alert('Only JPG, JPEG, PNG, and WEBP formats are allowed.');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Maximum file size allowed is 5 MB.');
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      const mediaItem = await addMediaItem(file);
+      setSelectedImage(mediaItem);
+      setValue('image', mediaItem.file_url); // Update React Hook Form value
+    } catch (err) {
+      alert(`Upload failed: ${err.message || err}`);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // Selection from Media Library modal
+  const handleSelectFromLibrary = (mediaItem) => {
+    setSelectedImage(mediaItem);
+    setValue('image', mediaItem.file_url); // Update React Hook Form value
+    setShowMediaModal(false);
   };
 
   const handleDelete = (id) => {
@@ -92,6 +151,23 @@ export default function RealEstateCRUD() {
 
   return (
     <div className="admin-card">
+      {/* Media Library Modal */}
+      {showMediaModal && (
+        <div className="media-modal-backdrop" onClick={() => setShowMediaModal(false)}>
+          <div 
+            className="media-modal-content glass-panel" 
+            onClick={e => e.stopPropagation()}
+            style={{ maxWidth: '900px', width: '90%' }}
+          >
+            <div style={{ padding: '24px', overflowY: 'auto', maxHeight: '80vh' }}>
+              <MediaLibrary 
+                onSelectImage={handleSelectFromLibrary} 
+                onClose={() => setShowMediaModal(false)} 
+              />
+            </div>
+          </div>
+        </div>
+      )}
       <div className="admin-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
         <div>
           <h2 className="admin-card-title" style={{ borderBottom: 'none', paddingBottom: 0, marginBottom: '4px' }}>
@@ -302,13 +378,81 @@ export default function RealEstateCRUD() {
             </div>
 
             <div className="admin-form-group">
-              <label className="admin-label">Property Image Path / Unsplash URL</label>
-              <input
-                type="text"
-                className="admin-input"
-                placeholder="e.g. https://images.unsplash.com/..."
-                {...register('image', { required: 'Image path or link is required' })}
-              />
+              <label className="admin-label">Property Image Upload / Selection</label>
+              <div className="media-selector-box" style={{
+                background: 'rgba(13, 24, 49, 0.35)',
+                border: '1px solid var(--border-glass)',
+                borderRadius: '8px',
+                padding: '12px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px'
+              }}>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button 
+                    type="button" 
+                    onClick={() => setShowMediaModal(true)} 
+                    className="admin-btn admin-btn-secondary"
+                    style={{ gap: '8px', padding: '6px 12px', fontSize: '0.8rem' }}
+                  >
+                    <FiFolder /> Choose from Library
+                  </button>
+                  <button 
+                    type="button" 
+                    onClick={() => fileInputRef.current.click()} 
+                    className="admin-btn admin-btn-secondary"
+                    style={{ gap: '8px', padding: '6px 12px', fontSize: '0.8rem' }}
+                    disabled={isUploading}
+                  >
+                    <FiUpload /> {isUploading ? 'Uploading...' : 'Upload Image'}
+                  </button>
+                  <input 
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleDirectUpload}
+                    style={{ display: 'none' }}
+                    accept=".jpg,.jpeg,.png,.webp"
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', background: 'rgba(5, 10, 23, 0.4)', padding: '8px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{
+                    width: '60px',
+                    height: '45px',
+                    borderRadius: '4px',
+                    overflow: 'hidden',
+                    background: '#050a17',
+                    border: '1px solid var(--primary-gold)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0
+                  }}>
+                    <img 
+                      src={selectedImage ? selectedImage.file_url : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800'} 
+                      alt="Selected Preview" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800'; }}
+                    />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                      <strong>Active file/path:</strong> {selectedImage ? (selectedImage.file_name || selectedImage.file_url) : 'Default Unsplash cover'}
+                    </div>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      style={{ height: '24px', padding: '2px 6px', fontSize: '0.75rem', marginTop: '4px', width: '100%' }}
+                      placeholder="Or paste external image path directly here..."
+                      {...register('image', { required: 'Image path or link is required' })}
+                      onChange={(e) => {
+                        setValue('image', e.target.value);
+                        setSelectedImage({ file_url: e.target.value, file_name: 'Custom path / external URL' });
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
               {errors.image && <span style={{ color: '#ef4444', fontSize: '0.75rem' }}>{errors.image.message}</span>}
             </div>
           </div>

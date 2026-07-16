@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useConfig } from '../../config/AppContext';
 import { 
   FiPlus, FiEdit, FiTrash2, FiSave, FiX, 
-  FiMessageSquare, FiImage, FiUpload, FiFolder
+  FiMessageSquare, FiImage, FiUpload, FiFolder,
+  FiEye, FiEyeOff
 } from 'react-icons/fi';
 import MediaLibrary from './MediaLibrary';
 
@@ -66,6 +67,13 @@ export default function TestimonialsCRUD() {
     }
   };
 
+  const handleToggleHide = (test) => {
+    updateTestimonial({
+      ...test,
+      hidden: !test.hidden
+    });
+  };
+
   // Direct upload handler inside form
   const handleDirectUpload = async (e) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -107,7 +115,8 @@ export default function TestimonialsCRUD() {
   const onSubmit = (data) => {
     const payload = {
       ...data,
-      image_id: selectedImage ? selectedImage.id : null
+      image_id: selectedImage ? selectedImage.id : null,
+      hidden: data.hidden || false
     };
 
     if (view === 'create') {
@@ -176,6 +185,7 @@ export default function TestimonialsCRUD() {
                 <th>Location</th>
                 <th>Policy/Asset Purchased</th>
                 <th>Review Details</th>
+                <th>Visibility</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
@@ -197,6 +207,24 @@ export default function TestimonialsCRUD() {
                     <td>{test.policy_name}</td>
                     <td style={{ maxWidth: '350px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       "{test.review}"
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleToggleHide(test)}
+                        className="admin-btn"
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: test.hidden ? 'var(--text-muted)' : '#10b981',
+                          cursor: 'pointer',
+                          padding: '4px',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                        title={test.hidden ? 'Hidden (Click to Show)' : 'Visible (Click to Hide)'}
+                      >
+                        {test.hidden ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                      </button>
                     </td>
                     <td style={{ textAlign: 'right' }}>
                       <div style={{ display: 'inline-flex', gap: '8px' }}>
@@ -259,6 +287,20 @@ export default function TestimonialsCRUD() {
                 {...register('policy_name', { required: 'Policy details are required' })}
               />
               {errors.policy_name && <span style={{ color: '#ef4444', fontSize: '0.75rem' }}>{errors.policy_name.message}</span>}
+            </div>
+          </div>
+
+          <div className="admin-form-row" style={{ marginTop: '12px', marginBottom: '8px' }}>
+            <div className="admin-form-group" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexDirection: 'row' }}>
+              <input
+                type="checkbox"
+                id="hidden-checkbox"
+                {...register('hidden')}
+                style={{ width: '18px', height: '18px', accentColor: 'var(--primary-gold)', cursor: 'pointer' }}
+              />
+              <label htmlFor="hidden-checkbox" className="admin-label" style={{ margin: 0, cursor: 'pointer', userSelect: 'none' }}>
+                Hide Testimonial (Draft / Inactive)
+              </label>
             </div>
           </div>
 

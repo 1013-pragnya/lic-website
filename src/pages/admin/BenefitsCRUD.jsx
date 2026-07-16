@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useConfig } from '../../config/AppContext';
-import { FiPlus, FiEdit, FiTrash2, FiSave, FiX } from 'react-icons/fi';
+import { FiPlus, FiEdit, FiTrash2, FiSave, FiX, FiEye, FiEyeOff } from 'react-icons/fi';
 import * as LucideIcons from 'lucide-react';
 
 export default function BenefitsCRUD() {
@@ -17,7 +17,8 @@ export default function BenefitsCRUD() {
     reset({
       title: '',
       description: '',
-      icon: 'Shield'
+      icon: 'Shield',
+      hidden: false
     });
     setView('create');
   };
@@ -27,7 +28,8 @@ export default function BenefitsCRUD() {
     reset({
       title: benefit.title,
       description: benefit.description,
-      icon: benefit.icon
+      icon: benefit.icon,
+      hidden: benefit.hidden || false
     });
     setView('edit');
   };
@@ -38,13 +40,25 @@ export default function BenefitsCRUD() {
     }
   };
 
+  const handleToggleHide = (benefit) => {
+    updateBenefit({
+      ...benefit,
+      hidden: !benefit.hidden
+    });
+  };
+
   const onSubmit = (data) => {
+    const payload = {
+      ...data,
+      hidden: data.hidden || false
+    };
+
     if (view === 'create') {
-      addBenefit(data);
+      addBenefit(payload);
       alert('Benefit created successfully!');
     } else {
       updateBenefit({
-        ...data,
+        ...payload,
         id: activeBenefitId
       });
       alert('Benefit updated successfully!');
@@ -81,6 +95,7 @@ export default function BenefitsCRUD() {
                 <th>Icon</th>
                 <th>Benefit Title</th>
                 <th>Description</th>
+                <th>Visibility</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
@@ -107,6 +122,25 @@ export default function BenefitsCRUD() {
                     <td><strong>{benefit.title}</strong></td>
                     <td style={{ maxWidth: '400px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {benefit.description}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleHide(benefit)}
+                        className="admin-btn"
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: benefit.hidden ? 'var(--text-muted)' : '#10b981',
+                          cursor: 'pointer',
+                          padding: '4px',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                        title={benefit.hidden ? 'Hidden (Click to Show)' : 'Visible (Click to Hide)'}
+                      >
+                        {benefit.hidden ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                      </button>
                     </td>
                     <td style={{ textAlign: 'right' }}>
                       <div style={{ display: 'inline-flex', gap: '8px' }}>
@@ -171,6 +205,20 @@ export default function BenefitsCRUD() {
               {...register('description', { required: 'Description is required' })}
             />
             {errors.description && <span style={{ color: '#ef4444', fontSize: '0.75rem' }}>{errors.description.message}</span>}
+          </div>
+
+          <div className="admin-form-row" style={{ marginTop: '12px', marginBottom: '8px' }}>
+            <div className="admin-form-group" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexDirection: 'row' }}>
+              <input
+                type="checkbox"
+                id="hidden-checkbox"
+                {...register('hidden')}
+                style={{ width: '18px', height: '18px', accentColor: 'var(--primary-gold)', cursor: 'pointer' }}
+              />
+              <label htmlFor="hidden-checkbox" className="admin-label" style={{ margin: 0, cursor: 'pointer', userSelect: 'none' }}>
+                Hide Benefit (Inactive)
+              </label>
+            </div>
           </div>
 
           <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>

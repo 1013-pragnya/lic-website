@@ -76,7 +76,8 @@ export default function Contact({ activeTab: propActiveTab, setActiveTab: propSe
 
   const openWhatsAppDirect = () => {
     const firstName = agentConfig?.name.split(' ')[0] || "Advisor";
-    window.open(`https://wa.me/${agentConfig?.contact?.whatsapp}?text=Hi%20${firstName},%20I%20would%20like%20to%20schedule%20a%20call%20to%20discuss%20insurance%20options.`, '_blank');
+    const whatsappNum = agentConfig?.contact?.whatsapp?.replace(/\D/g, '') || '';
+    window.open(`https://wa.me/${whatsappNum}?text=Hi%20${firstName},%20I%20would%20like%20to%20schedule%20a%20call%20to%20discuss%20insurance%20options.`, '_blank');
   };
 
   return (

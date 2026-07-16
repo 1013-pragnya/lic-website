@@ -98,7 +98,8 @@ export default function Quote({ preFill, clearPreFill }) {
       `*Provider:* ${submittedLead.provider}\n\n` +
       `Please let me know the premium quotes and details at your earliest convenience.`
     );
-    window.open(`https://wa.me/${agentConfig?.contact?.whatsapp}?text=${text}`, '_blank');
+    const whatsappNum = agentConfig?.contact?.whatsapp?.replace(/\D/g, '') || '';
+    window.open(`https://wa.me/${whatsappNum}?text=${text}`, '_blank');
   };
 
   return (

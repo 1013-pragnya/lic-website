@@ -361,7 +361,8 @@ export default function Calculator() {
 - Target Goal: ${formatCurrency(goal)}
 - Estimated Wealth: ${formatCurrency(futureValue)}
 Please advise on the best LIC plans to achieve this goal.`);
-    window.open(`https://wa.me/${agentConfig.contact.whatsapp}?text=${text}`, '_blank');
+    const whatsappNum = agentConfig.contact.whatsapp?.replace(/\D/g, '') || '';
+    window.open(`https://wa.me/${whatsappNum}?text=${text}`, '_blank');
   };
 
   return (

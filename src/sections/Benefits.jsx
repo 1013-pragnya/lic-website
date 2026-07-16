@@ -5,7 +5,7 @@ import './Benefits.css';
 
 export default function Benefits() {
   const { agentConfig } = useConfig();
-  const benefits = agentConfig?.benefits || [];
+  const benefits = (agentConfig?.benefits || []).filter(b => !b.hidden);
 
   return (
     <section id="benefits" className="section benefits-section">

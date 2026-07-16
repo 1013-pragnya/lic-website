@@ -6,7 +6,7 @@ import './Testimonials.css';
 export default function Testimonials() {
   const { agentConfig } = useConfig();
   const [activeIndex, setActiveIndex] = useState(0);
-  const items = agentConfig?.testimonials || [];
+  const items = (agentConfig?.testimonials || []).filter(t => !t.hidden);
   const cardRef = useRef(null);
 
   const handlePrev = () => {
