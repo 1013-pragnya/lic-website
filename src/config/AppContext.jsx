@@ -639,16 +639,16 @@ export const AppProvider = ({ children }) => {
 
         // 2. Fetch all collections from Supabase
         const [
-          { data: plansDb },
-          { data: realEstateDb },
-          { data: testimonialsDb },
-          { data: partnersDb },
-          { data: bannersDb },
-          { data: benefitsDb },
-          { data: mediaDb },
-          { data: settingsDb },
-          { data: quotesDb },
-          { data: contactsDb }
+          plansRes,
+          realEstateRes,
+          testimonialsRes,
+          partnersRes,
+          bannersRes,
+          benefitsRes,
+          mediaRes,
+          settingsRes,
+          quotesRes,
+          contactsRes
         ] = await Promise.all([
           supabase.from('plans').select('*').order('sort_order', { ascending: true }),
           supabase.from('real_estate').select('*').order('sort_order', { ascending: true }),
@@ -661,6 +661,23 @@ export const AppProvider = ({ children }) => {
           supabase.from('quotes').select('*').order('timestamp', { ascending: false }),
           supabase.from('contacts').select('*').order('timestamp', { ascending: false })
         ]);
+
+        // If core tables don't exist (returns a Postgres relation error), throw to trigger local storage backup fallback
+        if (plansRes.error || realEstateRes.error || testimonialsRes.error) {
+          console.warn("Supabase tables not found. Please run the supabase_schema.sql script in your Supabase console.");
+          throw new Error("Supabase tables not found. Falling back to local offline storage.");
+        }
+
+        const plansDb = plansRes.data;
+        const realEstateDb = realEstateRes.data;
+        const testimonialsDb = testimonialsRes.data;
+        const partnersDb = partnersRes.data;
+        const bannersDb = bannersRes.data;
+        const benefitsDb = benefitsRes.data;
+        const mediaDb = mediaRes.data;
+        const settingsDb = settingsRes.data;
+        const quotesDb = quotesRes.data;
+        const contactsDb = contactsRes.data;
 
         // Transform settings rows into single settings object
         const settingsMap = {};
