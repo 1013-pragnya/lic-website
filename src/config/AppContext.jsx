@@ -1134,6 +1134,306 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const seedDatabase = async () => {
+    if (!supabase) {
+      throw new Error("Supabase is not configured. Please set up your .env.local file first.");
+    }
+
+    console.log("Forcing manual seed of default database configurations...");
+
+    // Seed settings
+    const { error: settingsErr } = await supabase.from('settings').upsert([
+      {
+        key: 'about_settings',
+        value: {
+          name: agentConfig.name,
+          title: agentConfig.title,
+          education: agentConfig.education || 'M.Com',
+          licBadge: agentConfig.licBadge || 'Authorized Advisor: LIC, Tata AIG, Care Health, Star Health',
+          experience: agentConfig.experience,
+          familiesSecured: agentConfig.familiesSecured,
+          claimsSettled: agentConfig.claimsSettled,
+          aboutText: agentConfig.aboutText,
+          photoUrl: agentConfig.photoUrl,
+          photos: agentConfig.photos || []
+        }
+      },
+      {
+        key: 'contact_settings',
+        value: agentConfig.contact
+      },
+      {
+        key: 'slider_settings',
+        value: {
+          autoPlay: true,
+          duration: 5000,
+          transitionSpeed: 0.8,
+          animationType: 'fade',
+          infiniteLoop: true,
+          showDots: true,
+          showArrows: true
+        }
+      },
+      {
+        key: 'site_settings',
+        value: {
+          logoText: "RR INSURANCE &\nFINANCIAL SERVICES",
+          logoUrl: "",
+          faviconUrl: "",
+          primaryColor: "#cfa844",
+          secondaryColor: "#050a17",
+          seoTitle: "Shamsuddin Ratnani | Authorized LIC Insurance & Real Estate Consultant",
+          seoDescription: "Secure your family's future and grow your wealth with Shamsuddin Ratnani, authorized senior LIC insurance advisor.",
+          seoKeywords: "LIC Agent, Life Insurance Corporation, Shamsuddin Ratnani, Financial Planner, Term Insurance"
+        }
+      },
+      {
+        key: 'gallery_settings',
+        value: [
+          { id: 'g1', url: '/src/assets/shamsuddin-suit1.jpg', caption: 'Professional Portrait' },
+          { id: 'g2', url: '/src/assets/shamsuddin-suit2.jpg', caption: 'Financial Advisory Session' },
+          { id: 'g3', url: '/src/assets/shamsuddin-office1.jpg', caption: 'Office Consultation Room' },
+          { id: 'g4', url: '/src/assets/shamsuddin-office2.jpg', caption: 'Client Meeting' },
+          { id: 'g5', url: '/src/assets/shamsuddin-event.jpg', caption: 'Award Ceremony' }
+        ]
+      },
+      {
+        key: 'hero',
+        value: {
+          badge: "Authorized Advisor: LIC, Tata AIG, Care Health, Star Health",
+          title: "SECURE YOUR FUTURE WITH INSURANCE & REAL ESTATE",
+          description: "Protect your family, health, assets, and investments with trusted insurance solutions and premium real estate opportunities.",
+          primaryButtonText: "GET FREE QUOTE",
+          secondaryButtonText: "EXPLORE SERVICES",
+          familiesCount: "1,200+",
+          backgroundImage: ""
+        }
+      }
+    ]);
+    if (settingsErr) throw new Error("Settings seeding failed: " + settingsErr.message);
+
+    // Seed banners
+    const { error: bannersErr } = await supabase.from('banners').upsert([
+      {
+        id: 'banner_1',
+        badge: "Authorized Advisor: LIC, Tata AIG, Care Health, Star Health",
+        title: "SECURE YOUR FUTURE WITH INSURANCE & REAL ESTATE",
+        description: "Protect your family, health, assets, and investments with trusted insurance solutions and premium real estate opportunities.",
+        primary_button_text: "GET FREE QUOTE",
+        secondary_button_text: "EXPLORE SERVICES",
+        families_count: "1,200+",
+        background_image: "",
+        hidden: false,
+        sort_order: 0
+      },
+      {
+        id: 'banner_2',
+        badge: "Premium Real Estate Ventures in Hyderabad",
+        title: "PREMIUM REAL ESTATE PORTFOLIO",
+        description: "Explore luxury villas, commercial spaces, and high-yielding land investments in Hyderabad's prime growth corridors.",
+        primary_button_text: "EXPLORE PORTFOLIO",
+        secondary_button_text: "BOOK CONSULTATION",
+        families_count: "1,200+",
+        background_image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1920",
+        hidden: false,
+        sort_order: 1
+      }
+    ]);
+    if (bannersErr) throw new Error("Banners seeding failed: " + bannersErr.message);
+
+    // Seed benefits
+    const { error: benefitsErr } = await supabase.from('benefits').upsert([
+      { id: 'b1', icon: 'Shield', title: 'Sovereign Guarantee', description: 'All LIC policies are backed by the sovereign guarantee of the Government of India, ensuring absolute safety.', hidden: false, sort_order: 0 },
+      { id: 'b2', icon: 'Award', title: '18+ Years Experience', description: 'Serving clients with trust, helping them navigate complex financial options and securing their assets.', hidden: false, sort_order: 1 },
+      { id: 'b3', icon: 'Heart', title: '99.2% Claim Settlement', description: 'Hassle-free claims processing with dedicated support when you and your family need it the most.', hidden: false, sort_order: 2 },
+      { id: 'b4', icon: 'TrendingUp', title: 'Wealth Appreciation', description: 'Expert guidance on real estate investments in high-growth corridors of Hyderabad to build passive wealth.', hidden: false, sort_order: 3 },
+      { id: 'b5', icon: 'Users', title: '1,200+ Secured Families', description: 'A growing community of satisfied clients who trust us for their life, health, and property needs.', hidden: false, sort_order: 4 },
+      { id: 'b6', icon: 'Clock', title: '24/7 Dedicated Support', description: 'Direct assistance via WhatsApp, phone, or email to answer any inquiries or help during emergencies.', hidden: false, sort_order: 5 }
+    ]);
+    if (benefitsErr) throw new Error("Benefits seeding failed: " + benefitsErr.message);
+
+    // Seed media
+    const mediaToInsert = agentConfig.media.map(m => ({
+      id: m.id,
+      file_name: m.file_name,
+      original_name: m.original_name,
+      file_url: m.file_url,
+      file_size: m.file_size,
+      mime_type: m.mime_type,
+      width: m.width,
+      height: m.height,
+      uploaded_at: m.uploaded_at
+    }));
+    const { error: mediaErr } = await supabase.from('media').upsert(mediaToInsert);
+    if (mediaErr) throw new Error("Media seeding failed: " + mediaErr.message);
+
+    // Seed testimonials
+    const testimonialsToInsert = agentConfig.testimonials.map((t, idx) => ({
+      id: t.id,
+      client_name: t.client_name,
+      client_location: t.client_location,
+      policy_name: t.policy_name,
+      review: t.review,
+      image_id: t.image_id,
+      hidden: false,
+      sort_order: idx
+    }));
+    const { error: testimonialsErr } = await supabase.from('testimonials').upsert(testimonialsToInsert);
+    if (testimonialsErr) throw new Error("Testimonials seeding failed: " + testimonialsErr.message);
+
+    // Seed partners
+    const partnersToInsert = agentConfig.partners.map((p, idx) => ({
+      id: p.id,
+      name: p.name,
+      category: p.category,
+      logo: p.logo,
+      description: p.description,
+      button_text: p.buttonText || 'VIEW PLANS',
+      button_link: p.buttonLink || '',
+      hidden: false,
+      sort_order: idx
+    }));
+    const { error: partnersErr } = await supabase.from('partners').upsert(partnersToInsert);
+    if (partnersErr) throw new Error("Partners seeding failed: " + partnersErr.message);
+
+    // Seed plans
+    const plansToInsert = agentConfig.plans.map((p, idx) => ({
+      id: p.id,
+      title: p.title,
+      provider: p.provider,
+      category: p.category,
+      tagline: p.tagline,
+      icon: p.icon,
+      description: p.description,
+      logo: p.logo,
+      image: p.image,
+      benefits: p.benefits,
+      eligibility: p.eligibility,
+      hidden: false,
+      sort_order: idx
+    }));
+    const { error: plansInsertErr } = await supabase.from('plans').upsert(plansToInsert);
+    if (plansInsertErr) throw new Error("Plans seeding failed: " + plansInsertErr.message);
+
+    // Seed real estate
+    const propertiesToInsert = agentConfig.realEstate.map((p, idx) => ({
+      id: p.id,
+      title: p.title,
+      category: p.category,
+      location: p.location,
+      type: p.type,
+      benefits: p.benefits,
+      price: p.price,
+      image: p.image,
+      price_card_image: p.priceCardImage || '',
+      map_image: p.mapImage || '',
+      developer: p.developer,
+      approvals: p.approvals || [],
+      gift: p.gift || '',
+      highlights: p.highlights || [],
+      investment_benefits: p.investmentBenefits || [],
+      location_advantages: p.locationAdvantages || [],
+      trust_badges: p.trustBadges || [],
+      status: p.status || 'Available',
+      featured: p.featured || false,
+      hidden: p.hidden || false,
+      sort_order: idx
+    }));
+    const { error: propertiesInsertErr } = await supabase.from('real_estate').upsert(propertiesToInsert);
+    if (propertiesInsertErr) throw new Error("Real estate seeding failed: " + propertiesInsertErr.message);
+
+    // Seed default quotes
+    const defaultQuotes = [
+      {
+        id: 'lead_1',
+        timestamp: new Date(Date.now() - 3600000 * 24).toISOString(),
+        name: "Rahul Sharma",
+        phone: "9876543210",
+        email: "rahul@gmail.com",
+        provider: "LIC",
+        category: "Life Insurance",
+        message: "Looking for a child education policy for my 5-year-old daughter. Need low premium and long term.",
+        status: "New"
+      },
+      {
+        id: 'lead_2',
+        timestamp: new Date(Date.now() - 3600000 * 48).toISOString(),
+        name: "Priya Nair",
+        phone: "8765432109",
+        email: "priya@yahoo.com",
+        provider: "Care Health",
+        category: "Health Insurance",
+        message: "Need a comprehensive health cover for my senior citizen parents. Do you offer cashless plans?",
+        status: "Contacted"
+      }
+    ];
+    const { error: quotesErr } = await supabase.from('quotes').upsert(defaultQuotes);
+    if (quotesErr) throw new Error("Quotes seeding failed: " + quotesErr.message);
+
+    // Seed default contacts
+    const defaultContacts = [
+      {
+        id: 'contact_1',
+        timestamp: new Date(Date.now() - 3600000 * 12).toISOString(),
+        name: "Rajesh Kumar",
+        phone: "7654321098",
+        email: "rajesh@outlook.com",
+        plan: "life",
+        property_interest: "residential",
+        message: "I want to schedule an appointment this Saturday to discuss commercial real estate investment properties.",
+        status: "New"
+      }
+    ];
+    const { error: contactsErr } = await supabase.from('contacts').upsert(defaultContacts);
+    if (contactsErr) throw new Error("Contacts seeding failed: " + contactsErr.message);
+
+    // Trigger local state updates to refresh UI immediately
+    const updatedConfig = {
+      ...agentConfig,
+      plans: plansToInsert,
+      realEstate: propertiesToInsert,
+      testimonials: testimonialsToInsert,
+      banners: [
+        {
+          id: 'banner_1',
+          badge: "Authorized Advisor: LIC, Tata AIG, Care Health, Star Health",
+          title: "SECURE YOUR FUTURE WITH INSURANCE & REAL ESTATE",
+          description: "Protect your family, health, assets, and investments with trusted insurance solutions and premium real estate opportunities.",
+          primaryButtonText: "GET FREE QUOTE",
+          secondaryButtonText: "EXPLORE SERVICES",
+          familiesCount: "1,200+",
+          backgroundImage: "",
+          hidden: false
+        },
+        {
+          id: 'banner_2',
+          badge: "Premium Real Estate Ventures in Hyderabad",
+          title: "PREMIUM REAL ESTATE PORTFOLIO",
+          description: "Explore luxury villas, commercial spaces, and high-yielding land investments in Hyderabad's prime growth corridors.",
+          primaryButtonText: "EXPLORE PORTFOLIO",
+          secondaryButtonText: "BOOK CONSULTATION",
+          familiesCount: "1,200+",
+          backgroundImage: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1920",
+          hidden: false
+        }
+      ],
+      partners: partnersToInsert.map(p => mapDbToPartner(p)),
+      benefits: [
+        { id: 'b1', icon: 'Shield', title: 'Sovereign Guarantee', description: 'All LIC policies are backed by the sovereign guarantee of the Government of India, ensuring absolute safety.', hidden: false, sort_order: 0 },
+        { id: 'b2', icon: 'Award', title: '18+ Years Experience', description: 'Serving clients with trust, helping them navigate complex financial options and securing their assets.', hidden: false, sort_order: 1 },
+        { id: 'b3', icon: 'Heart', title: '99.2% Claim Settlement', description: 'Hassle-free claims processing with dedicated support when you and your family need it the most.', hidden: false, sort_order: 2 },
+        { id: 'b4', icon: 'TrendingUp', title: 'Wealth Appreciation', description: 'Expert guidance on real estate investments in high-growth corridors of Hyderabad to build passive wealth.', hidden: false, sort_order: 3 },
+        { id: 'b5', icon: 'Users', title: '1,200+ Secured Families', description: 'A growing community of satisfied clients who trust us for their life, health, and property needs.', hidden: false, sort_order: 4 },
+        { id: 'b6', icon: 'Clock', title: '24/7 Dedicated Support', description: 'Direct assistance via WhatsApp, phone, or email to answer any inquiries or help during emergencies.', hidden: false, sort_order: 5 }
+      ],
+      media: mediaToInsert
+    };
+    saveConfig(updatedConfig);
+    setQuotes(defaultQuotes);
+    setContacts(defaultContacts.map(c => ({ ...c, propertyInterest: c.property_interest })));
+  };
+
+
   // Quote Submissions Operations
   const submitQuote = async (newLead) => {
     if (supabase) {
@@ -1245,7 +1545,8 @@ export const AppProvider = ({ children }) => {
       reorderPartners,
       reorderBanners,
       reorderProperties,
-      reorderPlans
+      reorderPlans,
+      seedDatabase
     }}>
       {!loading && children}
     </AppContext.Provider>

@@ -9,8 +9,24 @@ import {
 import { useConfig } from '../../config/AppContext';
 
 export default function Dashboard() {
-  const { agentConfig, quotes, contacts, updateQuoteStatus, updateContactStatus } = useConfig();
+  const { agentConfig, quotes, contacts, updateQuoteStatus, updateContactStatus, seedDatabase } = useConfig();
   const navigate = useNavigate();
+  const [isSeeding, setIsSeeding] = React.useState(false);
+
+  const handleSeedDatabase = async () => {
+    if (window.confirm("Are you sure you want to seed the database with the default plans, properties, testimonials, and settings? This will overwrite existing keys safely and prevent duplicate records.")) {
+      setIsSeeding(true);
+      try {
+        await seedDatabase();
+        alert("Database seeded successfully! The page will now reload.");
+        window.location.reload();
+      } catch (err) {
+        alert("Seeding failed: " + err.message);
+      } finally {
+        setIsSeeding(false);
+      }
+    }
+  };
 
   // Calculations for stats
   const totalQuotes = quotes.length;
@@ -227,10 +243,27 @@ export default function Dashboard() {
           <h1 className="dashboard-title">System Overview</h1>
           <p className="dashboard-subtitle">Real-time statistics & customer inquiries management</p>
         </div>
-        <button onClick={exportLeadsToCSV} className="admin-btn admin-btn-secondary">
-          <FiDownload />
-          <span>Export All Leads (CSV)</span>
-        </button>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button 
+            onClick={handleSeedDatabase} 
+            disabled={isSeeding}
+            className="admin-btn admin-btn-primary"
+            style={{ 
+              background: 'var(--primary-gold)', 
+              color: '#050a17', 
+              fontWeight: '800', 
+              opacity: isSeeding ? 0.7 : 1,
+              cursor: isSeeding ? 'not-allowed' : 'pointer'
+            }}
+          >
+            <FiCheckCircle />
+            <span>{isSeeding ? 'Seeding...' : 'Seed Database Defaults'}</span>
+          </button>
+          <button onClick={exportLeadsToCSV} className="admin-btn admin-btn-secondary">
+            <FiDownload />
+            <span>Export All Leads (CSV)</span>
+          </button>
+        </div>
       </div>
 
       {/* Stats Cards */}
