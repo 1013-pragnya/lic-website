@@ -7,7 +7,7 @@ import {
 } from 'react-icons/fi';
 import { mockAuthService } from '../config/api';
 
-export default function AdminSidebar({ user, isOpen, onClose }) {
+export default function AdminSidebar({ user, isOpen, isMobile, onClose }) {
   const navigate = useNavigate();
 
   const menuItems = [
@@ -35,9 +35,13 @@ export default function AdminSidebar({ user, isOpen, onClose }) {
   };
 
   return (
-    <aside className={`admin-sidebar ${isOpen ? 'mobile-open' : ''}`} style={{
-      boxSizing: 'border-box'
-    }}>
+    <aside 
+      className={`admin-sidebar ${isOpen ? 'mobile-open' : ''}`} 
+      style={{
+        boxSizing: 'border-box',
+        transform: isMobile ? (isOpen ? 'translateX(0)' : 'translateX(-100%)') : 'none'
+      }}
+    >
       <style>{`
         .sidebar-brand {
           padding: 24px;

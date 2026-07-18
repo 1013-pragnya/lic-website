@@ -7,6 +7,7 @@ import '../pages/admin/AdminPanel.css';
 export default function AdminLayout() {
   const [user, setUser] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     try {
@@ -17,6 +18,14 @@ export default function AdminLayout() {
     } catch (e) {
       console.error('Failed to parse admin session user:', e);
     }
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1200);
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -25,9 +34,9 @@ export default function AdminLayout() {
         <div className="admin-sidebar-backdrop" onClick={() => setIsSidebarOpen(false)} />
       )}
 
-      <AdminSidebar user={user} isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <AdminSidebar user={user} isOpen={isSidebarOpen} isMobile={isMobile} onClose={() => setIsSidebarOpen(false)} />
 
-      <main className="admin-main-content">
+      <main className="admin-main-content" style={{ marginLeft: isMobile ? 0 : '260px' }}>
         <header className="admin-top-bar">
           <button className="mobile-menu-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)} title="Toggle Navigation">
             <FiMenu />
