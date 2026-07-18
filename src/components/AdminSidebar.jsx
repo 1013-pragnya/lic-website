@@ -163,7 +163,7 @@ export default function AdminSidebar({ user, isOpen, onClose }) {
           color: #ef4444;
           background: rgba(239, 68, 68, 0.1);
         }
-        @media (max-width: 1023px) {
+        @media (max-width: 1200px) {
           .brand-name, .brand-badge, .nav-item-link span, .user-details, .logout-btn {
             display: flex !important;
           }
