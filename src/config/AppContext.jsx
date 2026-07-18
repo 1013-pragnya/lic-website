@@ -764,6 +764,47 @@ export const AppProvider = ({ children }) => {
     initData();
   }, []);
 
+  // Real-time local state sync across browser tabs (e.g., website tab & admin tab)
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'lic_agent_config') {
+        try {
+          const localConfig = localStorage.getItem('lic_agent_config');
+          if (localConfig) {
+            setConfig(JSON.parse(localConfig));
+          }
+        } catch (err) {
+          console.error("Failed to sync storage configuration change:", err);
+        }
+      }
+      if (e.key === 'rrfs_quotes') {
+        try {
+          const localQuotes = localStorage.getItem('rrfs_quotes');
+          if (localQuotes) {
+            setQuotes(JSON.parse(localQuotes));
+          }
+        } catch (err) {
+          console.error("Failed to sync storage quotes change:", err);
+        }
+      }
+      if (e.key === 'rrfs_contact_submissions') {
+        try {
+          const localContacts = localStorage.getItem('rrfs_contact_submissions');
+          if (localContacts) {
+            setContacts(JSON.parse(localContacts).map(c => ({
+              ...c,
+              propertyInterest: c.property_interest || c.propertyInterest
+            })));
+          }
+        } catch (err) {
+          console.error("Failed to sync storage contacts change:", err);
+        }
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   // Section Save Functions
   const updateHero = async (hero) => {
     if (supabase) {
