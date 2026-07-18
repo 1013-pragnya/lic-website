@@ -491,3 +491,40 @@ h1.admin-title, .dashboard-title {
   background: var(--admin-border-gold);
   border-radius: 3px;
 }
+
+/* Top Bar Stats Badges & Status Controls */
+.top-bar-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  color: var(--admin-text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-dot-active {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+  display: inline-block;
+}
+
+.status-icon {
+  font-size: 0.9rem;
+  color: var(--admin-gold);
+}
+

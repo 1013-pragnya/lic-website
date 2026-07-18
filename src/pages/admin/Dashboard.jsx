@@ -105,6 +105,8 @@ export default function Dashboard() {
           align-items: center;
           justify-content: space-between;
           margin-bottom: 30px;
+          flex-wrap: wrap;
+          gap: 16px;
         }
         .dashboard-title {
           font-family: var(--font-heading);
