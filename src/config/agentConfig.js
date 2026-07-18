@@ -1,37 +1,37 @@
-import licLogo from '../assets/lic-logo.png';
-import tataLogo from '../assets/tata-logo.png';
-import hdfcLogo from '../assets/hdfc-logo.png';
-import careLogo from '../assets/care-logo.png';
-import starLogo from '../assets/star-logo.png';
+const licLogo = '/assets/lic-logo.png';
+const tataLogo = '/assets/tata-logo.png';
+const hdfcLogo = '/assets/hdfc-logo.png';
+const careLogo = '/assets/care-logo.png';
+const starLogo = '/assets/star-logo.png';
 
-import careSupremeImg from '../assets/care-supreme-plan.png';
-import childSecureImg from '../assets/child-secure-plan.png';
-import licRetirementImg from '../assets/lic-retirement-planning.png';
-import careTravelImg from '../assets/care-travel-insurance.png';
-import tataMedicareImg from '../assets/tata-aig-medicare-select.png';
+const careSupremeImg = '/assets/care-supreme-plan.png';
+const childSecureImg = '/assets/child-secure-plan.png';
+const licRetirementImg = '/assets/lic-retirement-planning.png';
+const careTravelImg = '/assets/care-travel-insurance.png';
+const tataMedicareImg = '/assets/tata-aig-medicare-select.png';
 
-import hitekParkMain from '../assets/hitek-park-main.jpg';
-import hitekParkPrice from '../assets/hitek-park-price.jpg';
-import hitekParkMap from '../assets/hitek-park-map.jpg';
-import wealthEstateComboImg from '../assets/wealth-estate-combo.jpg';
-import trueIkoniaMain from '../assets/true-ikonia-main.jpg';
-import trueIkoniaMap from '../assets/true-ikonia-map.jpg';
-import trueIkoniaPrice from '../assets/true-ikonia-price.jpg';
+const hitekParkMain = '/assets/hitek-park-main.jpg';
+const hitekParkPrice = '/assets/hitek-park-price.jpg';
+const hitekParkMap = '/assets/hitek-park-map.jpg';
+const wealthEstateComboImg = '/assets/wealth-estate-combo.jpg';
+const trueIkoniaMain = '/assets/true-ikonia-main.jpg';
+const trueIkoniaMap = '/assets/true-ikonia-map.jpg';
+const trueIkoniaPrice = '/assets/true-ikonia-price.jpg';
 
-import trueHighlandsMain from '../assets/true-highlands-main.jpg';
-import trueHighlandsMap from '../assets/true-highlands-map.jpg';
-import trueHighlandsQrs from '../assets/true-highlands-qrs.jpg';
+const trueHighlandsMain = '/assets/true-highlands-main.jpg';
+const trueHighlandsMap = '/assets/true-highlands-map.jpg';
+const trueHighlandsQrs = '/assets/true-highlands-qrs.jpg';
 
-import royalHighwayMeadowsMain from '../assets/royal-highway-meadows-main.jpg';
-import royalHighwayMeadowsMap from '../assets/royal-highway-meadows-map.jpg';
-import royalHighwayMeadowsPrice from '../assets/royal-highway-meadows-price.jpg';
-import royalHighwayMeadowsQrs from '../assets/royal-highway-meadows-qrs.jpg';
+const royalHighwayMeadowsMain = '/assets/royal-highway-meadows-main.jpg';
+const royalHighwayMeadowsMap = '/assets/royal-highway-meadows-map.jpg';
+const royalHighwayMeadowsPrice = '/assets/royal-highway-meadows-price.jpg';
+const royalHighwayMeadowsQrs = '/assets/royal-highway-meadows-qrs.jpg';
 
-import testimonialYazmeena from '../assets/testimonial-yazmeena.jpg';
-import testimonialNizar from '../assets/testimonial-nizar.jpg';
-import testimonialShelina from '../assets/testimonial-shelina.jpg';
-import testimonialMuskaan from '../assets/testimonial-muskaan.jpg';
-import testimonialAltaf from '../assets/testimonial-altaf.jpg';
+const testimonialYazmeena = '/assets/testimonial-yazmeena.jpg';
+const testimonialNizar = '/assets/testimonial-nizar.jpg';
+const testimonialShelina = '/assets/testimonial-shelina.jpg';
+const testimonialMuskaan = '/assets/testimonial-muskaan.jpg';
+const testimonialAltaf = '/assets/testimonial-altaf.jpg';
 
 export const agentConfig = {
   name: "Shamsuddin Ratnani",
