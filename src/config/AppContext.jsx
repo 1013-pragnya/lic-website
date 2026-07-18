@@ -1437,7 +1437,11 @@ export const AppProvider = ({ children }) => {
   // Quote Submissions Operations
   const submitQuote = async (newLead) => {
     if (supabase) {
-      await supabase.from('quotes').insert([newLead]);
+      const { error } = await supabase.from('quotes').insert([newLead]);
+      if (error) {
+        console.error("Supabase quotes insert error:", error);
+        throw new Error("Failed to save quote request: " + error.message);
+      }
     }
     const updated = [newLead, ...quotes];
     setQuotes(updated);
@@ -1446,7 +1450,11 @@ export const AppProvider = ({ children }) => {
 
   const updateQuoteStatus = async (id, newStatus) => {
     if (supabase) {
-      await supabase.from('quotes').update({ status: newStatus }).eq('id', id);
+      const { error } = await supabase.from('quotes').update({ status: newStatus }).eq('id', id);
+      if (error) {
+        console.error("Supabase updateQuoteStatus error:", error);
+        throw new Error("Failed to update quote status: " + error.message);
+      }
     }
     const updated = quotes.map(q => q.id === id ? { ...q, status: newStatus } : q);
     setQuotes(updated);
@@ -1455,7 +1463,11 @@ export const AppProvider = ({ children }) => {
 
   const deleteQuote = async (id) => {
     if (supabase) {
-      await supabase.from('quotes').delete().eq('id', id);
+      const { error } = await supabase.from('quotes').delete().eq('id', id);
+      if (error) {
+        console.error("Supabase deleteQuote error:", error);
+        throw new Error("Failed to delete quote: " + error.message);
+      }
     }
     const updated = quotes.filter(q => q.id !== id);
     setQuotes(updated);
@@ -1476,7 +1488,11 @@ export const AppProvider = ({ children }) => {
         message: newContact.message,
         status: newContact.status
       };
-      await supabase.from('contacts').insert([dbContact]);
+      const { error } = await supabase.from('contacts').insert([dbContact]);
+      if (error) {
+        console.error("Supabase contacts insert error:", error);
+        throw new Error("Failed to save contact request: " + error.message);
+      }
     }
     const updated = [newContact, ...contacts];
     setContacts(updated);
@@ -1485,7 +1501,11 @@ export const AppProvider = ({ children }) => {
 
   const updateContactStatus = async (id, newStatus) => {
     if (supabase) {
-      await supabase.from('contacts').update({ status: newStatus }).eq('id', id);
+      const { error } = await supabase.from('contacts').update({ status: newStatus }).eq('id', id);
+      if (error) {
+        console.error("Supabase updateContactStatus error:", error);
+        throw new Error("Failed to update contact status: " + error.message);
+      }
     }
     const updated = contacts.map(c => c.id === id ? { ...c, status: newStatus } : c);
     setContacts(updated);
@@ -1494,7 +1514,11 @@ export const AppProvider = ({ children }) => {
 
   const deleteContact = async (id) => {
     if (supabase) {
-      await supabase.from('contacts').delete().eq('id', id);
+      const { error } = await supabase.from('contacts').delete().eq('id', id);
+      if (error) {
+        console.error("Supabase deleteContact error:", error);
+        throw new Error("Failed to delete contact: " + error.message);
+      }
     }
     const updated = contacts.filter(c => c.id !== id);
     setContacts(updated);
