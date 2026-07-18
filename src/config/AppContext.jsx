@@ -449,11 +449,11 @@ export const AppProvider = ({ children }) => {
             {
               key: 'gallery_settings',
               value: [
-                { id: 'g1', url: '/src/assets/shamsuddin-suit1.jpg', caption: 'Professional Portrait' },
-                { id: 'g2', url: '/src/assets/shamsuddin-suit2.jpg', caption: 'Financial Advisory Session' },
-                { id: 'g3', url: '/src/assets/shamsuddin-office1.jpg', caption: 'Office Consultation Room' },
-                { id: 'g4', url: '/src/assets/shamsuddin-office2.jpg', caption: 'Client Meeting' },
-                { id: 'g5', url: '/src/assets/shamsuddin-event.jpg', caption: 'Award Ceremony' }
+                { id: 'g1', url: '/assets/shamsuddin-suit1.jpg', caption: 'Professional Portrait' },
+                { id: 'g2', url: '/assets/shamsuddin-suit2.jpg', caption: 'Financial Advisory Session' },
+                { id: 'g3', url: '/assets/shamsuddin-office1.jpg', caption: 'Office Consultation Room' },
+                { id: 'g4', url: '/assets/shamsuddin-office2.jpg', caption: 'Client Meeting' },
+                { id: 'g5', url: '/assets/shamsuddin-event.jpg', caption: 'Award Ceremony' }
               ]
             },
             {
@@ -1231,11 +1231,11 @@ export const AppProvider = ({ children }) => {
       {
         key: 'gallery_settings',
         value: [
-          { id: 'g1', url: '/src/assets/shamsuddin-suit1.jpg', caption: 'Professional Portrait' },
-          { id: 'g2', url: '/src/assets/shamsuddin-suit2.jpg', caption: 'Financial Advisory Session' },
-          { id: 'g3', url: '/src/assets/shamsuddin-office1.jpg', caption: 'Office Consultation Room' },
-          { id: 'g4', url: '/src/assets/shamsuddin-office2.jpg', caption: 'Client Meeting' },
-          { id: 'g5', url: '/src/assets/shamsuddin-event.jpg', caption: 'Award Ceremony' }
+          { id: 'g1', url: '/assets/shamsuddin-suit1.jpg', caption: 'Professional Portrait' },
+          { id: 'g2', url: '/assets/shamsuddin-suit2.jpg', caption: 'Financial Advisory Session' },
+          { id: 'g3', url: '/assets/shamsuddin-office1.jpg', caption: 'Office Consultation Room' },
+          { id: 'g4', url: '/assets/shamsuddin-office2.jpg', caption: 'Client Meeting' },
+          { id: 'g5', url: '/assets/shamsuddin-event.jpg', caption: 'Award Ceremony' }
         ]
       },
       {
