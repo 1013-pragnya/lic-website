@@ -11,17 +11,45 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showForgotModal, setShowForgotModal] = useState(false);
-  
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [recoveryEmail, setRecoveryEmail] = useState('');
+  const [newCustomPassword, setNewCustomPassword] = useState('');
+  const [newCustomPasscode, setNewCustomPasscode] = useState('');
+  const [recoverySuccessMsg, setRecoverySuccessMsg] = useState('');
+  const [recoveryErrorMsg, setRecoveryErrorMsg] = useState('');
+
+  const handleSetNewPasswordFromModal = (e) => {
+    e.preventDefault();
+    setRecoverySuccessMsg('');
+    setRecoveryErrorMsg('');
+
+    if (!newCustomPassword || newCustomPassword.trim().length < 4) {
+      setRecoveryErrorMsg('Please enter a valid password (at least 4 characters).');
+      return;
+    }
+
+    const emailToSet = recoveryEmail.trim() || 'rrfsshams@gmail.com';
+    const passcodeToSet = newCustomPasscode.trim() || '7492';
+    
+    localStorage.setItem('admin_email', emailToSet);
+    localStorage.setItem('admin_password', newCustomPassword);
+    localStorage.setItem('admin_passcode', passcodeToSet);
+
+    setRecoverySuccessMsg(`Password successfully updated! You can now log in using:\nEmail: ${emailToSet}\nPassword: ${newCustomPassword}`);
+    setTimeout(() => {
+      setShowForgotModal(false);
+      setRecoverySuccessMsg('');
+    }, 2000);
+  };
 
   const handleResetDefaults = () => {
     localStorage.setItem('admin_email', 'rrfsshams@gmail.com');
     localStorage.setItem('admin_password', 'LicAdmin#2026!SecuredPass');
     localStorage.setItem('admin_passcode', '7492');
-    alert('Admin credentials reset to defaults:\nEmail: rrfsshams@gmail.com\nPassword: LicAdmin#2026!SecuredPass\nPasscode: 7492');
-    setShowForgotModal(false);
+    setRecoverySuccessMsg('Admin credentials restored to default settings.');
+    setTimeout(() => {
+      setShowForgotModal(false);
+      setRecoverySuccessMsg('');
+    }, 1800);
   };
   
   const from = location.state?.from?.pathname || '/admin/dashboard';
@@ -274,7 +302,7 @@ export default function Login() {
         </form>
       </motion.div>
 
-      {/* Forgot Password Modal */}
+      {/* Forgot Password / Reset Password Modal */}
       {showForgotModal && (
         <div style={{
           position: 'fixed',
@@ -289,30 +317,78 @@ export default function Login() {
           zIndex: 999,
           padding: '20px'
         }}>
-          <div className="login-card" style={{ maxWidth: '400px' }}>
-            <h3 className="logo-title" style={{ fontSize: '1.2rem', marginBottom: '16px', color: 'var(--primary-gold)' }}>Credential Recovery</h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: '1.5', marginBottom: '24px' }}>
-              If you forgot your customized admin credentials, you can restore the system default login details.
-              <br/><br/>
-              <strong>Default Credentials:</strong><br/>
-              • Email: <code style={{ color: '#fff' }}>rrfsshams@gmail.com</code><br/>
-              • Password: <code style={{ color: '#fff' }}>LicAdmin#2026!SecuredPass</code><br/>
-              • Passcode: <code style={{ color: '#fff' }}>7492</code>
+          <div className="login-card" style={{ maxWidth: '440px', maxHeight: '90vh', overflowY: 'auto' }}>
+            <h3 className="logo-title" style={{ fontSize: '1.2rem', marginBottom: '8px', color: 'var(--primary-gold)' }}>Reset / Create Password</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', lineHeight: '1.5', marginBottom: '20px' }}>
+              Create a new admin password below, or restore system defaults if needed.
             </p>
-            <div style={{ display: 'flex', gap: '12px' }}>
+
+            {recoverySuccessMsg && (
+              <div style={{ color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '10px', borderRadius: '8px', fontSize: '0.82rem', marginBottom: '16px', whitespace: 'pre-line' }}>
+                {recoverySuccessMsg}
+              </div>
+            )}
+
+            {recoveryErrorMsg && (
+              <div style={{ color: '#ef4444', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '10px', borderRadius: '8px', fontSize: '0.82rem', marginBottom: '16px' }}>
+                {recoveryErrorMsg}
+              </div>
+            )}
+
+            <form onSubmit={handleSetNewPasswordFromModal}>
+              <div className="form-group" style={{ marginBottom: '14px' }}>
+                <label className="form-label">Admin Email Address</label>
+                <input
+                  type="email"
+                  className="login-input"
+                  placeholder="rrfsshams@gmail.com"
+                  value={recoveryEmail}
+                  onChange={(e) => setRecoveryEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '14px' }}>
+                <label className="form-label">New Password</label>
+                <input
+                  type="password"
+                  className="login-input"
+                  placeholder="Enter new password"
+                  value={newCustomPassword}
+                  onChange={(e) => setNewCustomPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '20px' }}>
+                <label className="form-label">New Passcode (Numeric)</label>
+                <input
+                  type="text"
+                  className="login-input"
+                  placeholder="7492"
+                  value={newCustomPasscode}
+                  onChange={(e) => setNewCustomPasscode(e.target.value)}
+                />
+              </div>
+
+              <button type="submit" className="admin-btn admin-btn-primary" style={{ width: '100%', marginBottom: '12px' }}>
+                Save New Password
+              </button>
+            </form>
+
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px', display: 'flex', gap: '10px' }}>
               <button 
                 type="button" 
                 onClick={handleResetDefaults} 
-                className="admin-btn admin-btn-primary"
-                style={{ flex: 1 }}
+                className="admin-btn admin-btn-secondary"
+                style={{ flex: 1, fontSize: '0.78rem' }}
               >
-                Reset to Defaults
+                Reset Defaults
               </button>
               <button 
                 type="button" 
                 onClick={() => setShowForgotModal(false)} 
                 className="admin-btn admin-btn-secondary"
-                style={{ flex: 1 }}
+                style={{ flex: 1, fontSize: '0.78rem' }}
               >
                 Cancel
               </button>
