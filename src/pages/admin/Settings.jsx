@@ -7,9 +7,9 @@ export default function Settings() {
   const { agentConfig, updateSettings } = useConfig();
   const settings = agentConfig?.settings || {};
 
-  const [adminEmail, setAdminEmail] = useState(localStorage.getItem('admin_email') || 'admin@rrfs.com');
-  const [adminPassword, setAdminPassword] = useState(localStorage.getItem('admin_password') || 'adminpassword');
-  const [adminPasscode, setAdminPasscode] = useState(localStorage.getItem('admin_passcode') || '1234');
+  const [adminEmail, setAdminEmail] = useState(localStorage.getItem('admin_email') || 'rrfsshams@gmail.com');
+  const [adminPassword, setAdminPassword] = useState(localStorage.getItem('admin_password') || 'LicAdmin#2026!SecuredPass');
+  const [adminPasscode, setAdminPasscode] = useState(localStorage.getItem('admin_passcode') || '7492');
 
   const handleSaveCredentials = (e) => {
     e.preventDefault();
@@ -195,7 +195,7 @@ export default function Settings() {
               className="admin-input"
               value={adminEmail}
               onChange={(e) => setAdminEmail(e.target.value)}
-              placeholder="admin@rrfs.com"
+              placeholder="rrfsshams@gmail.com"
               required
             />
           </div>
@@ -207,7 +207,7 @@ export default function Settings() {
               className="admin-input"
               value={adminPasscode}
               onChange={(e) => setAdminPasscode(e.target.value)}
-              placeholder="1234"
+              placeholder="7492"
               required
             />
           </div>

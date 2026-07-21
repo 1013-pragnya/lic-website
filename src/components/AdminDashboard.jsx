@@ -32,12 +32,12 @@ export default function AdminDashboard({ isOpen, onClose }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (passcode === '1234') {
+    if (passcode === '7492') {
       setIsAuthenticated(true);
       setLoginError('');
       setPasscode('');
     } else {
-      setLoginError('Invalid passcode. Hint: Use 1234');
+      setLoginError('Invalid passcode. Hint: Use 7492');
       setPasscode('');
     }
   };
@@ -139,7 +139,7 @@ export default function AdminDashboard({ isOpen, onClose }) {
                   type="password"
                   value={passcode}
                   onChange={(e) => setPasscode(e.target.value)}
-                  placeholder="Enter passcode (1234)"
+                  placeholder="Enter passcode (7492)"
                   required
                   autoFocus
                   className="form-input glass-input text-center"

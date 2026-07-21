@@ -47,15 +47,16 @@ export const mockAuthService = {
   login: async (passcodeOrEmail, password) => {
     await delay(800); // Simulate network latency
 
-    const storedEmail = localStorage.getItem('admin_email') || 'admin@rrfs.com';
-    const storedPassword = localStorage.getItem('admin_password') || 'adminpassword';
-    const storedPasscode = localStorage.getItem('admin_passcode') || '1234';
+    const storedEmail = localStorage.getItem('admin_email') || 'rrfsshams@gmail.com';
+    const storedPassword = localStorage.getItem('admin_password') || 'LicAdmin#2026!SecuredPass';
+    const storedPasscode = localStorage.getItem('admin_passcode') || '7492';
 
     // Validate using Email/Password or Passcode/Password override
-    const matchesEmailAuth = (passcodeOrEmail && passcodeOrEmail.toLowerCase() === storedEmail.toLowerCase() && (password === storedPassword || password === 'admin' || password === '1234'));
-    const matchesPasscodeAuth = (passcodeOrEmail === storedPasscode) || (password && (password.toLowerCase() === 'admin' || password === '1234'));
+    const isEmailOrPasscodeMatch = (passcodeOrEmail && (passcodeOrEmail.toLowerCase() === storedEmail.toLowerCase() || passcodeOrEmail === storedPasscode));
+    const isPasswordOrPasscodeMatch = (password && (password === storedPassword || password === storedPasscode));
+    const isPasscodeOnly = (passcodeOrEmail === storedPasscode);
 
-    if (matchesEmailAuth || matchesPasscodeAuth) {
+    if ((isEmailOrPasscodeMatch && isPasswordOrPasscodeMatch) || isPasscodeOnly) {
       const payload = {
         sub: 'admin_user_01',
         name: 'Administrator',
@@ -80,7 +81,7 @@ export const mockAuthService = {
         user: payload
       };
     } else {
-      throw new Error('Invalid credentials. Hint: Enter Passcode 1234 or Password "admin"');
+      throw new Error('Invalid credentials. Please enter valid Email/Passcode and Password.');
     }
   },
 

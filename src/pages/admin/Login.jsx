@@ -17,10 +17,10 @@ export default function Login() {
   const location = useLocation();
 
   const handleResetDefaults = () => {
-    localStorage.setItem('admin_email', 'admin@rrfs.com');
-    localStorage.setItem('admin_password', 'adminpassword');
-    localStorage.setItem('admin_passcode', '1234');
-    alert('Admin credentials reset to defaults:\nEmail: admin@rrfs.com\nPassword: adminpassword\nPasscode: 1234');
+    localStorage.setItem('admin_email', 'rrfsshams@gmail.com');
+    localStorage.setItem('admin_password', 'LicAdmin#2026!SecuredPass');
+    localStorage.setItem('admin_passcode', '7492');
+    alert('Admin credentials reset to defaults:\nEmail: rrfsshams@gmail.com\nPassword: LicAdmin#2026!SecuredPass\nPasscode: 7492');
     setShowForgotModal(false);
   };
   
@@ -227,7 +227,7 @@ export default function Login() {
               <FiUser className="input-icon" />
               <input
                 type="text"
-                placeholder="admin@rrfs.com or 1234"
+                placeholder="rrfsshams@gmail.com or 7492"
                 className="login-input"
                 {...register('passcode', { 
                   required: 'Email or Passcode is required'
@@ -295,9 +295,9 @@ export default function Login() {
               If you forgot your customized admin credentials, you can restore the system default login details.
               <br/><br/>
               <strong>Default Credentials:</strong><br/>
-              • Email: <code style={{ color: '#fff' }}>admin@rrfs.com</code><br/>
-              • Password: <code style={{ color: '#fff' }}>adminpassword</code><br/>
-              • Passcode: <code style={{ color: '#fff' }}>1234</code>
+              • Email: <code style={{ color: '#fff' }}>rrfsshams@gmail.com</code><br/>
+              • Password: <code style={{ color: '#fff' }}>LicAdmin#2026!SecuredPass</code><br/>
+              • Passcode: <code style={{ color: '#fff' }}>7492</code>
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <button 
